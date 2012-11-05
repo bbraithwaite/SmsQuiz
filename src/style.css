@@ -1,0 +1,113 @@
+@charset "iso-8859-1";
+
+BODY	{
+	
+ 	 background: #FFFFFF;
+ 	}
+
+P	{
+	font-size: 70%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #000000;
+	}
+
+P.header
+	{
+	font-size: 70%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #333333;
+	font-weight: bold;
+	}
+
+P.error
+	{
+	font-size: 90%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #990000;
+	font-weight: bold;
+	}
+
+
+P.top	{
+	font-size: 70%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #FFFFFF;
+	font-weight: bold;
+	}
+
+P.wayfinder
+	{
+	font-size: 90%;
+	font-family: Tahoma, sans-serif;
+	color: #00392B;
+	font-weight: bold;	
+	}
+
+
+P.name
+	{
+	font-size: 70%;
+	font-family: Tahoma, sans-serif;
+	color: #00392B;
+	font-weight: bold;	
+	}
+
+p.status
+	{
+	font-size: 70%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #FF0000;
+	font-weight: bold;
+	}
+
+LI	{
+	font-size: 70%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	}
+
+P.summary	
+	{
+	font-size: 40%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #CFCFCF;
+	}
+
+
+H1	{
+	font-size: 120%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #FFFFFF;
+	}
+
+H2	{
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #222222;
+	}
+
+H3	{
+	font-size: 70%;
+	font-family: Tahoma, Arial, helvetica, sans-serif;
+	color: #444444;
+	}
+
+
+
+#top:link 	{	 
+		color:#FFFFFF;  
+ 		text-decoration: underline;
+		font-weight: bold;
+		}
+
+#top:visited 	{ 
+           	color:#FFFFFF;    
+		font-weight: bold; 
+         	}
+
+
+	
+#top:hover 	{ 
+		color:#FFFFFF;  
+		text-decoration: none;
+		font-weight: bold;
+               	}
+	
