@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.SmsQuiz.Model.Tests", "tests\BB.SmsQuiz.Model.Tests\BB.SmsQuiz.Model.Tests.csproj", "{FE5C67C9-5B58-404D-838E-29CC89AEA803}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{47160681-707C-4253-A10C-2E65B2F89A11}"
+	ProjectSection(SolutionItems) = preProject
+		tests\BB.SmsQuiz.Model.Tests\BB.SmsQuiz.Model.Tests.vsmdi = tests\BB.SmsQuiz.Model.Tests\BB.SmsQuiz.Model.Tests.vsmdi
+		tests\BB.SmsQuiz.Model.Tests\Local.testsettings = tests\BB.SmsQuiz.Model.Tests\Local.testsettings
+		tests\BB.SmsQuiz.Model.Tests\TraceAndTestImpact.testsettings = tests\BB.SmsQuiz.Model.Tests\TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.SmsQuiz.Model", "src\BB.SmsQuiz.Model\BB.SmsQuiz.Model.csproj", "{16773842-A1FE-4905-80A3-C9F73BFD5D64}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = tests\BB.SmsQuiz.Model.Tests\BB.SmsQuiz.Model.Tests.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FE5C67C9-5B58-404D-838E-29CC89AEA803}.Release|x86.ActiveCfg = Release|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{16773842-A1FE-4905-80A3-C9F73BFD5D64}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
