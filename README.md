@@ -1,5 +1,5 @@
 #SMSQuiz Project#
 
-My first ever programming project using ASP.Net. It's 10 years old and not very good.
+My first ever programming project using ASP.Net. It's 10 years old and has some problems.
 
-It is the basis of a blog series to which I will link soon.
+As part of a blog series I've been refactoring this old code to a modern standard. See the blog series at: http://www.contentedcoder.com/2012/11/aspnet-10-years-on-my-journey.html.
