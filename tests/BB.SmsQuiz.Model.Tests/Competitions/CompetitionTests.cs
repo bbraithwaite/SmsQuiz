@@ -18,10 +18,13 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         {
             // Arrange
             Competition competition = new Competition();
-            competition.Question = "What is one plus one?";
+            competition.Question = "Who is Luke Skywalker's father??";
             competition.ClosingDate = DateTime.Now.AddMonths(1);
             competition.CompetitionKey = "WINPRIZE";
-            competition.CorrectAnswer = CompetitionAnswer.A;
+            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader", IsCorrectAnswer = true });
+            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.B, Description = "Obi Wan Kenobi" });
+            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
+            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.D, Description = "Walt Disney" });
 
             // Act
             bool isValid = competition.IsValid;

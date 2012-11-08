@@ -35,7 +35,7 @@ namespace BB.SmsQuiz.Model.Competitions
         {
             get
             {
-                return ValidEntrants.Where(e => e.Answer == Competition.CorrectAnswer);
+                return ValidEntrants.Where(e => e.Answer == Competition.PossibleAnswers.CorrectAnswer.Answer);
             }
         }
 
@@ -49,7 +49,7 @@ namespace BB.SmsQuiz.Model.Competitions
         {
             get
             {
-                return ValidEntrants.Where(e => e.Answer != Competition.CorrectAnswer);
+                return ValidEntrants.Where(e => e.Answer != Competition.PossibleAnswers.CorrectAnswer.Answer);
             }
         }
 

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Competitions\CompetitionStatisticsTests.cs" />
     <Compile Include="Competitions\CompetitionTests.cs" />
+    <Compile Include="Competitions\PossibleAnswersTests.cs" />
     <Compile Include="Competitions\WinnerSelectorTests.cs" />
     <Compile Include="Entrants\EmailContactTests.cs" />
     <Compile Include="Entrants\EntrantTests.cs" />

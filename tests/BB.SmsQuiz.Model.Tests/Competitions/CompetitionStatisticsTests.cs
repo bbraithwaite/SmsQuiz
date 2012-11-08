@@ -152,8 +152,12 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         private static Competition GetMockCompetition() 
         {
             Competition competition = new Competition();
-            competition.CorrectAnswer = CompetitionAnswer.A;
             competition.ClosingDate = new DateTime(2012, 12, 1);
+            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader", IsCorrectAnswer = true });
+            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.B, Description = "Obi Wan Kenobi" });
+            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
+            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.D, Description = "Walt Disney" });
+
             return competition;
         }
     }

@@ -46,8 +46,11 @@
     <Compile Include="Competitions\CompetitionAnswer.cs" />
     <Compile Include="Competitions\Competition.cs" />
     <Compile Include="Competitions\CompetitionWinner.cs" />
+    <Compile Include="Competitions\DuplicateAnswerException.cs" />
     <Compile Include="Competitions\Events\WinnerSelectedEvent.cs" />
     <Compile Include="Competitions\NoCorrectAnswerException.cs" />
+    <Compile Include="Competitions\PossibleAnswer.cs" />
+    <Compile Include="Competitions\PossibleAnswers.cs" />
     <Compile Include="Competitions\WinnerSelector.cs" />
     <Compile Include="Entrants\EmailContact.cs" />
     <Compile Include="Entrants\Entrant.cs" />

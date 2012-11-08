@@ -31,7 +31,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <value>
         /// The correct answer.
         /// </value>
-        public CompetitionAnswer CorrectAnswer { get; set; }
+        public PossibleAnswers PossibleAnswers { get; set; }
 
         /// <summary>
         /// Gets or sets the competition key.
@@ -86,7 +86,7 @@ namespace BB.SmsQuiz.Model.Competitions
                 return !string.IsNullOrEmpty(Question) &&
                        !string.IsNullOrEmpty(CompetitionKey) &&
                        ClosingDate != DateTime.MinValue &&
-                       CorrectAnswer != CompetitionAnswer.NotSet;
+                       PossibleAnswers.IsValid;
             }
         }
 
@@ -96,6 +96,7 @@ namespace BB.SmsQuiz.Model.Competitions
         public Competition()
         {
             CreationDate = DateTime.Now;
+            PossibleAnswers = new PossibleAnswers();
         }
     }
 }
