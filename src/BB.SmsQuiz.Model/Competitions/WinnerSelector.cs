@@ -2,10 +2,12 @@
 using System.Linq;
 using BB.SmsQuiz.Infrastructure.Domain;
 using BB.SmsQuiz.Model.Competitions.Events;
-using BB.SmsQuiz.Model.Entrants;
 
 namespace BB.SmsQuiz.Model.Competitions
 {
+    /// <summary>
+    /// A class that contains the logic for selecting a competition winner.
+    /// </summary>
     public class WinnerSelector
     {
         /// <summary>

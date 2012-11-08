@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BB.SmsQuiz.Model.Competitions
 {
+    /// <summary>
+    /// A possible answer to a competition.
+    /// </summary>
     public class PossibleAnswer
     {
         public bool IsCorrectAnswer { get; set; }

@@ -18,7 +18,7 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         {
             // Arrange
             Competition competition = new Competition();
-            competition.Question = "Who is Luke Skywalker's father??";
+            competition.Question = "Who is Luke Skywalker's father?";
             competition.ClosingDate = DateTime.Now.AddMonths(1);
             competition.CompetitionKey = "WINPRIZE";
             competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader", IsCorrectAnswer = true });
