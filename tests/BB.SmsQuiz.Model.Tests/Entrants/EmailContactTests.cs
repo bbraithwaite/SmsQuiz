@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BB.SmsQuiz.Model.Tests.Entrants
 {
     /// <summary>
-    /// Tests for validating Email Contact details for entrants.
+    /// Tests for validating Email Contact details.
     /// </summary>
     [TestClass]
     public class EmailContactTests

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{16773842-A1FE-4905-80A3-C9F73BFD5D64}</ProjectGuid>
+    <ProjectGuid>{ACFE02A0-A487-4885-8124-CBC2E79B233E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BB.SmsQuiz.Model</RootNamespace>
-    <AssemblyName>BB.SmsQuiz.Model</AssemblyName>
+    <RootNamespace>BB.SmsQuiz.Infrastructure</RootNamespace>
+    <AssemblyName>BB.SmsQuiz.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,8 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,27 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Competitions\CompetitionStatistics.cs" />
-    <Compile Include="Competitions\CompetitionAnswer.cs" />
-    <Compile Include="Competitions\Competition.cs" />
-    <Compile Include="Competitions\CompetitionWinner.cs" />
-    <Compile Include="Competitions\Events\WinnerSelectedEvent.cs" />
-    <Compile Include="Competitions\NoCorrectAnswerException.cs" />
-    <Compile Include="Competitions\WinnerSelector.cs" />
-    <Compile Include="Entrants\EmailContact.cs" />
-    <Compile Include="Entrants\Entrant.cs" />
-    <Compile Include="Entrants\EntrantContact.cs" />
-    <Compile Include="Entrants\EntrantContactType.cs" />
-    <Compile Include="Entrants\EntrantSource.cs" />
-    <Compile Include="Entrants\SmsContact.cs" />
+    <Compile Include="Domain\DomainEvents.cs" />
+    <Compile Include="Domain\IDomainEvent.cs" />
+    <Compile Include="Domain\IDomainEventHandler.cs" />
+    <Compile Include="Domain\IValidatable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Users\User.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BB.SmsQuiz.Infrastructure\BB.SmsQuiz.Infrastructure.csproj">
-      <Project>{ACFE02A0-A487-4885-8124-CBC2E79B233E}</Project>
-      <Name>BB.SmsQuiz.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

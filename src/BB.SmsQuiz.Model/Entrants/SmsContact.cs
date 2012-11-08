@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using BB.SmsQuiz.Infrastructure.Domain;
 
 namespace BB.SmsQuiz.Model.Entrants
 {

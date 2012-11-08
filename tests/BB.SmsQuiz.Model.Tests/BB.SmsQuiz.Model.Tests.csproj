@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MSTestExtensions">
+      <HintPath>..\..\packages\MSTestExtensions.2.0.0\lib\net20\MSTestExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -50,12 +53,23 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Competitions\CompetitionStatisticsTests.cs" />
+    <Compile Include="Competitions\CompetitionTests.cs" />
+    <Compile Include="Competitions\WinnerSelectorTests.cs" />
     <Compile Include="Entrants\EmailContactTests.cs" />
     <Compile Include="Entrants\EntrantTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entrants\SmsContactTests.cs" />
+    <Compile Include="Users\UserTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BB.SmsQuiz.Infrastructure\BB.SmsQuiz.Infrastructure.csproj">
+      <Project>{ACFE02A0-A487-4885-8124-CBC2E79B233E}</Project>
+      <Name>BB.SmsQuiz.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\BB.SmsQuiz.Model\BB.SmsQuiz.Model.csproj">
       <Project>{16773842-A1FE-4905-80A3-C9F73BFD5D64}</Project>
       <Name>BB.SmsQuiz.Model</Name>

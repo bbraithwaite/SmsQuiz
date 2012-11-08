@@ -1,5 +1,5 @@
-﻿using System;
-using System.Net.Mail;
+﻿using System.Net.Mail;
+using BB.SmsQuiz.Infrastructure.Domain;
 
 namespace BB.SmsQuiz.Model.Entrants
 {

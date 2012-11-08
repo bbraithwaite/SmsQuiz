@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.SqlClient;
+using BB.SmsQuiz.Infrastructure.Domain;
 
 namespace BB.SmsQuiz.Model.Entrants
 {
@@ -14,7 +14,7 @@ namespace BB.SmsQuiz.Model.Entrants
         /// <value>
         /// The answer.
         /// </value>
-        public string Answer { get; set; }
+        public Competitions.CompetitionAnswer Answer { get; set; }
 
         /// <summary>
         /// Gets or sets the competition key.
@@ -58,11 +58,11 @@ namespace BB.SmsQuiz.Model.Entrants
         {
             get
             {
-                return (!string.IsNullOrEmpty(Answer) &&
-                    !string.IsNullOrEmpty(CompetitionKey) &&
-                    EntryDate != DateTime.MinValue &&
-                    Source != EntrantSource.NotSet &&
-                    Contact.IsValid);
+                return (!string.IsNullOrEmpty(CompetitionKey) &&
+                        Answer != Competitions.CompetitionAnswer.NotSet &&
+                        EntryDate != DateTime.MinValue &&
+                        Source != EntrantSource.NotSet &&
+                        Contact.IsValid);
             }
         }
 

@@ -34,7 +34,7 @@ namespace BB.SmsQuiz.Model.Entrants
         /// Initializes a new instance of the <see cref="EntrantContact" /> class.
         /// </summary>
         /// <param name="contact">The contact.</param>
-        public EntrantContact(string contact)
+        protected EntrantContact(string contact)
         {
             Contact = contact;
         }

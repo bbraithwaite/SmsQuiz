@@ -1,4 +1,5 @@
-﻿using BB.SmsQuiz.Model.Entrants;
+﻿using BB.SmsQuiz.Model.Competitions;
+using BB.SmsQuiz.Model.Entrants;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB.SmsQuiz.Model.Tests.Entrants
@@ -14,7 +15,7 @@ namespace BB.SmsQuiz.Model.Tests.Entrants
         {
             // Arrange
             Entrant entrant = new Entrant();
-            entrant.Answer = "A";
+            entrant.Answer = CompetitionAnswer.A;
             entrant.CompetitionKey = "WINPRIZE";
             entrant.Source = EntrantSource.Sms;
             entrant.Contact = new SmsContact("02345612345");
