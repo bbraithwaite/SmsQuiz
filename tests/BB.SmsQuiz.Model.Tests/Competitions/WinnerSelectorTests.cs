@@ -38,13 +38,18 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         /// Test that selecting a winner when there are no correct answers throws an exception.
         /// </summary>
         [TestMethod]
-        public void SelectWinnerWithNoCorrectAnswersThrowsNoCorrectAnswerException()
+        public void SelectWinnerWithNoCorrectAnswersDoesNotThrowEvent()
         {
             // Arrange
             WinnerSelector winnerSelector = new WinnerSelector(new CompetitionStatistics(GetMockCompetition(), new List<Entrant>()));
+            WinnerSelectedEvent winnerSelectedEvent = null;
+            DomainEvents.Register<WinnerSelectedEvent>(evt => winnerSelectedEvent = evt);
 
-            // Act & Assert
-            Assert.Throws<NoCorrectAnswerException>(() => winnerSelector.PickWinner(), "There are no winners for competition: WINPRIZE");
+            // Act
+            winnerSelector.PickWinner();
+
+            // Assert
+            Assert.IsNull(winnerSelectedEvent);
         }
 
         /// <summary>

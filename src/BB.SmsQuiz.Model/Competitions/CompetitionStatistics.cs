@@ -40,6 +40,20 @@ namespace BB.SmsQuiz.Model.Competitions
         }
 
         /// <summary>
+        /// Gets a value indicating whether this instance has correct answers.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance has correct answers; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasCorrectAnswers
+        {
+            get
+            {
+                return this.CorrectAnswers.Count() > 0;
+            }
+        }
+
+        /// <summary>
         /// Gets the incorrect answer count.
         /// </summary>
         /// <value>

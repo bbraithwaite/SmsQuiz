@@ -2,6 +2,7 @@
 using System.Linq;
 using BB.SmsQuiz.Infrastructure.Domain;
 using BB.SmsQuiz.Model.Competitions.Events;
+using System.Net.Mail;
 
 namespace BB.SmsQuiz.Model.Competitions
 {
@@ -35,12 +36,11 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </remarks>
         public void PickWinner()
         {
-            if (CompetitionStatistics.CorrectAnswers.Count() == 0)
-                throw new NoCorrectAnswerException(CompetitionStatistics.Competition);
-
-            CompetitionStatistics.Competition.Winner = GetCompetitionWinner();
-
-            DomainEvents.Raise(new WinnerSelectedEvent(CompetitionStatistics.Competition));
+            if (CompetitionStatistics.HasCorrectAnswers)
+            {
+                CompetitionStatistics.Competition.Winner = GetCompetitionWinner();
+                DomainEvents.Raise(new WinnerSelectedEvent(CompetitionStatistics.Competition));
+            }
         }
 
         /// <summary>
