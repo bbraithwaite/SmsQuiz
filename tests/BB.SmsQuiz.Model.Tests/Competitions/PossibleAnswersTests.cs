@@ -32,16 +32,33 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         }
 
         /// <summary>
-        /// Tests that a list of possible answers with only three answers is not valid.
+        /// Possibles the answers has less than four answers is not valid.
         /// </summary>
         [TestMethod]
-        public void PossibleAnswersIsNotValid()
+        public void PossibleAnswersHasLessThanFourAnswersIsNotValid()
         {
             // Arrange
             PossibleAnswers possibleAnswers = new PossibleAnswers();
             possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader", IsCorrectAnswer = true });
             possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.B, Description = "Obi Wan Kenobi" });
             possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
+
+            // Act
+            bool isValid = possibleAnswers.IsValid;
+
+            // Assert
+            Assert.IsFalse(isValid);
+        }
+
+        [TestMethod]
+        public void NoAnswerSetAsCorrectIsNotValid()
+        {
+            // Arrange
+            PossibleAnswers possibleAnswers = new PossibleAnswers();
+            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader" });
+            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.B, Description = "Obi Wan Kenobi" });
+            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
+            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.D, Description = "Walt Disney" });
 
             // Act
             bool isValid = possibleAnswers.IsValid;

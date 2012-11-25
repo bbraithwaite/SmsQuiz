@@ -1,8 +1,12 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
 namespace BB.SmsQuiz.Infrastructure.Domain
 {
     /// <summary>
-    /// An inteface for all entities that validate their state.
+    /// 
     /// </summary>
     public interface IValidatable
     {
@@ -13,5 +17,13 @@ namespace BB.SmsQuiz.Infrastructure.Domain
         ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
         /// </value>
         bool IsValid { get; }
+
+        /// <summary>
+        /// Gets the validation errors.
+        /// </summary>
+        /// <value>
+        /// The validation errors.
+        /// </value>
+        ValidationErrors ValidationErrors { get; }
     }
 }

@@ -42,21 +42,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Competitions\CompetitionStatistics.cs" />
     <Compile Include="Competitions\CompetitionAnswer.cs" />
     <Compile Include="Competitions\Competition.cs" />
-    <Compile Include="Competitions\CompetitionWinner.cs" />
     <Compile Include="Competitions\DuplicateAnswerException.cs" />
     <Compile Include="Competitions\Events\WinnerSelectedEvent.cs" />
-    <Compile Include="Competitions\NoCorrectAnswerException.cs" />
+    <Compile Include="Competitions\IPossibleAnswers.cs" />
     <Compile Include="Competitions\PossibleAnswer.cs" />
     <Compile Include="Competitions\PossibleAnswers.cs" />
-    <Compile Include="Competitions\WinnerSelector.cs" />
+    <Compile Include="Competitions\States\ClosedState.cs" />
+    <Compile Include="Competitions\States\CompetitionClosedException.cs" />
+    <Compile Include="Competitions\States\CompetitionState.cs" />
+    <Compile Include="Competitions\States\CompetitionStatus.cs" />
+    <Compile Include="Competitions\States\ICompetitionState.cs" />
+    <Compile Include="Competitions\States\OpenState.cs" />
     <Compile Include="Entrants\EmailContact.cs" />
     <Compile Include="Entrants\Entrant.cs" />
     <Compile Include="Entrants\EntrantContact.cs" />
     <Compile Include="Entrants\EntrantContactType.cs" />
     <Compile Include="Entrants\EntrantSource.cs" />
+    <Compile Include="Entrants\IEntrantContact.cs" />
     <Compile Include="Entrants\SmsContact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\User.cs" />

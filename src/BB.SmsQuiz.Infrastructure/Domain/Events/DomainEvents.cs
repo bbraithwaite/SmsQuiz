@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BB.SmsQuiz.Infrastructure.Domain
+namespace BB.SmsQuiz.Infrastructure.Domain.Events
 {
     /// <summary>
     /// The domain events container for registering domain event callbacks.

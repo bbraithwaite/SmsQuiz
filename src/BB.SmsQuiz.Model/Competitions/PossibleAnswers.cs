@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using BB.SmsQuiz.Infrastructure.Domain;
 
 namespace BB.SmsQuiz.Model.Competitions
@@ -7,7 +7,7 @@ namespace BB.SmsQuiz.Model.Competitions
     /// <summary>
     /// Contains the logic for the possible answers attached to a competition.
     /// </summary>
-    public class PossibleAnswers : IValidatable
+    public sealed class PossibleAnswers : EntityBase, IPossibleAnswers
     {
         /// <summary>
         /// The valid number of answers
@@ -61,17 +61,15 @@ namespace BB.SmsQuiz.Model.Competitions
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is valid.
+        /// Validates this instance.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsValid
+        protected override void Validate()
         {
-            get 
-            {
-                return Answers.Count() == ValidNumberOfAnswers && CorrectAnswer != null;
-            }
+            if (Answers.Count() != ValidNumberOfAnswers)
+                ValidationErrors.Add("PossibleAnswers", "There should be four possible answers");
+
+            if (CorrectAnswer == null)
+                ValidationErrors.Add("Correct Answer");
         }
 
         /// <summary>

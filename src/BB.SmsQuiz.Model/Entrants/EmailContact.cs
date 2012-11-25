@@ -6,7 +6,7 @@ namespace BB.SmsQuiz.Model.Entrants
     /// <summary>
     /// The contact details of an entrant via email.
     /// </summary>
-    public class EmailContact : EntrantContact, IValidatable
+    public sealed class EmailContact : EntrantContact
     {
         /// <summary>
         /// Gets the type of the contact.
@@ -23,20 +23,6 @@ namespace BB.SmsQuiz.Model.Entrants
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is valid.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
-        /// </value>
-        public override bool IsValid
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(Contact) && ValidateEmail(Contact);
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="EmailContact" /> class.
         /// </summary>
         public EmailContact() : base(string.Empty) { }
@@ -46,6 +32,19 @@ namespace BB.SmsQuiz.Model.Entrants
         /// </summary>
         /// <param name="contact">The contact.</param>
         public EmailContact(string contact) : base(contact) { }
+
+        /// <summary>
+        /// Validates this instance.
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        protected override void Validate()
+        {
+            if (string.IsNullOrEmpty(Contact))
+                ValidationErrors.Add("Contact");
+
+            if (!ValidateEmail(Contact))
+                ValidationErrors.Add("Contact", "Invalid Email Address");
+        }
 
         /// <summary>
         /// Validates the email.

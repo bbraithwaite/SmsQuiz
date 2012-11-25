@@ -7,7 +7,7 @@ namespace BB.SmsQuiz.Model.Competitions
     /// Duplicate Answer exception thrown when an attempt is made to add the same answer key to a list of answers.
     /// </summary>
     [Serializable]
-    public class DuplicateAnswerException : Exception
+    public sealed class DuplicateAnswerException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DuplicateAnswerException" /> class.

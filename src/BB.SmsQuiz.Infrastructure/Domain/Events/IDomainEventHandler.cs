@@ -1,5 +1,5 @@
 ﻿
-namespace BB.SmsQuiz.Infrastructure.Domain
+namespace BB.SmsQuiz.Infrastructure.Domain.Events
 {
     /// <summary>
     /// Domain event handler interface.

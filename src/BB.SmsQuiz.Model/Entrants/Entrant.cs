@@ -6,7 +6,7 @@ namespace BB.SmsQuiz.Model.Entrants
     /// <summary>
     /// A competition entrant.
     /// </summary>
-    public class Entrant : IValidatable
+    public sealed class Entrant : EntityBase
     {
         /// <summary>
         /// Gets or sets the answer.
@@ -30,7 +30,7 @@ namespace BB.SmsQuiz.Model.Entrants
         /// <value>
         /// The contact.
         /// </value>
-        public EntrantContact Contact { get; set; }
+        public IEntrantContact Contact { get; set; }
 
         /// <summary>
         /// Gets or sets the entry date.
@@ -49,21 +49,21 @@ namespace BB.SmsQuiz.Model.Entrants
         public EntrantSource Source { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is valid.
+        /// Validates this instance.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsValid
+        protected override void Validate()
         {
-            get
-            {
-                return (!string.IsNullOrEmpty(CompetitionKey) &&
-                        Answer != Competitions.CompetitionAnswer.NotSet &&
-                        EntryDate != DateTime.MinValue &&
-                        Source != EntrantSource.NotSet &&
-                        Contact.IsValid);
-            }
+            if (string.IsNullOrEmpty(CompetitionKey))
+                ValidationErrors.Add("CompetitionKey", "There should be four possible answers");
+
+            if (Answer == Competitions.CompetitionAnswer.NotSet)
+                ValidationErrors.Add("Answer");
+
+            if (Source == EntrantSource.NotSet)
+                ValidationErrors.Add("EntryDate");
+
+            if (!Contact.IsValid)
+                ValidationErrors.AddRange(Contact.ValidationErrors.Items);
         }
 
         /// <summary>

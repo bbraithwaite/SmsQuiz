@@ -6,7 +6,7 @@ namespace BB.SmsQuiz.Model.Entrants
     /// <summary>
     /// The contact details of an entrant via SMS.
     /// </summary>
-    public class SmsContact : EntrantContact, IValidatable
+    public sealed class SmsContact : EntrantContact
     {
         /// <summary>
         /// Gets the type of the contact.
@@ -23,20 +23,6 @@ namespace BB.SmsQuiz.Model.Entrants
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is valid.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
-        /// </value>
-        public override bool IsValid
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(Contact) && ValidateNumberFormat(Contact);
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="SmsContact" /> class.
         /// </summary>
         public SmsContact() : base(string.Empty) { }
@@ -46,6 +32,18 @@ namespace BB.SmsQuiz.Model.Entrants
         /// </summary>
         /// <param name="contact">The contact.</param>
         public SmsContact(string contact) : base(contact) { }
+
+        /// <summary>
+        /// Validates this instance.
+        /// </summary>
+        protected override void Validate()
+        {
+            if (string.IsNullOrEmpty(Contact))
+                ValidationErrors.Add("Contact");
+
+            if (!ValidateNumberFormat(Contact))
+                ValidationErrors.Add("Contact", "Invalid Phone Number");
+        }
 
         /// <summary>
         /// Indicates whether the number is 11 digits in length'

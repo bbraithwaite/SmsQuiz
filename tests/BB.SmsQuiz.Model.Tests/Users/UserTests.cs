@@ -18,7 +18,6 @@ namespace BB.SmsQuiz.Model.Tests.Users
             // Arrange
             User user = new User();
             user.Username = "username";
-            user.Password = "password";
 
             // Act
             bool isValid = user.IsValid;

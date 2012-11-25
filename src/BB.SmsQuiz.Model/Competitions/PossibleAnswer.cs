@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace BB.SmsQuiz.Model.Competitions
 {
     /// <summary>
     /// A possible answer to a competition.
     /// </summary>
-    public class PossibleAnswer
+    public sealed class PossibleAnswer
     {
         public bool IsCorrectAnswer { get; set; }
         public CompetitionAnswer Answer { get; set; }
@@ -16,10 +12,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// Initializes a new instance of the <see cref="PossibleAnswer" /> class.
         /// </summary>
-        public PossibleAnswer()
-        {
-
-        }
+        public PossibleAnswer() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PossibleAnswer" /> class.

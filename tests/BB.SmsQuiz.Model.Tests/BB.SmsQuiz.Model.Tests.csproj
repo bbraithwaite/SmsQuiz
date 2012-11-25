@@ -53,10 +53,11 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Competitions\CompetitionStateTests.cs" />
     <Compile Include="Competitions\CompetitionStatisticsTests.cs" />
     <Compile Include="Competitions\CompetitionTests.cs" />
+    <Compile Include="Competitions\Stubs.cs" />
     <Compile Include="Competitions\PossibleAnswersTests.cs" />
-    <Compile Include="Competitions\WinnerSelectorTests.cs" />
     <Compile Include="Entrants\EmailContactTests.cs" />
     <Compile Include="Entrants\EntrantTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

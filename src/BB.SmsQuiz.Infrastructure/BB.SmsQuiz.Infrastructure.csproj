@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\DomainEvents.cs" />
-    <Compile Include="Domain\IDomainEvent.cs" />
-    <Compile Include="Domain\IDomainEventHandler.cs" />
+    <Compile Include="Domain\Events\DomainEvents.cs" />
+    <Compile Include="Domain\EntityBase.cs" />
+    <Compile Include="Domain\Events\IDomainEvent.cs" />
+    <Compile Include="Domain\Events\IDomainEventHandler.cs" />
+    <Compile Include="Domain\IEnumerableExtensions.cs" />
     <Compile Include="Domain\IValidatable.cs" />
+    <Compile Include="Domain\ValidationError.cs" />
+    <Compile Include="Domain\ValidationErrors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
