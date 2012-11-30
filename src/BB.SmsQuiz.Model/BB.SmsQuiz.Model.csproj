@@ -22,7 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,6 +47,7 @@
     <Compile Include="Competitions\Competition.cs" />
     <Compile Include="Competitions\DuplicateAnswerException.cs" />
     <Compile Include="Competitions\Events\WinnerSelectedEvent.cs" />
+    <Compile Include="Competitions\ICompetitionRepository.cs" />
     <Compile Include="Competitions\IPossibleAnswers.cs" />
     <Compile Include="Competitions\PossibleAnswer.cs" />
     <Compile Include="Competitions\PossibleAnswers.cs" />
@@ -70,6 +72,9 @@
       <Project>{ACFE02A0-A487-4885-8124-CBC2E79B233E}</Project>
       <Name>BB.SmsQuiz.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

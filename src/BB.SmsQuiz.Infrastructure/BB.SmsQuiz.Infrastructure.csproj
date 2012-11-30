@@ -21,6 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,7 +47,10 @@
     <Compile Include="Domain\EntityBase.cs" />
     <Compile Include="Domain\Events\IDomainEvent.cs" />
     <Compile Include="Domain\Events\IDomainEventHandler.cs" />
+    <Compile Include="Domain\IAggregateRoot.cs" />
     <Compile Include="Domain\IEnumerableExtensions.cs" />
+    <Compile Include="Domain\IMapper.cs" />
+    <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\IValidatable.cs" />
     <Compile Include="Domain\ValidationError.cs" />
     <Compile Include="Domain\ValidationErrors.cs" />

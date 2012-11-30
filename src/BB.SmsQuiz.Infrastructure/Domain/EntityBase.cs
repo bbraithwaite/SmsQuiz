@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BB.SmsQuiz.Infrastructure.Domain
 {
     /// <summary>
-    /// 
+    /// The base class for domain entities.
     /// </summary>
     public abstract class EntityBase : IValidatable
     {
@@ -54,7 +54,7 @@ namespace BB.SmsQuiz.Infrastructure.Domain
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityBase" /> class.
         /// </summary>
-        public EntityBase()
+        protected EntityBase()
         {
             _validationErrors = new ValidationErrors();
         }

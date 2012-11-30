@@ -46,12 +46,12 @@ namespace BB.SmsQuiz.Model.Competitions
         public User CreatedBy { get; set; }
 
         /// <summary>
-        /// Gets the creation date.
+        /// Gets the created date.
         /// </summary>
         /// <value>
-        /// The creation date.
+        /// The created date.
         /// </value>
-        public DateTime CreationDate { get; private set; }
+        public DateTime CreatedDate { get; private set; }
 
         /// <summary>
         /// Gets or sets the closing date.
@@ -158,12 +158,21 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// Initializes a new instance of the <see cref="Competition" /> class.
         /// </summary>
+        public Competition()
+        {
+            PossibleAnswers = new PossibleAnswers();
+            State = new OpenState();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Competition" /> class.
+        /// </summary>
         /// <param name="possibleAnswers">The possible answers.</param>
         /// <param name="state">The state.</param>
         /// <param name="statistics">The statistics.</param>
         public Competition(IPossibleAnswers possibleAnswers, ICompetitionState state)
         {
-            CreationDate = DateTime.Now;
+            CreatedDate = DateTime.Now;
             PossibleAnswers = possibleAnswers;
             State = state;
         }

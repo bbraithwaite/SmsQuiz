@@ -6,7 +6,7 @@ using System.Text;
 namespace BB.SmsQuiz.Infrastructure.Domain
 {
     /// <summary>
-    /// 
+    /// Validation errors.
     /// </summary>
     public class ValidationErrors
     {

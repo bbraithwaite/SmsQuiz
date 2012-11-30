@@ -42,7 +42,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </summary>
         /// <param name="info">The info.</param>
         /// <param name="context">The context.</param>
-        protected DuplicateAnswerException(SerializationInfo info, StreamingContext context)
+        private DuplicateAnswerException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
 

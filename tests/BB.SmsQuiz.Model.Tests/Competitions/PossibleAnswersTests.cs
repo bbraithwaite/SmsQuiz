@@ -23,7 +23,6 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
             possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
             possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.D, Description = "Walt Disney" });
 
-
             // Act
             bool isValid = possibleAnswers.IsValid;
 

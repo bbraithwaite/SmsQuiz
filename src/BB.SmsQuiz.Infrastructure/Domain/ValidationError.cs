@@ -2,7 +2,7 @@
 namespace BB.SmsQuiz.Infrastructure.Domain
 {
     /// <summary>
-    /// 
+    /// Validation error.
     /// </summary>
     public class ValidationError
     {

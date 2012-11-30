@@ -6,7 +6,7 @@ using System.Text;
 namespace BB.SmsQuiz.Infrastructure.Domain
 {
     /// <summary>
-    /// 
+    /// IValidatable interface.
     /// </summary>
     public interface IValidatable
     {

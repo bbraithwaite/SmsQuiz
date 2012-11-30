@@ -43,7 +43,7 @@ namespace BB.SmsQuiz.Model.Competitions.States
         /// </summary>
         /// <param name="info">The info.</param>
         /// <param name="context">The context.</param>
-        protected CompetitionClosedException(SerializationInfo info, StreamingContext context)
+        private CompetitionClosedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
 

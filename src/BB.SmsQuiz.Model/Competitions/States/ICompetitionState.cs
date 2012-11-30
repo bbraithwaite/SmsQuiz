@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BB.SmsQuiz.Model.Competitions.States
 {
+    /// <summary>
+    /// Competition interface required for competition state objects.
+    /// </summary>
     public interface ICompetitionState
     {
         /// <summary>
