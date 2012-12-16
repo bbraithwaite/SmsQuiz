@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using BB.SmsQuiz.ReadModel.Competition;
 using BB.SmsQuiz.Services;
+using System;
+using BB.SmsQuiz.Services.Messaging.Competition;
 
 namespace BB.SmsQuiz.Api.Controllers
 {
@@ -25,30 +26,33 @@ namespace BB.SmsQuiz.Api.Controllers
         }
 
         // GET api/<controller>
-        public IEnumerable<CompetitionItem> Get()
+        public IEnumerable<CompetitionItem> Get(int pageIndex, int status)
         {
-            return _competitionService.GetCompetitions().Competitions;
+            return _competitionService.GetCompetitions(new GetCompetitionsRequest() { PageIndex = pageIndex }).Competitions;
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public CompetitionItem Get(Guid id)
         {
-            return "value";
+            return _competitionService.GetCompetition(new GetCompetitionRequest() { ID = id }).Competition;
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]CompetitionItem value)
         {
+            var response = _competitionService.CreateCompetition(new CreateCompetitionRequest() { Competition = value });
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]CompetitionItem value)
         {
+            var response = _competitionService.CreateCompetition(new CreateCompetitionRequest() { Competition = value });
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
+            var response = _competitionService.DeleteCompetition(new DeleteCompetitionRequest() { ID = id });
         }
     }
 }

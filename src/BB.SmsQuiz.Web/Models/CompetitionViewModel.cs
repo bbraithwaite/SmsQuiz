@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
-using BB.SmsQuiz.ReadModel.Competition;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using BB.SmsQuiz.Services.Messaging.Competition;
+using BB.SmsQuiz.Services.Messaging;
 
 namespace BB.SmsQuiz.Web.Models
 {
-    public class CompetitionViewModel
+    public class CompetitionViewModel : BaseViewModel
     {
-        public IEnumerable<CompetitionItem> Competitions { get; set; }
+        public CompetitionItem Competition { get; set; }
     }
 }

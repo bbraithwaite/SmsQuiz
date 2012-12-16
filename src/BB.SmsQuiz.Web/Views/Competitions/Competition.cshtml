@@ -1,0 +1,47 @@
+﻿@model BB.SmsQuiz.Web.Models.CompetitionViewModel
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Competition</legend>
+
+        @Html.HiddenFor(model => model.Competition.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Competition.Question)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Competition.Question)
+            @Html.ValidationMessageFor(model => model.Competition.Question)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Competition.CompetitionKey)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Competition.CompetitionKey)
+            @Html.ValidationMessageFor(model => model.Competition.CompetitionKey)
+        </div>
+
+       <div class="editor-label">
+            @Html.LabelFor(model => model.Competition.ClosingDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Competition.ClosingDate)
+            @Html.ValidationMessageFor(model => model.Competition.ClosingDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Competition.CreatedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Competition.CreatedDate)
+            @Html.ValidationMessageFor(model => model.Competition.CreatedDate)
+        </div>
+        @Html.EditorFor(model => model.Competition.PossibleAnswers, "PossibleAnswers")
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}

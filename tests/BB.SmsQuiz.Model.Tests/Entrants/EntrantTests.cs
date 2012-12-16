@@ -1,5 +1,5 @@
 ﻿using BB.SmsQuiz.Model.Competitions;
-using BB.SmsQuiz.Model.Entrants;
+using BB.SmsQuiz.Model.Competitions.Entrants;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using BB.SmsQuiz.Infrastructure.Domain;
@@ -24,7 +24,6 @@ namespace BB.SmsQuiz.Model.Tests.Entrants
 
             Entrant entrant = new Entrant();
             entrant.Answer = CompetitionAnswer.A;
-            entrant.CompetitionKey = "WINPRIZE";
             entrant.Source = EntrantSource.Sms;
             entrant.Contact = contact.Object;
 
@@ -70,7 +69,6 @@ namespace BB.SmsQuiz.Model.Tests.Entrants
 
             Entrant entrant = new Entrant();
             entrant.Answer = CompetitionAnswer.A;
-            entrant.CompetitionKey = "WINPRIZE";
             entrant.Source = EntrantSource.Sms;
             entrant.Contact = contact.Object;
             

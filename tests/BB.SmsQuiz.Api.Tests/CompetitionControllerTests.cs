@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BB.SmsQuiz.Api.Controllers;
-using BB.SmsQuiz.ReadModel.Competition;
 using BB.SmsQuiz.Services;
 using BB.SmsQuiz.Services.Messaging.Competition;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,11 +16,11 @@ namespace BB.SmsQuiz.Api.Tests
         {
             // Arrange
             Mock<ICompetitionService> service = new Mock<ICompetitionService>();
-            service.Setup(s => s.GetCompetitions()).Returns(GetResponseStub());
+            service.Setup(s => s.GetCompetitions(It.IsAny<GetCompetitionsRequest>())).Returns(GetResponseStub());
             CompetitionController controller = new CompetitionController(service.Object);
 
             // Act
-            IEnumerable<CompetitionItem> response = controller.Get();
+            IEnumerable<CompetitionItem> response = controller.Get(0, 0);
 
             // Assert
             Assert.AreEqual(10, response.Count());

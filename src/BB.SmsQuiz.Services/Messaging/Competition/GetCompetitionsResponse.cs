@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using BB.SmsQuiz.ReadModel.Competition;
 
 namespace BB.SmsQuiz.Services.Messaging.Competition
 {
     /// <summary>
     ///  The response message for the get competitions service method.
     /// </summary>
-    public class GetCompetitionsResponse
+    public class GetCompetitionsResponse : BaseResponse
     {
         /// <summary>
         /// Gets or sets the competitions.

@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using BB.SmsQuiz.Infrastructure.Domain;
 using BB.SmsQuiz.Model.Competitions.States;
-using BB.SmsQuiz.Model.Entrants;
 using BB.SmsQuiz.Model.Users;
+using BB.SmsQuiz.Model.Competitions.Entrants;
 
 namespace BB.SmsQuiz.Model.Competitions
 {
     /// <summary>
     /// A competition.
     /// </summary>
-    public sealed class Competition : EntityBase
+    public class Competition : EntityBase, IAggregateRoot
     {
+        /// <summary>
+        /// The _entrants
+        /// </summary>
+        private List<Entrant> _entrants;
+
         /// <summary>
         /// Gets or sets the question.
         /// </summary>
@@ -27,7 +32,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <value>
         /// The correct answer.
         /// </value>
-        public IPossibleAnswers PossibleAnswers { get; set; }
+        public PossibleAnswers PossibleAnswers { get; set; }
 
         /// <summary>
         /// Gets or sets the competition key.
@@ -51,7 +56,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <value>
         /// The created date.
         /// </value>
-        public DateTime CreatedDate { get; private set; }
+        public DateTime CreatedDate { get; set; }
 
         /// <summary>
         /// Gets or sets the closing date.
@@ -67,7 +72,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <value>
         /// The winner.
         /// </value>
-        public Entrant Winner { get; internal set; }
+        public Entrant Winner { get; set; }
 
         /// <summary>
         /// Gets the competition state.
@@ -78,12 +83,32 @@ namespace BB.SmsQuiz.Model.Competitions
         public ICompetitionState State { get; private set; }
 
         /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public CompetitionStatus Status 
+        {
+            get
+            {
+                return State.Status;
+            }
+        }
+        
+        /// <summary>
         /// Gets or sets the entrants.
         /// </summary>
         /// <value>
         /// The entrants.
         /// </value>
-        public IEnumerable<Entrant> Entrants { get; set; }
+        public IEnumerable<Entrant> Entrants 
+        {
+            get
+            {
+                return _entrants;
+            }
+         }
 
         /// <summary>
         /// Gets the valid entrants.
@@ -123,7 +148,7 @@ namespace BB.SmsQuiz.Model.Competitions
         {
             get
             {
-                return ValidEntrants.Where(e => e.Answer == PossibleAnswers.CorrectAnswer.Answer);
+                return ValidEntrants.Where(e => e.Answer == PossibleAnswers.CorrectAnswer.AnswerKey);
             }
         }
 
@@ -151,7 +176,7 @@ namespace BB.SmsQuiz.Model.Competitions
         {
             get
             {
-                return ValidEntrants.Where(e => e.Answer != PossibleAnswers.CorrectAnswer.Answer);
+                return ValidEntrants.Where(e => e.Answer != PossibleAnswers.CorrectAnswer.AnswerKey);
             }
         }
 
@@ -162,6 +187,7 @@ namespace BB.SmsQuiz.Model.Competitions
         {
             PossibleAnswers = new PossibleAnswers();
             State = new OpenState();
+            _entrants = new List<Entrant>();
         }
 
         /// <summary>
@@ -170,11 +196,12 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <param name="possibleAnswers">The possible answers.</param>
         /// <param name="state">The state.</param>
         /// <param name="statistics">The statistics.</param>
-        public Competition(IPossibleAnswers possibleAnswers, ICompetitionState state)
+        public Competition(ICompetitionState state)
         {
             CreatedDate = DateTime.Now;
-            PossibleAnswers = possibleAnswers;
             State = state;
+            _entrants = new List<Entrant>();
+            PossibleAnswers = new PossibleAnswers();
         }
 
         /// <summary>
@@ -193,6 +220,15 @@ namespace BB.SmsQuiz.Model.Competitions
 
             if (!PossibleAnswers.IsValid)
                 ValidationErrors.AddRange(PossibleAnswers.ValidationErrors.Items);
+        }
+
+        /// <summary>
+        /// Adds the entrant.
+        /// </summary>
+        /// <param name="entrant">The entrant.</param>
+        public void AddEntrant(Entrant entrant)
+        {
+            this._entrants.Add(entrant);
         }
 
         /// <summary>

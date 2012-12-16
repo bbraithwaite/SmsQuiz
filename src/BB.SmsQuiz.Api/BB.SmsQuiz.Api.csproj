@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -87,10 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BB.SmsQuiz.ReadModel\BB.SmsQuiz.ReadModel.csproj">
-      <Project>{D6415A31-77BF-47AD-941B-BEB7C66E47AD}</Project>
-      <Name>BB.SmsQuiz.ReadModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BB.SmsQuiz.Services\BB.SmsQuiz.Services.csproj">
       <Project>{46ABEE9C-F3E1-4FAB-AE04-8B470F545CA8}</Project>
       <Name>BB.SmsQuiz.Services</Name>

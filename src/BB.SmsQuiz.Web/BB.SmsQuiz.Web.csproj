@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +37,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject">
+      <HintPath>..\..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\..\packages\Ninject.Web.Common.3.0.0.7\lib\net40-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\..\packages\Ninject.MVC3.3.0.0.6\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -108,6 +118,9 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\..\packages\WebActivator.1.5.2\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
@@ -120,12 +133,16 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CompetitionController.cs" />
+    <Compile Include="Controllers\CompetitionsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\CompetitionsViewModel.cs" />
     <Compile Include="Models\CompetitionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -221,14 +238,40 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BB.SmsQuiz.ReadModel\BB.SmsQuiz.ReadModel.csproj">
-      <Project>{D6415A31-77BF-47AD-941B-BEB7C66E47AD}</Project>
-      <Name>BB.SmsQuiz.ReadModel</Name>
+    <ProjectReference Include="..\BB.SmsQuiz.Infrastructure\BB.SmsQuiz.Infrastructure.csproj">
+      <Project>{ACFE02A0-A487-4885-8124-CBC2E79B233E}</Project>
+      <Name>BB.SmsQuiz.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BB.SmsQuiz.Model\BB.SmsQuiz.Model.csproj">
+      <Project>{16773842-A1FE-4905-80A3-C9F73BFD5D64}</Project>
+      <Name>BB.SmsQuiz.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BB.SmsQuiz.Repository.Dapper\BB.SmsQuiz.Repository.Dapper.csproj">
+      <Project>{75902233-91D0-429F-B8D0-05AD9DE5DF3F}</Project>
+      <Name>BB.SmsQuiz.Repository.Dapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\BB.SmsQuiz.Services\BB.SmsQuiz.Services.csproj">
       <Project>{46ABEE9C-F3E1-4FAB-AE04-8B470F545CA8}</Project>
       <Name>BB.SmsQuiz.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\Competition.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\EditorTemplates\PossibleAnswers.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

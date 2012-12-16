@@ -60,10 +60,6 @@
       <Project>{A5172343-4F04-4074-8911-9D99999C935F}</Project>
       <Name>BB.SmsQuiz.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\BB.SmsQuiz.ReadModel\BB.SmsQuiz.ReadModel.csproj">
-      <Project>{D6415A31-77BF-47AD-941B-BEB7C66E47AD}</Project>
-      <Name>BB.SmsQuiz.ReadModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\BB.SmsQuiz.Services\BB.SmsQuiz.Services.csproj">
       <Project>{46ABEE9C-F3E1-4FAB-AE04-8B470F545CA8}</Project>
       <Name>BB.SmsQuiz.Services</Name>

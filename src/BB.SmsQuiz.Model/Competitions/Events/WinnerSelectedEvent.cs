@@ -1,5 +1,4 @@
-﻿using BB.SmsQuiz.Model.Entrants;
-using BB.SmsQuiz.Infrastructure.Domain.Events;
+﻿using BB.SmsQuiz.Infrastructure.Domain.Events;
 
 namespace BB.SmsQuiz.Model.Competitions.Events
 {

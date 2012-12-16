@@ -18,10 +18,10 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         {
             // Arrange
             PossibleAnswers possibleAnswers = new PossibleAnswers();
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader", IsCorrectAnswer = true });
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.B, Description = "Obi Wan Kenobi" });
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.D, Description = "Walt Disney" });
+            possibleAnswers.Add(CompetitionAnswer.A, "Darth Vader", isCorrectAnswer: true);
+            possibleAnswers.Add(CompetitionAnswer.B, "Obi Wan Kenobi");
+            possibleAnswers.Add(CompetitionAnswer.C, "George Lucas");
+            possibleAnswers.Add(CompetitionAnswer.D, "Walt Disney");
 
             // Act
             bool isValid = possibleAnswers.IsValid;
@@ -38,9 +38,9 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         {
             // Arrange
             PossibleAnswers possibleAnswers = new PossibleAnswers();
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader", IsCorrectAnswer = true });
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.B, Description = "Obi Wan Kenobi" });
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
+            possibleAnswers.Add(CompetitionAnswer.A, "Darth Vader", isCorrectAnswer: true);
+            possibleAnswers.Add(CompetitionAnswer.B, "Obi Wan Kenobi");
+            possibleAnswers.Add(CompetitionAnswer.C, "George Lucas");
 
             // Act
             bool isValid = possibleAnswers.IsValid;
@@ -54,30 +54,16 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         {
             // Arrange
             PossibleAnswers possibleAnswers = new PossibleAnswers();
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader" });
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.B, Description = "Obi Wan Kenobi" });
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.D, Description = "Walt Disney" });
+            possibleAnswers.Add(CompetitionAnswer.A, "Darth Vader");
+            possibleAnswers.Add(CompetitionAnswer.B, "Obi Wan Kenobi");
+            possibleAnswers.Add(CompetitionAnswer.C, "George Lucas");
+            possibleAnswers.Add(CompetitionAnswer.D, "Walt Disney");
 
             // Act
             bool isValid = possibleAnswers.IsValid;
 
             // Assert
             Assert.IsFalse(isValid);
-        }
-
-        /// <summary>
-        /// Addings a duplicate answer throws a duplicate answer exception.
-        /// </summary>
-        [TestMethod]
-        public void AddingADuplicateAnswerThrowsADuplicateAnswerException()
-        {
-            // Arrange
-            PossibleAnswers possibleAnswers = new PossibleAnswers();
-            possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "2" });
-
-            // Act & Assert
-            Assert.Throws<DuplicateAnswerException>(() => possibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A }));
         }
     }
 }

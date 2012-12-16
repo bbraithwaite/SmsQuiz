@@ -1,4 +1,4 @@
-﻿using BB.SmsQuiz.Model.Entrants;
+﻿using BB.SmsQuiz.Model.Competitions.Entrants;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB.SmsQuiz.Model.Tests.Entrants

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.States;
-using BB.SmsQuiz.Model.Entrants;
+using BB.SmsQuiz.Model.Competitions.Entrants;
 
 namespace BB.SmsQuiz.Model.Tests.Competitions
 {
@@ -31,14 +31,19 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         /// </returns>
         public static Competition StubCompetition(bool includeCorrectAnswers)
         {
-            Competition competition = new Competition(new PossibleAnswers(), new OpenState());
+            Competition competition = new Competition();
             competition.ClosingDate = new DateTime(2012, 11, 1);
-            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.A, Description = "Darth Vader", IsCorrectAnswer = true });
-            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.B, Description = "Obi Wan Kenobi" });
-            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.C, Description = "George Lucas" });
-            competition.PossibleAnswers.Add(new PossibleAnswer() { Answer = CompetitionAnswer.D, Description = "Walt Disney" });
+            competition.Question = "Who is Luke Skywalker's Father?";
+            competition.PossibleAnswers.Add(CompetitionAnswer.A, "Darth Vader", isCorrectAnswer: true);
+            competition.PossibleAnswers.Add(CompetitionAnswer.B, "Obi Wan Kenobi");
+            competition.PossibleAnswers.Add(CompetitionAnswer.C, "George Lucas");
+            competition.PossibleAnswers.Add(CompetitionAnswer.D, "Walt Disney"); 
             competition.CompetitionKey = "WINPRIZE";
-            competition.Entrants = StubEntrants(includeCorrectAnswers);
+
+            foreach (var item in StubEntrants(includeCorrectAnswers))
+	        {
+                competition.AddEntrant(item);
+	        }
 
             return competition;
         }

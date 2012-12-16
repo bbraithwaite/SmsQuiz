@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using BB.SmsQuiz.Services;
 
 namespace BB.SmsQuiz.Web
 {
@@ -22,6 +23,8 @@ namespace BB.SmsQuiz.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            AutoMapperBootStrapper.Configure();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace BB.SmsQuiz.Model.Competitions.States
     /// <summary>
     /// The competition status types
     /// </summary>
-    public enum CompetitionStatus
+    public enum CompetitionStatus : int
     {
         /// <summary>
         /// Default

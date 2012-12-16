@@ -7,7 +7,7 @@ namespace BB.SmsQuiz.Model.Competitions
     /// <summary>
     /// Contains the logic for the possible answers attached to a competition.
     /// </summary>
-    public sealed class PossibleAnswers : EntityBase, IPossibleAnswers
+    public class PossibleAnswers : EntityBase
     {
         /// <summary>
         /// The valid number of answers
@@ -17,7 +17,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// The possible answers
         /// </summary>
-        private List<PossibleAnswer> _possibleAnswers = null;
+        private Dictionary<CompetitionAnswer, PossibleAnswer> _possibleAnswers = null;
 
         /// <summary>
         /// Gets the answers.
@@ -29,7 +29,7 @@ namespace BB.SmsQuiz.Model.Competitions
         {
             get
             {
-                return _possibleAnswers;
+                return _possibleAnswers.Values.ToList();
             }
         }
 
@@ -48,16 +48,24 @@ namespace BB.SmsQuiz.Model.Competitions
         }
 
         /// <summary>
+        /// Adds the specified answer.
+        /// </summary>
+        /// <param name="answer">The answer.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="isCorrectAnswer">if set to <c>true</c> [is correct answer].</param>
+        public void Add(CompetitionAnswer answer, string description, bool isCorrectAnswer = false)
+        { 
+            Add(new PossibleAnswer(isCorrectAnswer, answer, description));
+        }
+
+        /// <summary>
         /// Adds the specified possible answer.
         /// </summary>
         /// <param name="possibleAnswer">The possible answer.</param>
         /// <exception cref="DuplicateAnswerException"></exception>
         public void Add(PossibleAnswer possibleAnswer)
         {
-            if (_possibleAnswers.Exists(p => p.Answer == possibleAnswer.Answer))
-                throw new DuplicateAnswerException();
-
-            _possibleAnswers.Add(possibleAnswer);
+            _possibleAnswers[possibleAnswer.AnswerKey] = possibleAnswer;
         }
 
         /// <summary>
@@ -77,7 +85,13 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </summary>
         public PossibleAnswers()
         {
-            _possibleAnswers = new List<PossibleAnswer>();
+            _possibleAnswers = new Dictionary<CompetitionAnswer, PossibleAnswer>();
+
+            for (int i = 1; i <= ValidNumberOfAnswers; i++)
+            {
+                CompetitionAnswer key = (CompetitionAnswer)i;
+                _possibleAnswers.Add(key, new PossibleAnswer(key));
+            }
         }
     }
 }

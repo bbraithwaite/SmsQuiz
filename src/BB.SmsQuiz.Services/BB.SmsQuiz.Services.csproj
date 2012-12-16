@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,10 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\AutoMapperService.cs" />
     <Compile Include="AutoMapperBootStrapper.cs" />
+    <Compile Include="Messaging\BaseRequest.cs" />
+    <Compile Include="Messaging\BaseResponse.cs" />
+    <Compile Include="Messaging\Competition\CompetitionItem.cs" />
+    <Compile Include="Messaging\Competition\CreateCompetitionRequest.cs" />
+    <Compile Include="Messaging\Competition\CreateCompetitionResponse.cs" />
     <Compile Include="Implementation\CompetitionService.cs" />
     <Compile Include="ICompetitionService.cs" />
+    <Compile Include="Messaging\Competition\DeleteCompetitionRequest.cs" />
+    <Compile Include="Messaging\Competition\DeleteCompetitionResponse.cs" />
+    <Compile Include="Messaging\Competition\EnterCompetitionRequest.cs" />
+    <Compile Include="Messaging\Competition\EnterCompetitionResponse.cs" />
+    <Compile Include="Messaging\Competition\EntrantItem.cs" />
+    <Compile Include="Messaging\Competition\GetCompetitionRequest.cs" />
+    <Compile Include="Messaging\Competition\GetCompetitionResponse.cs" />
+    <Compile Include="Messaging\Competition\GetCompetitionsRequest.cs" />
     <Compile Include="Messaging\Competition\GetCompetitionsResponse.cs" />
+    <Compile Include="Messaging\ResponseStatus.cs" />
+    <Compile Include="Messaging\ValidationItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,10 +74,6 @@
     <ProjectReference Include="..\BB.SmsQuiz.Model\BB.SmsQuiz.Model.csproj">
       <Project>{16773842-A1FE-4905-80A3-C9F73BFD5D64}</Project>
       <Name>BB.SmsQuiz.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BB.SmsQuiz.ReadModel\BB.SmsQuiz.ReadModel.csproj">
-      <Project>{D6415A31-77BF-47AD-941B-BEB7C66E47AD}</Project>
-      <Name>BB.SmsQuiz.ReadModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

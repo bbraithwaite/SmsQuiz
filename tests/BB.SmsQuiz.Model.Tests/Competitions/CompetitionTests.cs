@@ -21,13 +21,7 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         public void CompetitionIsValid()
         {
             // Arrange
-            Mock<IPossibleAnswers> answers = new Mock<IPossibleAnswers>();
-            answers.Setup(a => a.IsValid).Returns(true);
-
-            Competition competition = new Competition(answers.Object, null);
-            competition.Question = "Who is Luke Skywalker's father?";
-            competition.ClosingDate = DateTime.Now.AddMonths(1);
-            competition.CompetitionKey = "WINPRIZE";
+            Competition competition = Stubs.StubCompetition();
 
             // Act
             bool isValid = competition.IsValid;
@@ -43,11 +37,7 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         public void CompetitionIsNotValid()
         {
             // Arrange
-            Mock<IPossibleAnswers> answers = new Mock<IPossibleAnswers>();
-            answers.Setup(a => a.IsValid).Returns(false);
-            answers.Setup(a => a.ValidationErrors).Returns(new ValidationErrors());
-
-            Competition competition = new Competition(answers.Object, null);
+            Competition competition = new Competition();
 
             // Act
             bool isValid = competition.IsValid;
@@ -64,7 +54,7 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         {
             // Arrange
             Mock<ICompetitionState> state = new Mock<ICompetitionState>();
-            Competition competition = new Competition(null, state.Object);
+            Competition competition = new Competition(state.Object);
 
             // Act
             competition.PickWinner();
