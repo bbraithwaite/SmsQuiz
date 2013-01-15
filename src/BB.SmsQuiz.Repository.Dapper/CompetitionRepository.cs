@@ -7,12 +7,14 @@ using BB.SmsQuiz.Model.Competitions.Entrants;
 using BB.SmsQuiz.Model.Competitions.States;
 using BB.SmsQuiz.Model.Users;
 using Dapper;
-using RepoWrapper;
 
 namespace BB.SmsQuiz.Repository.Dapper
 {
     public sealed class CompetitionRepository : Repository<Competition>, ICompetitionRepository
     {
+        /// <summary>
+        /// The table name
+        /// </summary>
         private const string TableName = "Competitions";
 
         /// <summary>
@@ -81,7 +83,7 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// <returns></returns>
         public override Competition FindByID(Guid id)
         {
-            string sql = "SELECT C.*, U.*, E.*, C.Status As ID FROM Competitions C INNER JOIN Users U ON C.CreatedByID = U.ID LEFT JOIN Entrants E ON E.ID = C.WinnerID WHERE C.ID=@ID; SELECT * FROM PossibleAnswers WHERE CompetitionID=@ID";
+            const string sql = "SELECT * FROM PossibleAnswers WHERE CompetitionID=@ID;SELECT * FROM Entrants WHERE CompetitionID = @ID;SELECT C.*, U.* FROM Competitions C INNER JOIN Users U ON C.CreatedByID = U.ID WHERE C.ID=@ID;";
             return GetCompetitionData(sql, new { ID = id }).SingleOrDefault();
         }
 
@@ -91,8 +93,21 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// <returns>A list of all competition.</returns>
         public override IEnumerable<Competition> FindAll()
         {
-            string sql = "SELECT C.*, U.*, E.*, C.Status As ID FROM Competitions C INNER JOIN Users U ON C.CreatedByID = U.ID LEFT JOIN Entrants E ON E.ID = C.WinnerID; SELECT * FROM PossibleAnswers";
+            const string sql = "SELECT * FROM PossibleAnswers;SELECT * FROM Entrants;SELECT C.*, U.* FROM Competitions C INNER JOIN Users U ON C.CreatedByID = U.ID;";
             return GetCompetitionData(sql);
+        }
+
+        /// <summary>
+        /// Finds the specified query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="param">The param.</param>
+        /// <returns></returns>
+        public override IEnumerable<Competition> Find(string query, dynamic param)
+        {
+            // TODO: optimise queries to apply where query
+            string sql = "SELECT * FROM PossibleAnswers;SELECT * FROM Entrants;SELECT C.*, U.* FROM Competitions C INNER JOIN Users U ON C.CreatedByID = U.ID WHERE " + query + ";";
+            return GetCompetitionData(sql, (object)param);
         }
 
         /// <summary>
@@ -104,22 +119,7 @@ namespace BB.SmsQuiz.Repository.Dapper
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                cn.Execute("DELETE FROM Competitions WHERE ID=@ID; DELETE FROM PossibleAnswers WHERE CompetitionID=@ID", new { ID = item.ID });
-            }
-        }
-
-        /// <summary>
-        /// Maps the possible answers and links to competition.
-        /// </summary>
-        /// <param name="competition">The competition.</param>
-        /// <param name="possibleAnswers">The possible answers.</param>
-        private static void MapPossibleAnswers(Competition competition, IEnumerable<dynamic> possibleAnswers)
-        {
-            if (competition == null) return;
-
-            foreach (var m in possibleAnswers.Where(p => p.CompetitionID == competition.ID))
-            {
-                competition.PossibleAnswers.Add(new PossibleAnswer(m.IsCorrectAnswer, (CompetitionAnswer)m.AnswerKey, m.AnswerText));
+                cn.Execute("DELETE FROM PossibleAnswers WHERE CompetitionID=@ID;DELETE FROM Competitions WHERE ID=@ID;", new { ID = item.ID });
             }
         }
 
@@ -127,56 +127,115 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// Gets the competition data.
         /// </summary>
         /// <param name="sql">The SQL.</param>
-        /// <returns>The competition data that matches the sql query.</returns>
-        private List<Competition> GetCompetitionData(string sql, dynamic param = null)
+        /// <param name="param">The param.</param>
+        /// <returns>
+        /// The competition data that matches the sql query.
+        /// </returns>
+        private IEnumerable<Competition> GetCompetitionData(string sql, dynamic param = null)
         {
             List<Competition> competitions = null;
-            IEnumerable<dynamic> possibleAnswers = null;
 
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
                 using (var multi = cn.QueryMultiple(sql, (object)param))
                 {
-                    competitions = multi.Read<Competition, User, dynamic, byte, Competition>((comp, user, winner, status) =>
-                    {
-                        comp.CreatedBy = user;
-                        comp.SetCompetitionState(CompetitionStateFactory.GetInstance((CompetitionStatus)status));
-                        comp.Winner = MapEntrant(winner);
-                        return comp;
-                    }).ToList();
+                    IEnumerable<dynamic> possibleAnswers = multi.Read().ToList();
+                    IEnumerable<dynamic> entrants = multi.Read().ToList();
 
-                    possibleAnswers = multi.Read().ToList();
+                    competitions = multi.Read<dynamic, dynamic, Competition>((comp, user) =>
+                    {
+                        Competition competition = MapCompetition(comp, entrants, possibleAnswers);
+                        competition.CreatedBy = MapUser(user);
+                        return competition;
+                    }).ToList();
                 }
                 cn.Close();
-            }
-
-            foreach (var comp in competitions)
-            {
-                MapPossibleAnswers(comp, possibleAnswers);
             }
 
             return competitions;
         }
 
         /// <summary>
+        /// Maps the competition.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        private static Competition MapCompetition(dynamic item, IEnumerable<dynamic> entrants, IEnumerable<dynamic> possibleAnswers)
+        {
+            var competition = new Competition()
+            {
+                ID = item.ID,
+                ClosingDate = item.ClosingDate,
+                CompetitionKey = item.CompetitionKey,
+                CreatedDate = item.CreatedDate,
+                Question = item.Question
+            };
+
+            competition.SetCompetitionState(CompetitionStateFactory.GetInstance((CompetitionStatus)item.Status));
+
+            if (possibleAnswers != null)
+            {
+                foreach (var m in possibleAnswers.Where(p => p.CompetitionID == competition.ID))
+                {
+                    competition.PossibleAnswers.Add(new PossibleAnswer(m.IsCorrectAnswer, (CompetitionAnswer)m.AnswerKey, m.AnswerText));
+                }
+            }
+
+            if (entrants != null)
+            {
+                foreach (var entrant in entrants.Where(e => e.CompetitionID == competition.ID))
+                {
+                    Entrant mapped = MapEntrant(entrant);
+                    competition.AddEntrant(mapped);
+
+                    // set the winner
+                    if (mapped.ID == item.WinnerID)
+                    {
+                        competition.Winner = mapped;
+                    }
+                }
+            }
+
+            return competition;
+        }
+
+        /// <summary>
+        /// Maps the user.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        private static User MapUser(dynamic item)
+        {
+            var user = new User 
+            {
+                ID = item.ID, 
+                Username = item.Username
+            };
+
+            return user;
+        }
+
+        /// <summary>
         /// Maps the entrant.
         /// </summary>
-        /// <param name="winner">The winner.</param>
-        /// <returns>An entrant item.</returns>
-        private Entrant MapEntrant(dynamic winner)
+        /// <param name="item">The item.</param>
+        /// <returns>
+        /// An entrant item.
+        /// </returns>
+        private static Entrant MapEntrant(dynamic item)
         {
-            if (winner == null) return null;
+            if ((object) item == null) return null;
 
-            IEntrantContact contact = EntrantContactFactory.GetInstance((EntrantContactType)winner.ContactType);
-            contact.Contact = winner.ContactDetail;
+            IEntrantContact contact = EntrantContactFactory.GetInstance((EntrantContactType)item.ContactType);
+            contact.Contact = item.ContactDetail;
 
-            Entrant entrant = new Entrant()
+            var entrant = new Entrant()
             {
-                ID = winner.ID,
-                Answer = (CompetitionAnswer)winner.AnswerKey,
-                EntryDate = winner.EntryDate,
-                Source = (EntrantSource)winner.Source,
+                ID = item.ID,
+                Answer = (CompetitionAnswer)item.AnswerKey,
+                EntryDate = item.EntryDate,
+                Source = (EntrantSource)item.Source,
                 Contact = contact
             };
 
@@ -188,14 +247,10 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="updating">if set to <c>true</c> [updating].</param>
-        private void SavePossibleAnswers(IDbConnection cn, Competition item, bool updating = false)
-        {
-            string sql = "INSERT INTO PossibleAnswers VALUES (@CompetitionID, @AnswerKey, @AnswerText, @IsCorrectAnswer)";
-
-            if (updating)
-            {
-                sql = "UPDATE PossibleAnswers SET AnswerText=@AnswerText, IsCorrectAnswer=@IsCorrectAnswer WHERE CompetitionID = @CompetitionID AND AnswerKey=@AnswerKey";
-            }
+        private static void SavePossibleAnswers(IDbConnection cn, Competition item, bool updating = false)
+        { 
+            const string insertSql = "INSERT INTO PossibleAnswers VALUES (@CompetitionID, @AnswerKey, @AnswerText, @IsCorrectAnswer)";
+            const string updateSql = "UPDATE PossibleAnswers SET AnswerText=@AnswerText, IsCorrectAnswer=@IsCorrectAnswer WHERE CompetitionID = @CompetitionID AND AnswerKey=@AnswerKey";
 
             foreach (var answer in item.PossibleAnswers.Answers)
             {
@@ -207,7 +262,7 @@ namespace BB.SmsQuiz.Repository.Dapper
                     IsCorrectAnswer = answer.IsCorrectAnswer
                 };
 
-                cn.Execute(sql, param);
+                cn.Execute((updating) ? updateSql : insertSql, param);
             }
         }
 
@@ -215,7 +270,7 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// Saves the entrants.
         /// </summary>
         /// <param name="item">The item.</param>
-        private void SaveEntrants(IDbConnection cn, Competition item)
+        private static void SaveEntrants(IDbConnection cn, Competition item)
         {
             foreach (Entrant entrant in item.Entrants.Where(e => e.ID == Guid.Empty))
             {

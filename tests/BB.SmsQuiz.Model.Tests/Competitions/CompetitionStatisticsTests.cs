@@ -79,6 +79,42 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         }
 
         /// <summary>
+        /// Percentages the of answers for A is 52.63 percent.
+        /// </summary>
+        [TestMethod]
+        public void CountOfAnswersForAIsCorrect()
+        {
+            AssertAnswerCount(CompetitionAnswer.A, 10);
+        }
+
+        /// <summary>
+        /// Percentages the of answers for B is 10.53 percent.
+        /// </summary>
+        [TestMethod]
+        public void CountOfAnswersForBIsCorrect()
+        {
+            AssertAnswerCount(CompetitionAnswer.B, 2);
+        }
+
+        /// <summary>
+        /// Percentages the of answers for C is 15.79 percent.
+        /// </summary>
+        [TestMethod]
+        public void CountOfAnswersForCIsCorrect()
+        {
+            AssertAnswerCount(CompetitionAnswer.C, 3);
+        }
+
+        /// <summary>
+        /// Percentages the of answers for D is 21.05 percent.
+        /// </summary>
+        [TestMethod]
+        public void CountOfAnswersForDIsCorrect()
+        {
+            AssertAnswerCount(CompetitionAnswer.D, 4);
+        }
+
+        /// <summary>
         /// Asserts the answer percentage.
         /// </summary>
         /// <param name="answer">The answer.</param>
@@ -93,6 +129,23 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
 
             // Assert
             Assert.AreEqual(expectedPercentage, decimal.Round(percentage, 2));
+        }
+
+        /// <summary>
+        /// Asserts the answer count.
+        /// </summary>
+        /// <param name="answer">The answer.</param>
+        /// <param name="expectedCount">The expected count.</param>
+        private static void AssertAnswerCount(CompetitionAnswer answer, int expectedCount)
+        {
+            // Arrange
+            Competition competition = Stubs.StubCompetition();
+
+            // Act
+            int count = competition.GetNumberOfEntrants(answer);
+
+            // Assert
+            Assert.AreEqual(expectedCount, count);
         }
     }
 }

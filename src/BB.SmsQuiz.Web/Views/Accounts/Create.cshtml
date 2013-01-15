@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Accounts"))
+{
+    <fieldset>
+        <legend>Please Create an Accont</legend>
+        <div class="editor-label">
+            Username
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("Username")
+        </div>
+        <div class="editor-label">
+            Password
+        </div>
+        <div class="editor-field">
+            @Html.Password("Password")
+        </div>
+        <p>
+            <input type="submit" value="Create" class="btn" />
+        </p>
+    </fieldset>
+}

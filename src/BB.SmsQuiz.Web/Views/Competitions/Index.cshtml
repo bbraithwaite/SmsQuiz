@@ -1,29 +1,36 @@
-﻿@model BB.SmsQuiz.Web.Models.CompetitionsViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<ul class="breadcrumb">
+  <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+  <li class="active">Competitions</li>
+</ul>
+
 <h2>Competitions</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table>
-    <tr>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model.Competitions) {
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
     <tr>
         <td>@item.Question</td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn" })
         </td>
     </tr>
-}
-
+    }
+    </tbody>
 </table>

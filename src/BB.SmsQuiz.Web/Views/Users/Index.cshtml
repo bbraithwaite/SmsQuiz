@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+  <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+  <li class="active">Users</li>
+</ul>
+<h2>Users</h2>
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-hover table-bordered">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>Actions</th>
+    </tr>
+@foreach (var item in @Model) {
+    <tr>
+        <td>
+            @item.Username
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+</table>

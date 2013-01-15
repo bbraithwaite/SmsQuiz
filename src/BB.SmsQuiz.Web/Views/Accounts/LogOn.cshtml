@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Please Login</legend>
+        <div class="editor-label">
+            Username
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("username")
+        </div>
+        <div class="editor-label">
+            Password
+        </div>
+        <div class="editor-field">
+            @Html.Password("Password")
+        </div>
+        <label class="checkbox">
+            @Html.CheckBox("Remember") Remember me
+        </label>
+        <p>
+            <input type="submit" value="Log On" class="btn" />
+        </p>
+    </fieldset>
+}

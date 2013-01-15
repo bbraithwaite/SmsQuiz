@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace BB.SmsQuiz.Infrastructure.Encryption
 {
     /// <summary>
@@ -10,13 +6,26 @@ namespace BB.SmsQuiz.Infrastructure.Encryption
     /// </summary>
     public class EncryptedString
     {
-        public readonly string EncryptedValue;
+        /// <summary>
+        /// The encrypted value
+        /// </summary>
+        public readonly byte[] EncryptedValue;
 
-        public EncryptedString(string encryptedString)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EncryptedString" /> class.
+        /// </summary>
+        /// <param name="encryptedString">The encrypted string.</param>
+        public EncryptedString(byte[] encryptedString)
         {
             this.EncryptedValue = encryptedString;
         }
 
+        /// <summary>
+        /// Creates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="encryptionService">The encryption service.</param>
+        /// <returns></returns>
         public static EncryptedString Create(string value, IEncryptionService encryptionService)
         {
             return new EncryptedString(encryptionService.Encrypt(value));

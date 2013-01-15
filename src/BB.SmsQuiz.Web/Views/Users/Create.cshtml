@@ -1,0 +1,39 @@
+﻿@model BB.SmsQuiz.Web.Models.UserView
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+  <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+  <li>@Html.ActionLink("Users", "Index", "Users") <span class="divider">/</span></li>
+  <li class="active">Create</li>
+</ul>
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Users", FormMethod.Post, new { @class = "form-horizontal" })) {
+    <div class="control-group">
+        @Html.LabelFor(model => model.Username, new { @class = "control-label" })
+        <div class="controls">
+            @Html.EditorFor(model => model.Username)
+        </div>
+    </div>
+
+    <div class="control-group">
+        @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+        <div class="controls">
+            @Html.PasswordFor(model => model.Password)
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

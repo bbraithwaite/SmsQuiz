@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using BB.SmsQuiz.Infrastructure.Encryption;
 using BB.SmsQuiz.Model.Users;
 using Dapper;
-using RepoWrapper;
 
 namespace BB.SmsQuiz.Repository.Dapper
 {
@@ -61,7 +60,7 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// <returns>A list of all users.</returns>
         public override IEnumerable<User> FindAll()
         {
-            List<User> items = new List<User>();
+            var items = new List<User>();
 
             using (IDbConnection cn = Connection)
             {
@@ -80,19 +79,19 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// <summary>
         /// Finds the specified predicate.
         /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns>A list of users that match the query.</returns>
-        public override IEnumerable<User> Find(Expression<Func<User, bool>> predicate)
+        /// <param name="query">The query.</param>
+        /// <param name="param">The param.</param>
+        /// <returns>
+        /// A list of users that match the query.
+        /// </returns>
+        public override IEnumerable<User> Find(string query, dynamic param)
         {
-            List<User> items = new List<User>();
-
-            // extract the dynamic sql query and parameters from predicate
-            QueryResult result = DynamicQuery.GetDynamicQuery("Users", predicate);
+            var items = new List<User>();
 
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                var results = cn.Query(result.Sql, (object)result.Param);
+                var results = cn.Query("SELECT * FROM Users WHERE " + query, (object)param);
 
                 for (int i = 0; i < results.Count(); i++)
                 {
@@ -110,11 +109,13 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// <returns>A user entity from the dynamic result.</returns>
         private static User MapUser(dynamic result)
         {
-            User item = new User();
-            item.ID = result.ID;
-            item.Username = result.Username;
-            /* The custom mapping */
-            item.Password = new EncryptedString(result.Password);
+            var item = new User
+            {
+                ID = result.ID,
+                Username = result.Username,
+                Password = new EncryptedString(result.Password)
+            };
+
             return item;
         }
     }

@@ -17,7 +17,7 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         public void PossibleAnswersIsValid()
         {
             // Arrange
-            PossibleAnswers possibleAnswers = new PossibleAnswers();
+            var possibleAnswers = new PossibleAnswers();
             possibleAnswers.Add(CompetitionAnswer.A, "Darth Vader", isCorrectAnswer: true);
             possibleAnswers.Add(CompetitionAnswer.B, "Obi Wan Kenobi");
             possibleAnswers.Add(CompetitionAnswer.C, "George Lucas");
@@ -30,30 +30,11 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
             Assert.IsTrue(isValid);
         }
 
-        /// <summary>
-        /// Possibles the answers has less than four answers is not valid.
-        /// </summary>
-        [TestMethod]
-        public void PossibleAnswersHasLessThanFourAnswersIsNotValid()
-        {
-            // Arrange
-            PossibleAnswers possibleAnswers = new PossibleAnswers();
-            possibleAnswers.Add(CompetitionAnswer.A, "Darth Vader", isCorrectAnswer: true);
-            possibleAnswers.Add(CompetitionAnswer.B, "Obi Wan Kenobi");
-            possibleAnswers.Add(CompetitionAnswer.C, "George Lucas");
-
-            // Act
-            bool isValid = possibleAnswers.IsValid;
-
-            // Assert
-            Assert.IsFalse(isValid);
-        }
-
         [TestMethod]
         public void NoAnswerSetAsCorrectIsNotValid()
         {
             // Arrange
-            PossibleAnswers possibleAnswers = new PossibleAnswers();
+            var possibleAnswers = new PossibleAnswers();
             possibleAnswers.Add(CompetitionAnswer.A, "Darth Vader");
             possibleAnswers.Add(CompetitionAnswer.B, "Obi Wan Kenobi");
             possibleAnswers.Add(CompetitionAnswer.C, "George Lucas");

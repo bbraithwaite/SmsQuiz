@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using BB.SmsQuiz.Infrastructure.Domain;
 using BB.SmsQuiz.Infrastructure.Encryption;
 
@@ -33,7 +33,7 @@ namespace BB.SmsQuiz.Model.Users
             if (string.IsNullOrEmpty(Username))
                 ValidationErrors.Add("Username");
 
-            if (Password == null || string.IsNullOrEmpty(Password.EncryptedValue))
+            if (Password == null || !Password.EncryptedValue.Any())
                 ValidationErrors.Add("Password");
         }
     }

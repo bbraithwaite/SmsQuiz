@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+  <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+  <li>@Html.ActionLink("Users", "Index", "Users") <span class="divider">/</span></li>
+  <li class="active">Delete</li>
+</ul>
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="well">@Model.Username</div>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

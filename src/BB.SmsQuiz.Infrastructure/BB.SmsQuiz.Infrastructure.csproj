@@ -37,8 +37,12 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,21 +50,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\AspNetFormsAuthentication.cs" />
+    <Compile Include="Authentication\IFormsAuthentication.cs" />
     <Compile Include="Domain\Events\DomainEvents.cs" />
     <Compile Include="Domain\EntityBase.cs" />
     <Compile Include="Domain\Events\IDomainEvent.cs" />
     <Compile Include="Domain\Events\IDomainEventHandler.cs" />
     <Compile Include="Domain\IAggregateRoot.cs" />
     <Compile Include="Domain\IEnumerableExtensions.cs" />
-    <Compile Include="Domain\IMapper.cs" />
+    <Compile Include="Mapping\IMapper.cs" />
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\IValidatable.cs" />
     <Compile Include="Domain\ValidationError.cs" />
     <Compile Include="Domain\ValidationErrors.cs" />
-    <Compile Include="Encryption\AspNetEncryptionService.cs" />
     <Compile Include="Encryption\EncryptedString.cs" />
+    <Compile Include="Encryption\EncryptionService.cs" />
     <Compile Include="Encryption\IEncryptionService.cs" />
+    <Compile Include="Mapping\AutoMapperService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

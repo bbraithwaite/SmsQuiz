@@ -25,7 +25,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// Initializes a new instance of the <see cref="PossibleAnswer" /> class.
         /// </summary>
         /// <param name="isCorrectAnswer">if set to <c>true</c> [is correct answer].</param>
-        /// <param name="answer">The answer.</param>
+        /// <param name="answerKey">The answer key.</param>
         /// <param name="answerText">The answer text.</param>
         public PossibleAnswer(bool isCorrectAnswer, CompetitionAnswer answerKey, string answerText)
         {

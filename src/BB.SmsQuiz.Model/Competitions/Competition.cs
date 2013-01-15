@@ -16,7 +16,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// The _entrants
         /// </summary>
-        private List<Entrant> _entrants;
+        private readonly List<Entrant> _entrants;
 
         /// <summary>
         /// Gets or sets the question.
@@ -162,7 +162,7 @@ namespace BB.SmsQuiz.Model.Competitions
         {
             get
             {
-                return this.CorrectEntrants.Count() > 0;
+                return this.CorrectEntrants.Any();
             }
         }
 
@@ -185,6 +185,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </summary>
         public Competition()
         {
+            CreatedDate = DateTime.Now;
             PossibleAnswers = new PossibleAnswers();
             State = new OpenState();
             _entrants = new List<Entrant>();
@@ -193,9 +194,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// Initializes a new instance of the <see cref="Competition" /> class.
         /// </summary>
-        /// <param name="possibleAnswers">The possible answers.</param>
         /// <param name="state">The state.</param>
-        /// <param name="statistics">The statistics.</param>
         public Competition(ICompetitionState state)
         {
             CreatedDate = DateTime.Now;
@@ -217,6 +216,9 @@ namespace BB.SmsQuiz.Model.Competitions
            
             if (ClosingDate == DateTime.MinValue)
                 ValidationErrors.Add("ClosingDate");
+
+            if (CreatedBy == null)
+                ValidationErrors.Add("CreatedBy");
 
             if (!PossibleAnswers.IsValid)
                 ValidationErrors.AddRange(PossibleAnswers.ValidationErrors.Items);
@@ -249,13 +251,33 @@ namespace BB.SmsQuiz.Model.Competitions
         }
 
         /// <summary>
+        /// Gets the number of entrants.
+        /// </summary>
+        /// <param name="answer">The answer.</param>
+        /// <returns>The number of entrants for a given answer.</returns>
+        public int GetNumberOfEntrants(CompetitionAnswer answer)
+        {
+            if (ValidEntrants.Any())
+            {
+                return ValidEntrants.Count(e => e.Answer == answer);
+            }
+
+            return 0; 
+        }
+
+        /// <summary>
         /// Gets the percentage of entrans.
         /// </summary>
         /// <param name="answer">The possible answer.</param>
         /// <returns>The percentage of entrants for a given answer.</returns>
         public decimal GetPercentageOfEntrants(CompetitionAnswer answer)
         {
-            return (decimal)ValidEntrants.Count(e => e.Answer == answer) / ValidEntrants.Count() * 100;
+            if (ValidEntrants.Any())
+            {
+                return (decimal)ValidEntrants.Count(e => e.Answer == answer)/ValidEntrants.Count()*100;
+            }
+
+            return 0;
         }
     }
 }

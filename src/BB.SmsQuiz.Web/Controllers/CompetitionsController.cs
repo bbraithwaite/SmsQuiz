@@ -1,161 +1,145 @@
-﻿using System.Web.Mvc;
-using BB.SmsQuiz.Services;
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Web.Mvc;
 using BB.SmsQuiz.Web.Models;
-using System;
-using BB.SmsQuiz.Services.Messaging.Competition;
-using BB.SmsQuiz.Services.Messaging;
-using System.Collections.Generic;
-using BB.SmsQuiz.Model.Competitions;
 
 namespace BB.SmsQuiz.Web.Controllers
 {
-    /// <summary>
-    /// The competition controller.
-    /// </summary>
-    public class CompetitionsController : Controller
+    public class CompetitionsController : BaseController
     {
         /// <summary>
-        /// The _competition service
+        /// The _client
         /// </summary>
-        ICompetitionService _competitionService;
+        private readonly HttpClient _client;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompetitionsController" /> class.
         /// </summary>
-        /// <param name="competitionService">The competition service.</param>
-        public CompetitionsController(ICompetitionService competitionService)
+        /// <param name="client">The client.</param>
+        public CompetitionsController(HttpClient client)
         {
-            _competitionService = competitionService;
+            _client = client;
         }
 
         //
         // GET: /Competition/
         public ActionResult Index()
         {
-            var request = new GetCompetitionsRequest();
-            GetCompetitionsResponse response = _competitionService.GetCompetitions(request);
-            var viewModel = new CompetitionsViewModel();
-            viewModel.Competitions = response.Competitions;
-            return View("Index", viewModel);
+            var response = _client.GetAsync("competitions").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                dynamic users = response.Content.ReadAsAsync<dynamic>().Result;
+                return View(users);
+            }
+
+            return ErrorView(response);
         }
 
         //
-        // GET: /Competition/Details/8F05AE9E-3167-4C49-8EF6-B2F9056345B9
+        // GET: /Competition/Details/B5608F8E-F449-E211-BB40-1040F3A7A3B1
+        [HttpGet]
         public ActionResult Details(Guid id)
         {
-            return GetCompetitionResult(id, "Details");
+            var response = _client.GetAsync("competitions/" + id).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                dynamic competition = response.Content.ReadAsAsync<dynamic>().Result;
+                return View(competition);
+            }
+
+            return ErrorView(response);
         }
 
         //
-        // GET: /Competition/Create/
+        // GET: /Competition/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            var model = new CompetitionViewModel();
-            var answers = new List<PossibleAnswerItem>();
-
-            for (int i = 1; i <= 4; i++)
-			{
-                answers.Add(new PossibleAnswerItem() { AnswerKey = (CompetitionAnswer)i, IsCorrectAnswer = (i == 1) });
-			}
-
-            model.Competition = new CompetitionItem();
-            model.Competition.PossibleAnswers = answers;
-            return View("Create", model);
+            return View(new CompetitionViewModel());
         }
 
         //
         // POST: /Competition/Create
         [HttpPost]
-        public ActionResult Create(CompetitionViewModel model)
+        public ActionResult Create(CompetitionViewModel competition)
         {
-            var request = new CreateCompetitionRequest();
-            request.Competition = model.Competition;
-            CreateCompetitionResponse response = _competitionService.CreateCompetition(request);
+            var response = _client.PostAsJsonAsync("competitions", competition).Result;
 
-            if (response.Status == ResponseStatus.OK)
+            switch (response.StatusCode)
             {
-                return RedirectToAction("Index");
+                case HttpStatusCode.Created:
+                    return RedirectToAction("Index");
+                case HttpStatusCode.BadRequest:
+                    foreach (var item in response.Content.ReadAsAsync<dynamic>().Result.Items)
+                    {
+                        ModelState.AddModelError(item.PropertyName.Value, item.Message.Value);
+                    }
+
+                    return View(competition);
             }
-            else
-            {
-                model.ValidationErrors = response.ValidationErrors;
-                return View("Create", model);
-            }
+
+            return ErrorView(response);
         }
 
         //
-        // GET: /Competition/Edit/8F05AE9E-3167-4C49-8EF6-B2F9056345B9
+        // GET: /Competition/Edit/B5608F8E-F449-E211-BB40-1040F3A7A3B1
+        [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            return GetCompetitionResult(id, "Edit");
+            var response = _client.GetAsync("competitions/" + id).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                dynamic competition = response.Content.ReadAsAsync<dynamic>().Result;
+                var viewModel = new CompetitionViewModel()
+                {
+                    ClosingDate = competition.ClosingDate,
+                    CompetitionKey = competition.CompetitionKey,
+                    ID = competition.ID,
+                    Question = competition.Question
+                };
+
+                for (int i = 0; i < competition.PossibleAnswers.Count; i++)
+                {
+                    var pa = competition.PossibleAnswers[i];
+                    viewModel.Answers.Add(pa.AnswerText.ToString());
+
+                    if (pa.IsCorrectAnswer.Value)
+                    {
+                        viewModel.CorrectAnswer = i;
+                    }
+                }
+
+                return View(viewModel);
+            }
+
+            return ErrorView(response);
         }
 
         //
-        // POST: /Competition/Edit/8F05AE9E-3167-4C49-8EF6-B2F9056345B9
+        // POST: /Competition/Edit/B5608F8E-F449-E211-BB40-1040F3A7A3B1
         [HttpPost]
-        public ActionResult Edit(Guid id, CompetitionViewModel model)
+        public ActionResult Edit(Guid id, CompetitionViewModel competition)
         {
-            var request = new CreateCompetitionRequest();
-            request.Competition = model.Competition;
+            var response = _client.PutAsJsonAsync("competitions/" + id, competition).Result;
 
-            CreateCompetitionResponse response = _competitionService.CreateCompetition(request);
-
-            if (response.Status == ResponseStatus.OK)
+            switch (response.StatusCode)
             {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                model.ValidationErrors = response.ValidationErrors;
-                return View("Edit", model);
-            }
-        }
+                case HttpStatusCode.OK:
+                    return RedirectToAction("Index");
+                case HttpStatusCode.BadRequest:
+                    foreach (var item in response.Content.ReadAsAsync<dynamic>().Result.Items)
+                    {
+                        ModelState.AddModelError(item.PropertyName.Value, item.Message.Value);
+                    }
 
-        //
-        // GET: /Competition/Delete/8F05AE9E-3167-4C49-8EF6-B2F9056345B9
-        public ActionResult Delete(Guid id)
-        {
-            return GetCompetitionResult(id, "Delete");
-        }
-
-        //
-        // POST: /Competition/Delete/8F05AE9E-3167-4C49-8EF6-B2F9056345B9
-        [HttpPost]
-        public ActionResult Delete(Guid id, CompetitionViewModel model)
-        {
-            var request = new DeleteCompetitionRequest();
-            request.ID = id;
-            DeleteCompetitionResponse response = _competitionService.DeleteCompetition(request);
-
-            if (response.Status == ResponseStatus.OK)
-            {
-                return RedirectToAction("Index");
+                    return View(competition);
             }
 
-            return View("Delete", model);
-        }
-
-        /// <summary>
-        /// Gets the competition view model.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns>Returns the view model.</returns>
-        private ActionResult GetCompetitionResult(Guid id, string viewName)
-        {
-            var request = new GetCompetitionRequest() { ID = id };
-            GetCompetitionResponse response = _competitionService.GetCompetition(request);
-
-            if (response.Status == ResponseStatus.OK)
-            {
-                var viewModel = new CompetitionViewModel();
-                viewModel.Competition = response.Competition;
-                return View(viewName, viewModel);
-            }
-            else
-            {
-                // TODO: change to custom "not found" redirect.
-                throw new Exception();
-            }
+            return ErrorView(response);
         }
     }
 }

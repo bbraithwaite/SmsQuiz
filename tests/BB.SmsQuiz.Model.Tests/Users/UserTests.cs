@@ -18,10 +18,10 @@ namespace BB.SmsQuiz.Model.Tests.Users
         public void UserIsValid()
         {
             // Arrange
-            Mock<IEncryptionService> encryptionService = new Mock<IEncryptionService>();
-            encryptionService.Setup(e => e.Encrypt(It.IsAny<string>())).Returns("encrypted");
+            var encryptionService = new Mock<IEncryptionService>();
+            encryptionService.Setup(e => e.Encrypt(It.IsAny<string>())).Returns(new byte[] { 1, 2, 3, 4 });
 
-            User user = new User();
+            var user = new User();
             user.Username = "username";
             user.Password = EncryptedString.Create("password", encryptionService.Object);
 
@@ -39,7 +39,7 @@ namespace BB.SmsQuiz.Model.Tests.Users
         public void UserIsNotValid()
         {
             // Arrange
-            User user = new User();
+            var user = new User();
 
             // Act
             bool isValid = user.IsValid;
@@ -55,10 +55,10 @@ namespace BB.SmsQuiz.Model.Tests.Users
         public void UserWithEmptyPasswordIsNotValid()
         {
             // Arrange
-            Mock<IEncryptionService> encryptionService = new Mock<IEncryptionService>();
-            encryptionService.Setup(e => e.Encrypt(It.IsAny<string>())).Returns(string.Empty);
+            var encryptionService = new Mock<IEncryptionService>();
+            encryptionService.Setup(e => e.Encrypt(It.IsAny<string>())).Returns(new byte[]{});
 
-            User user = new User();
+            var user = new User();
             user.Username = "username";
             user.Password = EncryptedString.Create(string.Empty, encryptionService.Object);
 

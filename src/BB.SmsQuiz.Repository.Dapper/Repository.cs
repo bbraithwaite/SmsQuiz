@@ -7,7 +7,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using BB.SmsQuiz.Infrastructure.Domain;
 using Dapper;
-using RepoWrapper;
 
 namespace BB.SmsQuiz.Repository.Dapper
 {
@@ -43,7 +42,7 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// Initializes a new instance of the <see cref="Repository{T}" /> class.
         /// </summary>
         /// <param name="tableName">Name of the table.</param>
-        public Repository(string tableName)
+        protected Repository(string tableName)
         {
             _tableName = tableName;
         }
@@ -107,7 +106,7 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// <returns></returns>
         public virtual T FindByID(Guid id)
         {
-            T item = default(T);
+            T item;
 
             using (IDbConnection cn = Connection)
             {
@@ -121,22 +120,32 @@ namespace BB.SmsQuiz.Repository.Dapper
         /// <summary>
         /// Finds the specified predicate.
         /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns>A list of items</returns>
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        /// <param name="query">The query.</param>
+        /// <param name="param">The param.</param>
+        /// <returns>
+        /// A list of items
+        /// </returns>
+        public virtual IEnumerable<T> Find(string query, dynamic param)
         {
             IEnumerable<T> items = null;
-
-            // extract the dynamic sql query and parameters from predicate
-            QueryResult result = DynamicQuery.GetDynamicQuery(_tableName, predicate);
 
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                items = cn.Query<T>(result.Sql, (object)result.Param);
-            }
+                items = cn.Query<T>("SELECT * FROM " + _tableName + " WHERE " + query, (object)param);
+            } 
 
             return items;
+        }
+
+        /// <summary>
+        /// Finds the specified param.
+        /// </summary>
+        /// <param name="param">The param.</param>
+        /// <returns></returns>
+        public virtual IEnumerable<T> Find(dynamic param)
+        {
+            return Find(DynamicQuery.GetWhereQuery(param), param);
         }
 
         /// <summary>

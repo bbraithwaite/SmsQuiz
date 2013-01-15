@@ -7,6 +7,6 @@ namespace BB.SmsQuiz.Infrastructure.Encryption
 {
     public interface IEncryptionService
     {
-        string Encrypt(string value);
+        byte[] Encrypt(string value);
     }
 }

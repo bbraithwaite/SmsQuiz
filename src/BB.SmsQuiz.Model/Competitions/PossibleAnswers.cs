@@ -17,7 +17,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// The possible answers
         /// </summary>
-        private Dictionary<CompetitionAnswer, PossibleAnswer> _possibleAnswers = null;
+        private readonly Dictionary<CompetitionAnswer, PossibleAnswer> _possibleAnswers = null;
 
         /// <summary>
         /// Gets the answers.
@@ -62,7 +62,6 @@ namespace BB.SmsQuiz.Model.Competitions
         /// Adds the specified possible answer.
         /// </summary>
         /// <param name="possibleAnswer">The possible answer.</param>
-        /// <exception cref="DuplicateAnswerException"></exception>
         public void Add(PossibleAnswer possibleAnswer)
         {
             _possibleAnswers[possibleAnswer.AnswerKey] = possibleAnswer;
@@ -73,9 +72,6 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </summary>
         protected override void Validate()
         {
-            if (Answers.Count() != ValidNumberOfAnswers)
-                ValidationErrors.Add("PossibleAnswers", "There should be four possible answers");
-
             if (CorrectAnswer == null)
                 ValidationErrors.Add("Correct Answer");
         }
@@ -89,7 +85,7 @@ namespace BB.SmsQuiz.Model.Competitions
 
             for (int i = 1; i <= ValidNumberOfAnswers; i++)
             {
-                CompetitionAnswer key = (CompetitionAnswer)i;
+                var key = (CompetitionAnswer)i;
                 _possibleAnswers.Add(key, new PossibleAnswer(key));
             }
         }

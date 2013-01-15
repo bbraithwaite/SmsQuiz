@@ -31,13 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
+    <Reference Include="Dapper, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Dapper.1.12.1\lib\net40\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -46,15 +46,12 @@
   <ItemGroup>
     <Compile Include="CompetitionRepository.cs" />
     <Compile Include="DapperExtensions.cs" />
+    <Compile Include="DynamicQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\RepoWrapper\RepoWrapper\RepoWrapper.csproj">
-      <Project>{8F93D74F-16C0-4FFE-9FB8-1B5CBC190B18}</Project>
-      <Name>RepoWrapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BB.SmsQuiz.Infrastructure\BB.SmsQuiz.Infrastructure.csproj">
       <Project>{ACFE02A0-A487-4885-8124-CBC2E79B233E}</Project>
       <Name>BB.SmsQuiz.Infrastructure</Name>

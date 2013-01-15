@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using BB.SmsQuiz.Infrastructure.Domain;
-using BB.SmsQuiz.Model.Competitions;
+﻿using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.States;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -9,7 +6,7 @@ using Moq;
 namespace BB.SmsQuiz.Model.Tests.Competitions
 {
     /// <summary>
-    /// Tests for Competitions
+    /// Tests for Competitions 
     /// </summary>
     [TestClass]
     public class CompetitionTests
@@ -37,7 +34,7 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         public void CompetitionIsNotValid()
         {
             // Arrange
-            Competition competition = new Competition();
+            var competition = new Competition();
 
             // Act
             bool isValid = competition.IsValid;
@@ -53,8 +50,8 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         public void PickWinnerCallsCompetitionState()
         {
             // Arrange
-            Mock<ICompetitionState> state = new Mock<ICompetitionState>();
-            Competition competition = new Competition(state.Object);
+            var state = new Mock<ICompetitionState>();
+            var competition = new Competition(state.Object);
 
             // Act
             competition.PickWinner();

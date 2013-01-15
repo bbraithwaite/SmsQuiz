@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+  <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+  <li>@Html.ActionLink("Competitions", "Index", "Competitions") <span class="divider">/</span></li>
+    <li class="active">@Model.Question</li>
+</ul>
+
+<h2>Competition: @Model.Question</h2>
+
+<p>Question: @Model.Question</p>
+<p>Created: @Model.CreatedDate.ToString("dd MMM yyyy")</p>
+<p>Closing: @Model.ClosingDate.ToString("dd MMM yyyy")</p>
+<p>Competition Key: @Model.CompetitionKey</p>
+<p>Created By: @Model.CreatedBy.Username</p>
+<h5>Possible Answers:</h5>
+<ol>
+    @foreach (var p in Model.PossibleAnswers)
+    {
+        <li>@p.AnswerText</li>
+    }
+</ol>
+
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['Answers', 'Per Key'],
+        ['@Model.PossibleAnswers[0].AnswerText', @Model.Statistics.AnswerACount],
+        ['@Model.PossibleAnswers[1].AnswerText', @Model.Statistics.AnswerBCount],
+        ['@Model.PossibleAnswers[2].AnswerText', @Model.Statistics.AnswerCCount],
+        ['@Model.PossibleAnswers[3].AnswerText', @Model.Statistics.AnswerDCount]
+    ]);
+
+        var options = {
+            title: 'Statistics'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>

@@ -5,5 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<ul class="breadcrumb">
+  <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+  <li>@Html.ActionLink("Competitions", "Index", "Competitions") <span class="divider">/</span></li>
+  <li class="active">Create</li>
+</ul>
+
 <h2>Create</h2>
-@Html.Partial("Competition", @Model)
+@using (Html.BeginForm("Create", "Competitions", FormMethod.Post, new {@class = "form-horizontal"}))
+{
+    @Html.Partial("Competition", @Model)
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+}

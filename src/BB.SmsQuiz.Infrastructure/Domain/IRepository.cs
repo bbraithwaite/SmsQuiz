@@ -39,7 +39,13 @@ namespace BB.SmsQuiz.Infrastructure.Domain
         /// Gets all.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+        IEnumerable<T> Find(dynamic param);
+
+        /// <summary>
+        /// Gets all.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<T> Find(string query, dynamic param);
 
         /// <summary>
         /// Gets all.

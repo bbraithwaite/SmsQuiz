@@ -1,5 +1,5 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Mvc;
 using BB.SmsQuiz.Api.App_Start;
 
 namespace BB.SmsQuiz.Api
@@ -12,6 +12,8 @@ namespace BB.SmsQuiz.Api
         protected void Application_Start()
         {
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+            AutoMapperBootStrapper.Configure();
         }
     }
 }

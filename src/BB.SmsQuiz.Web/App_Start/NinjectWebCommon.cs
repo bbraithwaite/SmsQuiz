@@ -1,3 +1,5 @@
+using System.Net.Http;
+
 [assembly: WebActivator.PreApplicationStartMethod(typeof(BB.SmsQuiz.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(BB.SmsQuiz.Web.App_Start.NinjectWebCommon), "Stop")]
 
@@ -10,11 +12,6 @@ namespace BB.SmsQuiz.Web.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using BB.SmsQuiz.Services;
-    using BB.SmsQuiz.Services.Implementation;
-    using BB.SmsQuiz.Infrastructure.Domain;
-    using BB.SmsQuiz.Repository.Dapper;
-    using BB.SmsQuiz.Model.Competitions;
 
     public static class NinjectWebCommon 
     {
@@ -58,9 +55,7 @@ namespace BB.SmsQuiz.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ICompetitionService>().To<CompetitionService>();
-            kernel.Bind<IMapper>().To<AutoMapperService>();
-            kernel.Bind<ICompetitionRepository>().To<CompetitionRepository>();
+            kernel.Bind<HttpClient>().ToMethod(ctx => ApiClient.GetClient()).InSingletonScope();
         }        
     }
 }
