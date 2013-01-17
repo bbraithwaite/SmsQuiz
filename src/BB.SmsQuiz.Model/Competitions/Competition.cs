@@ -192,18 +192,6 @@ namespace BB.SmsQuiz.Model.Competitions
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Competition" /> class.
-        /// </summary>
-        /// <param name="state">The state.</param>
-        public Competition(ICompetitionState state)
-        {
-            CreatedDate = DateTime.Now;
-            State = state;
-            _entrants = new List<Entrant>();
-            PossibleAnswers = new PossibleAnswers();
-        }
-
-        /// <summary>
         /// Validates this instance.
         /// </summary>
         protected override void Validate()
@@ -257,12 +245,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <returns>The number of entrants for a given answer.</returns>
         public int GetNumberOfEntrants(CompetitionAnswer answer)
         {
-            if (ValidEntrants.Any())
-            {
-                return ValidEntrants.Count(e => e.Answer == answer);
-            }
-
-            return 0; 
+            return ValidEntrants.Any() ? ValidEntrants.Count(e => e.Answer == answer) : 0;
         }
 
         /// <summary>
@@ -274,7 +257,7 @@ namespace BB.SmsQuiz.Model.Competitions
         {
             if (ValidEntrants.Any())
             {
-                return (decimal)ValidEntrants.Count(e => e.Answer == answer)/ValidEntrants.Count()*100;
+                return (decimal)ValidEntrants.Count(e => e.Answer == answer) / ValidEntrants.Count() * 100;
             }
 
             return 0;

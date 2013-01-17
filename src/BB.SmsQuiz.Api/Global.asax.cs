@@ -12,7 +12,6 @@ namespace BB.SmsQuiz.Api
         protected void Application_Start()
         {
             WebApiConfig.Register(GlobalConfiguration.Configuration);
-            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             AutoMapperBootStrapper.Configure();
         }
     }

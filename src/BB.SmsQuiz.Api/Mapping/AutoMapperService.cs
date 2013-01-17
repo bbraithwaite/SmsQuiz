@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using BB.SmsQuiz.Infrastructure.Mapping;
 
-namespace BB.SmsQuiz.Infrastructure.Mapping
+namespace BB.SmsQuiz.Api.Mapping
 {
     /// <summary>
     /// The mapper service using AutoMapper

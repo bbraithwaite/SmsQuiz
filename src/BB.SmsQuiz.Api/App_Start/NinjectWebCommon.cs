@@ -1,3 +1,4 @@
+using BB.SmsQuiz.Api.Mapping;
 using BB.SmsQuiz.Infrastructure.Encryption;
 using BB.SmsQuiz.Infrastructure.Mapping;
 using BB.SmsQuiz.Model.Users;

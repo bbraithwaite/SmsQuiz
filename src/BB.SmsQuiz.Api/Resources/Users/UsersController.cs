@@ -53,13 +53,8 @@ namespace BB.SmsQuiz.Api.Resources.Users
         public UserItem Get(Guid id)
         {
             var user = _userRepository.FindByID(id);
-
-            if (user != null)
-            {
-                return _mapper.Map<User, UserItem>(user);
-            }
-
-            throw new NotFoundException();
+            if (user == null) throw new NotFoundException();
+            return _mapper.Map<User, UserItem>(user);
         }
 
         // POST users
@@ -87,10 +82,7 @@ namespace BB.SmsQuiz.Api.Resources.Users
         {
             User user = _userRepository.FindByID(id);
 
-            if (user == null)
-            {
-                throw new NotFoundException();
-            }
+            if (user == null) throw new NotFoundException();
 
             user.Username = item.Username;
 
@@ -108,10 +100,7 @@ namespace BB.SmsQuiz.Api.Resources.Users
         {
             var user = _userRepository.FindByID(id);
 
-            if (user == null)
-            {
-                throw new NotFoundException();
-            }
+            if (user == null) throw new NotFoundException();
 
             _userRepository.Remove(user);
 

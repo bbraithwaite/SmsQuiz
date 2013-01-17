@@ -6,8 +6,6 @@ using BB.SmsQuiz.Api.Filters;
 using BB.SmsQuiz.Infrastructure.Mapping;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.States;
-using System.Linq;
-using BB.SmsQuiz.Model.Users;
 
 namespace BB.SmsQuiz.Api.Resources.Competitions
 {

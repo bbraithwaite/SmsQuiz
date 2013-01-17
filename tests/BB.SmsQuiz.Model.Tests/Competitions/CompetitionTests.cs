@@ -51,7 +51,8 @@ namespace BB.SmsQuiz.Model.Tests.Competitions
         {
             // Arrange
             var state = new Mock<ICompetitionState>();
-            var competition = new Competition(state.Object);
+            var competition = new Competition();
+            competition.SetCompetitionState(new ClosedState());
 
             // Act
             competition.PickWinner();
