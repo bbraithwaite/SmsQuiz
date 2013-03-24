@@ -6,6 +6,7 @@ using BB.SmsQuiz.Web.Models;
 
 namespace BB.SmsQuiz.Web.Controllers
 {
+    [Authorize]
     public class CompetitionsController : BaseController
     {
         /// <summary>
@@ -141,5 +142,22 @@ namespace BB.SmsQuiz.Web.Controllers
 
             return ErrorView(response);
         }
+
+        //
+        // POST: /Competition/Create
+        [HttpPost]
+        public ActionResult Close(Guid id)
+        {
+            var response = _client.PutAsJsonAsync("competitions/" + id + "/close", new {}).Result;
+
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                    return RedirectToAction("Details", new { id });
+            }
+
+            return ErrorView(response);
+        }
+
     }
 }

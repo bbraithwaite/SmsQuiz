@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BB.SmsQuiz.Api.Resources.Users
+namespace BB.SmsQuiz.Api.Controllers.Users
 {
     [Serializable, DataContract]
     public class CreateUserItem

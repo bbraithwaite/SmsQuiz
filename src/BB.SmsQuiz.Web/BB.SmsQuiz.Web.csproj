@@ -139,7 +139,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompetitionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -147,6 +147,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\AspNetFormsAuthentication.cs" />
+    <Compile Include="Infrastructure\IFormsAuthentication.cs" />
+    <Compile Include="Models\AuthenticationViewModel.cs" />
     <Compile Include="Models\CompetitionViewModel.cs" />
     <Compile Include="Models\PossibleAnswerItem.cs" />
     <Compile Include="Models\UserView.cs" />
@@ -198,10 +201,7 @@
     <Content Include="Views\Competitions\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Accounts\LogOn.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Authentication\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Users\Create.cshtml" />

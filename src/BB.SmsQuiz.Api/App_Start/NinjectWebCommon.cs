@@ -1,6 +1,13 @@
+using System.Web.Http.Filters;
+using BB.SmsQuiz.Api.Infrastructure;
+using BB.SmsQuiz.Api.EventHandlers;
+using BB.SmsQuiz.Api.Filters;
 using BB.SmsQuiz.Api.Mapping;
+using BB.SmsQuiz.Infrastructure.Authentication;
+using BB.SmsQuiz.Infrastructure.Domain.Events;
 using BB.SmsQuiz.Infrastructure.Encryption;
 using BB.SmsQuiz.Infrastructure.Mapping;
+using BB.SmsQuiz.Model.Competitions.Events;
 using BB.SmsQuiz.Model.Users;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(BB.SmsQuiz.Api.App_Start.NinjectWebCommon), "Start")]
@@ -50,10 +57,11 @@ namespace BB.SmsQuiz.Api.App_Start
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-            
+
             RegisterServices(kernel);
 
             GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
+            DomainEvents.Container = new NinjectEventContainer(kernel);
 
             return kernel;
         }
@@ -68,6 +76,8 @@ namespace BB.SmsQuiz.Api.App_Start
             kernel.Bind<ICompetitionRepository>().To<CompetitionRepository>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<IEncryptionService>().To<EncryptionService>();
+            kernel.Bind<IDomainEventHandler<WinnerSelectedEvent>>().To<WinnerSelectedHandler>();
+            kernel.Bind<ITokenAuthentication>().To<FakeTokenAuthentication>();
         }        
     }
 }

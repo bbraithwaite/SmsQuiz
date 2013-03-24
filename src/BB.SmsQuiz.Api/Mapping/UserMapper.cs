@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using BB.SmsQuiz.Api.Resources.Users;
+using BB.SmsQuiz.Api.Controllers.Users;
 using BB.SmsQuiz.Model.Users;
 
 namespace BB.SmsQuiz.Api.Mapping

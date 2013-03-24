@@ -6,6 +6,7 @@ using BB.SmsQuiz.Web.Models;
 
 namespace BB.SmsQuiz.Web.Controllers
 {
+    [Authorize]
     public class UsersController : BaseController
     {
         /// <summary>

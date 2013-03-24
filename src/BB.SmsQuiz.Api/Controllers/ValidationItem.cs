@@ -1,5 +1,5 @@
 ﻿
-namespace BB.SmsQuiz.Api.Resources
+namespace BB.SmsQuiz.Api.Controllers
 {
     public class ValidationItem
     {

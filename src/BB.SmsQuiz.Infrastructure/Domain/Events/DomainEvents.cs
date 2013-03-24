@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -13,11 +14,16 @@ namespace BB.SmsQuiz.Infrastructure.Domain.Events
     public static class DomainEvents
     {
         /// <summary>
-        /// The actions.
+        /// The _actions.
         /// </summary>
         /// <remarks>Marked as ThreadStatic that each thread has its own callbacks</remarks>
         [ThreadStatic]
-        private static List<Delegate> actions;
+        private static List<Delegate> _actions;
+
+        /// <summary>
+        /// The container
+        /// </summary>
+        public static IEventContainer Container;
 
         /// <summary>
         /// Registers the specified callback for the given domain event.
@@ -26,20 +32,11 @@ namespace BB.SmsQuiz.Infrastructure.Domain.Events
         /// <param name="callback">The callback.</param>
         public static void Register<T>(Action<T> callback) where T : IDomainEvent
         {
-            if (actions == null)
-                actions = new List<Delegate>();
+            if (_actions == null)
+                _actions = new List<Delegate>();
 
-            actions.Add(callback);
+            _actions.Add(callback);
         }
-
-        /// <summary>
-        /// Clears the callbacks passed to Register on the current thread.
-        /// </summary>
-        public static void ClearCallbacks()
-        {
-            actions = null;
-        }
-
         /// <summary>
         /// Raises the specified domain event and calls the event handlers.
         /// </summary>
@@ -47,13 +44,13 @@ namespace BB.SmsQuiz.Infrastructure.Domain.Events
         /// <param name="domainEvent">The domain event.</param>
         public static void Raise<T>(T domainEvent) where T : IDomainEvent
         {
-            // TODO: wire in IoC container for service layer calls
-            //if (Container != null)
-                //foreach (var handler in Container.ResolveAll<IDomainEventHandlerFactory<T>>())
-                   // handler.Handle(domainEvent);
+            if (Container != null)
+                foreach (var handler in Container.Handlers(domainEvent))
+                    handler.Handle(domainEvent);
 
-            if (actions != null)
-                foreach (var action in actions)
+            // registered actions, typically used for unit tests.
+            if (_actions != null)
+                foreach (var action in _actions)
                     if (action is Action<T>)
                         ((Action<T>)action)(domainEvent);
         }

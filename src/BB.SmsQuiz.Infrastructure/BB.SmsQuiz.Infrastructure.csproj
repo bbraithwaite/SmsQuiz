@@ -49,10 +49,12 @@
   <ItemGroup>
     <Compile Include="Authentication\AspNetFormsAuthentication.cs" />
     <Compile Include="Authentication\IFormsAuthentication.cs" />
+    <Compile Include="Authentication\ITokenAuthentication.cs" />
     <Compile Include="Domain\Events\DomainEvents.cs" />
     <Compile Include="Domain\EntityBase.cs" />
     <Compile Include="Domain\Events\IDomainEvent.cs" />
     <Compile Include="Domain\Events\IDomainEventHandler.cs" />
+    <Compile Include="Domain\Events\IEventContainer.cs" />
     <Compile Include="Domain\IAggregateRoot.cs" />
     <Compile Include="Domain\IEnumerableExtensions.cs" />
     <Compile Include="Mapping\IMapper.cs" />

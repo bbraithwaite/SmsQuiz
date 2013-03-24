@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using System.Web.Mvc;
 using BB.SmsQuiz.Api.App_Start;
 
 namespace BB.SmsQuiz.Api

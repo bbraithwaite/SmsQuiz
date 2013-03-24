@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
-using BB.SmsQuiz.Api.Resources.Competitions;
-using BB.SmsQuiz.Api.Resources.Users;
+using BB.SmsQuiz.Api.Controllers.Competitions;
+using BB.SmsQuiz.Api.Controllers.Users;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Users;
 using System.Collections.Generic;
@@ -24,6 +24,7 @@ namespace BB.SmsQuiz.Api.Mapping
             item.ID = competition.ID;
             item.PossibleAnswers = Mapper.Map<PossibleAnswers, IEnumerable<PossibleAnswerItem>>(competition.PossibleAnswers);
             item.Question = competition.Question;
+            item.Status = competition.Status.ToString();
 
             statistics.CorrectCount = competition.CorrectEntrants.Count();
             statistics.IncorrectCount = competition.IncorrectEntrants.Count();

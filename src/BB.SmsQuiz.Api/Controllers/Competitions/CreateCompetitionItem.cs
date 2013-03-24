@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BB.SmsQuiz.Api.Resources.Competitions
+namespace BB.SmsQuiz.Api.Controllers.Competitions
 {
     public class CreateCompetitionItem
     {

@@ -7,34 +7,14 @@ using BB.SmsQuiz.Infrastructure.Encryption;
 using BB.SmsQuiz.Infrastructure.Mapping;
 using BB.SmsQuiz.Model.Users;
 
-namespace BB.SmsQuiz.Api.Resources.Users
+namespace BB.SmsQuiz.Api.Controllers.Users
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class UsersController : BaseController
     {
-        /// <summary>
-        /// The _user repository
-        /// </summary>
         private readonly IUserRepository _userRepository;
-
-        /// <summary>
-        /// The _mapper
-        /// </summary>
         private readonly IMapper _mapper;
-
-        /// <summary>
-        /// The _encryption service
-        /// </summary>
         private readonly IEncryptionService _encryptionService;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UsersController" /> class.
-        /// </summary>
-        /// <param name="userRepository">The user repository.</param>
-        /// <param name="mapper">The mapper.</param>
-        /// <param name="encryptionService">The encryption service.</param>
         public UsersController(IUserRepository userRepository, IMapper mapper, IEncryptionService encryptionService)
         {
             _userRepository = userRepository;

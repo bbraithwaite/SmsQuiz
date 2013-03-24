@@ -2,6 +2,7 @@
 
 namespace BB.SmsQuiz.Web.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController
     {
         //

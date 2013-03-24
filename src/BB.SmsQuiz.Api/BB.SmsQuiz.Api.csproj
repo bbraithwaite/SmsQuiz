@@ -111,28 +111,35 @@
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperBootStrapper.cs" />
     <Compile Include="App_Start\NinjectDependencyResolver.cs" />
+    <Compile Include="App_Start\NinjectEventContainer.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Infrastructure\FakeTokenAuthentication.cs" />
+    <Compile Include="EventHandlers\WinnerSelectedHandler.cs" />
+    <Compile Include="Filters\TokenValidationAttribute.cs" />
     <Compile Include="Mapping\AutoMapperService.cs" />
     <Compile Include="Mapping\CompetitionMapper.cs" />
     <Compile Include="Mapping\EntrantMapper.cs" />
     <Compile Include="Mapping\UserMapper.cs" />
-    <Compile Include="Resources\BaseController.cs" />
-    <Compile Include="Resources\Competitions\CompetitionsController.cs" />
+    <Compile Include="Controllers\Authentication\AuthenticationController.cs" />
+    <Compile Include="Controllers\Authentication\LoginItem.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CloseCompetitions\CloseCompetitionController.cs" />
+    <Compile Include="Controllers\Competitions\CompetitionsController.cs" />
     <Compile Include="Filters\NotFoundException.cs" />
-    <Compile Include="Resources\EnterCompetition\EnterCompetitionController.cs" />
-    <Compile Include="Resources\EnterCompetition\CreateEntrantItem.cs" />
-    <Compile Include="Resources\Users\UpdateUserItem.cs" />
-    <Compile Include="Resources\Users\UsersController.cs" />
+    <Compile Include="Controllers\EnterCompetition\EnterCompetitionController.cs" />
+    <Compile Include="Controllers\EnterCompetition\CreateEntrantItem.cs" />
+    <Compile Include="Controllers\Users\UpdateUserItem.cs" />
+    <Compile Include="Controllers\Users\UsersController.cs" />
     <Compile Include="Filters\UnhandledExceptionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Competitions\CompetitionItem.cs" />
-    <Compile Include="Resources\Competitions\CreateCompetitionItem.cs" />
-    <Compile Include="Resources\Users\CreateUserItem.cs" />
-    <Compile Include="Resources\Users\UserItem.cs" />
-    <Compile Include="Resources\ValidationItem.cs" />
+    <Compile Include="Controllers\Competitions\CompetitionItem.cs" />
+    <Compile Include="Controllers\Competitions\CreateCompetitionItem.cs" />
+    <Compile Include="Controllers\Users\CreateUserItem.cs" />
+    <Compile Include="Controllers\Users\UserItem.cs" />
+    <Compile Include="Controllers\ValidationItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

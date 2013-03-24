@@ -20,6 +20,7 @@ namespace BB.SmsQuiz.Web.Models
         public CompetitionViewModel()
         {
             var selectList = new List<SelectListItem>();
+            var answers = new List<string>();
 
             for (int i = 0; i < 4; i++)
             {
@@ -29,10 +30,11 @@ namespace BB.SmsQuiz.Web.Models
                     Text = (i + 1).ToString(),
                     Value = i.ToString()
                 });
+                answers.Add("");
             }
 
             this.PossibleAnswerSelectList = selectList;
-            this.Answers = new List<string>();
+            this.Answers = answers;
         }
     }
 }

@@ -20,7 +20,16 @@
         @Html.EditorFor(model => model.ClosingDate)
     </div>
 </div>
-@Html.EditorFor(model => model.Answers)
+@for (int i = 0; i < Model.Answers.Count(); i++)
+{
+      <div class="control-group">
+        @Html.LabelFor(model => Model.Answers[i], "Answer " + (i + 1), new { @class = "control-label" })
+        <div class="controls">
+            @Html.EditorFor(model =>  Model.Answers[i])
+        </div>
+    </div>
+}
+
 <div class="control-group">
     @Html.LabelFor(model => model.CorrectAnswer, "Correct Answer", new { @class = "control-label" })
     <div class="controls">

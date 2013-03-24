@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using BB.SmsQuiz.Api.Resources.EnterCompetition;
+using BB.SmsQuiz.Api.Controllers.EnterCompetition;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.Entrants;
 

@@ -1,4 +1,5 @@
 using System.Net.Http;
+using BB.SmsQuiz.Web.Infrastructure;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(BB.SmsQuiz.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(BB.SmsQuiz.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -56,6 +57,7 @@ namespace BB.SmsQuiz.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<HttpClient>().ToMethod(ctx => ApiClient.GetClient()).InSingletonScope();
+            kernel.Bind<IFormsAuthentication>().To<AspNetFormsAuthentication>();
         }        
     }
 }

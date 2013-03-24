@@ -19,6 +19,16 @@ namespace BB.SmsQuiz.Api.App_Start
                     controller = "EnterCompetition"
                 }
             );
+
+            configuration.Routes.MapHttpRoute(
+                name: "CloseCompetition",
+                routeTemplate: "competitions/{id}/close",
+                defaults: new
+                {
+                    controller = "CloseCompetition"
+                }
+            );
+
             configuration.Routes.MapHttpRoute("DefaultApi", "{controller}/{id}",
                 new { id = RouteParameter.Optional });
 

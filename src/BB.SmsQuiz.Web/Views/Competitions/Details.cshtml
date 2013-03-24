@@ -16,6 +16,7 @@
 <p>Closing: @Model.ClosingDate.ToString("dd MMM yyyy")</p>
 <p>Competition Key: @Model.CompetitionKey</p>
 <p>Created By: @Model.CreatedBy.Username</p>
+<p>Status: @Model.Status</p>
 <h5>Possible Answers:</h5>
 <ol>
     @foreach (var p in Model.PossibleAnswers)
@@ -23,7 +24,11 @@
         <li>@p.AnswerText</li>
     }
 </ol>
-
+@using (Html.BeginForm("Close", "Competitions", FormMethod.Post, new {@class = "form-horizontal"}))
+{
+    <input type="hidden" value="@Model.ID" name="id" />
+    <input type="submit" value="Close" class="btn btn-primary" />
+}
 <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>

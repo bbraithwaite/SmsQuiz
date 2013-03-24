@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using BB.SmsQuiz.Api.Resources.Users;
+using BB.SmsQuiz.Api.Controllers.Users;
 using BB.SmsQuiz.Model.Competitions;
 
-namespace BB.SmsQuiz.Api.Resources.Competitions
+namespace BB.SmsQuiz.Api.Controllers.Competitions
 {
     [Serializable, DataContract]
     public class CompetitionItem
@@ -26,6 +26,9 @@ namespace BB.SmsQuiz.Api.Resources.Competitions
 
         [DataMember]
         public UserItem CreatedBy { get; set; }
+
+        [DataMember]
+        public string Status { get; set; }
 
         [DataMember]
         public IEnumerable<PossibleAnswerItem> PossibleAnswers { get; set; }

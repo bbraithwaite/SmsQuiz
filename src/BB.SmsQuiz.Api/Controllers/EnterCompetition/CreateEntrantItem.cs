@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BB.SmsQuiz.Api.Resources.EnterCompetition
+namespace BB.SmsQuiz.Api.Controllers.EnterCompetition
 {
     [Serializable, DataContract]
     public class CreateEntrantItem

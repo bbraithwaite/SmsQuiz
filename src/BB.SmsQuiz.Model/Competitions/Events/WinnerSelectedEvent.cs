@@ -19,7 +19,6 @@ namespace BB.SmsQuiz.Model.Competitions.Events
         /// Initializes a new instance of the <see cref="WinnerSelectedEvent" /> class.
         /// </summary>
         /// <param name="competition">The competition.</param>
-        /// <param name="winningEntrant">The winning entrant.</param>
         public WinnerSelectedEvent(Competition competition)
         {
             Competition = competition;

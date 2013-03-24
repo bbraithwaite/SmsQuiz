@@ -3,37 +3,28 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using BB.SmsQuiz.Api.Filters;
+using BB.SmsQuiz.Infrastructure.Authentication;
 using BB.SmsQuiz.Infrastructure.Mapping;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.States;
 
-namespace BB.SmsQuiz.Api.Resources.Competitions
+namespace BB.SmsQuiz.Api.Controllers.Competitions
 {
     /// <summary>
     /// The api calls for the competition details
     /// </summary>
-    [UnhandledException]
+    [UnhandledException, TokenValidationAttribute]
     public class CompetitionsController : BaseController
     {
-        /// <summary>
-        /// The _competition repository
-        /// </summary>
         private readonly ICompetitionRepository _competitionRepository;
-
-        /// <summary>
-        /// The mapper instance.
-        /// </summary>
         private readonly IMapper _mapper;
+        private readonly ITokenAuthentication _authentication;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CompetitionsController" /> class.
-        /// </summary>
-        /// <param name="competitionRepository">The competition repository.</param>
-        /// <param name="mapper">The mapper.</param>
-        public CompetitionsController(ICompetitionRepository competitionRepository, IMapper mapper)
+        public CompetitionsController(ICompetitionRepository competitionRepository, IMapper mapper,  ITokenAuthentication authentication)
         {
             _competitionRepository = competitionRepository;
             _mapper = mapper;
+            _authentication = authentication;
         }
 
         // GET competition
@@ -90,14 +81,13 @@ namespace BB.SmsQuiz.Api.Resources.Competitions
         {
             var competition = _competitionRepository.FindByID(id);
 
-            if (competition == null)
+            if (competition != null)
             {
-                throw new NotFoundException();
+                _competitionRepository.Remove(competition);
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
             }
 
-            _competitionRepository.Remove(competition);
-
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            throw new NotFoundException();
         }
     }
 }
