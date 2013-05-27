@@ -7,7 +7,7 @@ namespace BB.SmsQuiz.Infrastructure.Authentication
 {
     public interface ITokenAuthentication
     {
-        string GetToken();
+        string Token { get; }
         bool IsValid(string token);
     }
 }

@@ -6,16 +6,9 @@ using BB.SmsQuiz.Web.Models;
 
 namespace BB.SmsQuiz.Web.Controllers
 {
-    public class AuthenticationController : Controller
+    public class AuthenticationController : BaseController
     {
-        private readonly HttpClient _client;
-        private readonly IFormsAuthentication _formsAuthentication;
-
-        public AuthenticationController(HttpClient client, IFormsAuthentication formsAuthentication)
-        {
-            _client = client;
-            _formsAuthentication = formsAuthentication;
-        }
+        public AuthenticationController(IBaseContext context) :base(context) { }
 
         //
         // GET: /Accounts/Logon
@@ -30,9 +23,11 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Index(AuthenticationViewModel model)
         {
-            if (_client.PostAsJsonAsync("authentication", model).Result.StatusCode == HttpStatusCode.OK)
+            var result = Client.PostAsJsonAsync("authentication", model).Result;
+
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                _formsAuthentication.SetAuthenticationToken(model.Username);
+                FormsAuthentication.SetAuthenticationToken(result.Content.ReadAsAsync<string>().Result);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -43,7 +38,7 @@ namespace BB.SmsQuiz.Web.Controllers
         // GET: /Accounts/LogOut
         public ActionResult LogOut()
         {
-            _formsAuthentication.SignOut();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index");
         }
     }

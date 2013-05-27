@@ -58,6 +58,7 @@ namespace BB.SmsQuiz.Web.App_Start
         {
             kernel.Bind<HttpClient>().ToMethod(ctx => ApiClient.GetClient()).InSingletonScope();
             kernel.Bind<IFormsAuthentication>().To<AspNetFormsAuthentication>();
+            kernel.Bind<IBaseContext>().To<BaseContext>().InRequestScope();
         }        
     }
 }

@@ -51,11 +51,12 @@ namespace BB.SmsQuiz.Model.Competitions.Entrants
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
         /// <returns>A value indicating whether the email address is valid.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "address"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private static bool ValidateEmail(string emailAddress)
         {
             try
             {
-                MailAddress address = new MailAddress(emailAddress);
+                var address = new MailAddress(emailAddress);
                 return true;
             }
             catch

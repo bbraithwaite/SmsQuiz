@@ -148,6 +148,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AspNetFormsAuthentication.cs" />
+    <Compile Include="Infrastructure\BaseContext.cs" />
     <Compile Include="Infrastructure\IFormsAuthentication.cs" />
     <Compile Include="Models\AuthenticationViewModel.cs" />
     <Compile Include="Models\CompetitionViewModel.cs" />

@@ -14,9 +14,9 @@ namespace BB.SmsQuiz.Infrastructure.Authentication
             FormsAuthentication.SetAuthCookie(token, false);
         }
 
-        public string GetAuthenticationToken()
+        public string AuthenticationToken
         {
-            return HttpContext.Current.User.Identity.Name;
+            get { return HttpContext.Current.User.Identity.Name; }
         }
 
         public void SignOut()

@@ -5,8 +5,12 @@ using System.Text;
 
 namespace BB.SmsQuiz.Model.Competitions.Entrants
 {
-    public class EntrantContactFactory
+    public sealed class EntrantContactFactory
     {
+        private EntrantContactFactory()
+        {
+        }
+
         public static IEntrantContact GetInstance(EntrantContactType type)
         {
             switch (type)

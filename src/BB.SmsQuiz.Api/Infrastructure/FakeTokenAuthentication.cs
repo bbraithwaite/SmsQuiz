@@ -9,9 +9,9 @@ namespace BB.SmsQuiz.Api.Infrastructure
             return (token == "teddybear");
         }
 
-        public string GetToken()
+        public string Token
         {
-            return "teddybear";
+            get { return "teddybear"; }
         }
     }
 }

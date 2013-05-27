@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BB.SmsQuiz.Api.Mapping;
-using BB.SmsQuiz.Api.Controllers.Competitions;
-using BB.SmsQuiz.Api.Controllers.EnterCompetition;
-using BB.SmsQuiz.Api.Controllers.Users;
+using BB.SmsQuiz.ApiModel.Competitions;
+using BB.SmsQuiz.ApiModel.EnterCompetition;
+using BB.SmsQuiz.ApiModel.Users;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.Entrants;
 using BB.SmsQuiz.Model.Users;
@@ -14,15 +14,15 @@ namespace BB.SmsQuiz.Api.App_Start
     {
         public static void Configure()
         {
-            Mapper.CreateMap<Competition, CompetitionItem>().ConvertUsing(new CompetitionStatisticsConverter());
-            Mapper.CreateMap<CreateCompetitionItem, Competition>().ConvertUsing(new CreateCompetitionItemConverter());
-            Mapper.CreateMap<User, UserItem>().ConvertUsing(new UserItemConverter());
-            Mapper.CreateMap<IEnumerable<User>, IEnumerable<UserItem>>().ConvertUsing(new UserItemsConverter());
+            Mapper.CreateMap<Competition, GetCompetition>().ConvertUsing(new CompetitionStatisticsConverter());
+            Mapper.CreateMap<PostCompetition, Competition>().ConvertUsing(new CreateCompetitionItemConverter());
+            Mapper.CreateMap<User, GetUser>().ConvertUsing(new UserItemConverter());
+            Mapper.CreateMap<IEnumerable<User>, IEnumerable<GetUser>>().ConvertUsing(new UserItemsConverter());
             Mapper.CreateMap<PossibleAnswer, PossibleAnswerItem>();
             Mapper.CreateMap<PossibleAnswerItem, PossibleAnswer>();
             Mapper.CreateMap<IEnumerable<PossibleAnswerItem>, PossibleAnswers>().ConvertUsing(new PossibleAnswerItemsConverter());
             Mapper.CreateMap<PossibleAnswers, IEnumerable<PossibleAnswerItem>>().ConvertUsing(new PossibleAnswersConverter());
-            Mapper.CreateMap<CreateEntrantItem, Entrant>().ConvertUsing(new EntrantItemConverter());
+            Mapper.CreateMap<PostEnterCompetition, Entrant>().ConvertUsing(new EntrantItemConverter());
         }
     }
 }

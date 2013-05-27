@@ -121,28 +121,24 @@
     <Compile Include="Mapping\CompetitionMapper.cs" />
     <Compile Include="Mapping\EntrantMapper.cs" />
     <Compile Include="Mapping\UserMapper.cs" />
-    <Compile Include="Controllers\Authentication\AuthenticationController.cs" />
-    <Compile Include="Controllers\Authentication\LoginItem.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CloseCompetitions\CloseCompetitionController.cs" />
-    <Compile Include="Controllers\Competitions\CompetitionsController.cs" />
+    <Compile Include="Controllers\CloseCompetitionController.cs" />
+    <Compile Include="Controllers\CompetitionsController.cs" />
     <Compile Include="Filters\NotFoundException.cs" />
-    <Compile Include="Controllers\EnterCompetition\EnterCompetitionController.cs" />
-    <Compile Include="Controllers\EnterCompetition\CreateEntrantItem.cs" />
-    <Compile Include="Controllers\Users\UpdateUserItem.cs" />
-    <Compile Include="Controllers\Users\UsersController.cs" />
+    <Compile Include="Controllers\EnterCompetitionController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\UnhandledExceptionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Competitions\CompetitionItem.cs" />
-    <Compile Include="Controllers\Competitions\CreateCompetitionItem.cs" />
-    <Compile Include="Controllers\Users\CreateUserItem.cs" />
-    <Compile Include="Controllers\Users\UserItem.cs" />
-    <Compile Include="Controllers\ValidationItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BB.SmsQuiz.ApiModel\BB.SmsQuiz.ApiModel.csproj">
+      <Project>{fbfe64a2-e6b7-49b8-933d-5f788016127f}</Project>
+      <Name>BB.SmsQuiz.ApiModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BB.SmsQuiz.Infrastructure\BB.SmsQuiz.Infrastructure.csproj">
       <Project>{ACFE02A0-A487-4885-8124-CBC2E79B233E}</Project>
       <Name>BB.SmsQuiz.Infrastructure</Name>

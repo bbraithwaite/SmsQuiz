@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using BB.SmsQuiz.Web.Infrastructure;
 using BB.SmsQuiz.Web.Models;
 
 namespace BB.SmsQuiz.Web.Controllers
@@ -9,30 +10,17 @@ namespace BB.SmsQuiz.Web.Controllers
     [Authorize]
     public class CompetitionsController : BaseController
     {
-        /// <summary>
-        /// The _client
-        /// </summary>
-        private readonly HttpClient _client;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CompetitionsController" /> class.
-        /// </summary>
-        /// <param name="client">The client.</param>
-        public CompetitionsController(HttpClient client)
-        {
-            _client = client;
-        }
+        public CompetitionsController(IBaseContext context) : base(context) { }
 
         //
         // GET: /Competition/
         public ActionResult Index()
         {
-            var response = _client.GetAsync("competitions").Result;
+            var response = Client.GetAsync("competitions").Result;
 
             if (response.IsSuccessStatusCode)
             {
-                dynamic users = response.Content.ReadAsAsync<dynamic>().Result;
-                return View(users);
+                return View(response.Content.ReadAsAsync<dynamic>().Result);
             }
 
             return ErrorView(response);
@@ -43,12 +31,11 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpGet]
         public ActionResult Details(Guid id)
         {
-            var response = _client.GetAsync("competitions/" + id).Result;
+            var response = Client.GetAsync("competitions/" + id).Result;
 
             if (response.IsSuccessStatusCode)
             {
-                dynamic competition = response.Content.ReadAsAsync<dynamic>().Result;
-                return View(competition);
+                return View(response.Content.ReadAsAsync<dynamic>().Result);
             }
 
             return ErrorView(response);
@@ -67,18 +54,14 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Create(CompetitionViewModel competition)
         {
-            var response = _client.PostAsJsonAsync("competitions", competition).Result;
+            var response = Client.PostAsJsonAsync("competitions", competition).Result;
 
             switch (response.StatusCode)
             {
                 case HttpStatusCode.Created:
                     return RedirectToAction("Index");
                 case HttpStatusCode.BadRequest:
-                    foreach (var item in response.Content.ReadAsAsync<dynamic>().Result.Items)
-                    {
-                        ModelState.AddModelError(item.PropertyName.Value, item.Message.Value);
-                    }
-
+                    AddModelErrors(response);
                     return View(competition);
             }
 
@@ -90,11 +73,12 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var response = _client.GetAsync("competitions/" + id).Result;
+            var response = Client.GetAsync("competitions/" + id).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 dynamic competition = response.Content.ReadAsAsync<dynamic>().Result;
+
                 var viewModel = new CompetitionViewModel()
                 {
                     ClosingDate = competition.ClosingDate,
@@ -125,17 +109,14 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Guid id, CompetitionViewModel competition)
         {
-            var response = _client.PutAsJsonAsync("competitions/" + id, competition).Result;
+            var response = Client.PutAsJsonAsync("competitions/" + id, competition).Result;
 
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
                     return RedirectToAction("Index");
                 case HttpStatusCode.BadRequest:
-                    foreach (var item in response.Content.ReadAsAsync<dynamic>().Result.Items)
-                    {
-                        ModelState.AddModelError(item.PropertyName.Value, item.Message.Value);
-                    }
+                    AddModelErrors(response);
 
                     return View(competition);
             }
@@ -148,7 +129,7 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Close(Guid id)
         {
-            var response = _client.PutAsJsonAsync("competitions/" + id + "/close", new {}).Result;
+            var response = Client.PutAsJsonAsync("competitions/" + id + "/close", new {}).Result;
 
             switch (response.StatusCode)
             {

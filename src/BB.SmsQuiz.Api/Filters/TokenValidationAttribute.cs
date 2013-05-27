@@ -14,7 +14,7 @@ namespace BB.SmsQuiz.Api.Filters
         {
             try
             {
-                string token = actionContext.Request.Headers.GetValues("Authorization-Token").FirstOrDefault();
+                string token =actionContext.Request.Headers.Authorization.ToString();
                 var controller = (BaseController)actionContext.ControllerContext.Controller;
 
                 if (controller.TokenAuthentication.IsValid(token))

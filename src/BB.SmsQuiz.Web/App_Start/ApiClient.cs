@@ -15,6 +15,7 @@ namespace BB.SmsQuiz.Web.App_Start
                 };
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
             return client;
         }
     }

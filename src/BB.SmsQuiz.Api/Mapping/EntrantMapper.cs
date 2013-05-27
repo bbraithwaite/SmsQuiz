@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
-using BB.SmsQuiz.Api.Controllers.EnterCompetition;
+using BB.SmsQuiz.ApiModel.EnterCompetition;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.Entrants;
 
 namespace BB.SmsQuiz.Api.Mapping
 {
-    public class EntrantItemConverter : ITypeConverter<CreateEntrantItem, Entrant>
+    public class EntrantItemConverter : ITypeConverter<PostEnterCompetition, Entrant>
     {
         public Entrant Convert(ResolutionContext context)
         {
-            var item = (CreateEntrantItem)context.SourceValue;
+            var item = (PostEnterCompetition)context.SourceValue;
             var contactDetails =
                 EntrantContactFactory.GetInstance(
                     (EntrantContactType)Enum.Parse(typeof(EntrantContactType), item.ContactType));

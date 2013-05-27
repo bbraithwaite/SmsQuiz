@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
-using BB.SmsQuiz.Api.Controllers.Competitions;
-using BB.SmsQuiz.Api.Controllers.Users;
+using BB.SmsQuiz.ApiModel.Competitions;
+using BB.SmsQuiz.ApiModel.Users;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Users;
 using System.Collections.Generic;
@@ -9,19 +9,19 @@ using System.Linq;
 
 namespace BB.SmsQuiz.Api.Mapping
 {
-    public class CompetitionStatisticsConverter : ITypeConverter<Competition, CompetitionItem>
+    public class CompetitionStatisticsConverter : ITypeConverter<Competition, GetCompetition>
     {
-        public CompetitionItem Convert(ResolutionContext context)
+        public GetCompetition Convert(ResolutionContext context)
         {
             var competition = (Competition)context.SourceValue;
-            var item = new CompetitionItem();
+            var item = new GetCompetition();
             var statistics = new StatisticsItem();
 
             item.ClosingDate = competition.ClosingDate;
             item.CompetitionKey = competition.CompetitionKey;
-            item.CreatedBy = Mapper.Map<User, UserItem>(competition.CreatedBy);
+            item.CreatedBy = Mapper.Map<User, GetUser>(competition.CreatedBy).Username;
             item.CreatedDate = competition.CreatedDate;
-            item.ID = competition.ID;
+            item.Id = competition.ID;
             item.PossibleAnswers = Mapper.Map<PossibleAnswers, IEnumerable<PossibleAnswerItem>>(competition.PossibleAnswers);
             item.Question = competition.Question;
             item.Status = competition.Status.ToString();
@@ -44,24 +44,24 @@ namespace BB.SmsQuiz.Api.Mapping
         }
     }
 
-    public class CreateCompetitionItemConverter : ITypeConverter<CreateCompetitionItem, Competition>
+    public class CreateCompetitionItemConverter : ITypeConverter<PostCompetition, Competition>
     {
         public Competition Convert(ResolutionContext context)
         {
-            var item = (CreateCompetitionItem)context.SourceValue;
+            var item = (PostCompetition)context.SourceValue;
             var competition = new Competition()
             {
-                ID = item.ID,
+                ID = item.Id,
                 Question = item.Question,
                 ClosingDate = item.ClosingDate,
                 CompetitionKey = item.CompetitionKey,
-                CreatedBy = new User() { ID = item.UserID }
+                CreatedBy = new User() { ID = item.UserId }
             };
 
             for (int i = 0; i < item.Answers.Count(); i++)
             {
                 var key = (CompetitionAnswer)Enum.Parse(typeof(CompetitionAnswer), item.Answers[i]);
-                competition.PossibleAnswers.Add(key, item.Answers[i], key.ToString() == item.CorrectAnswerKey);
+                competition.PossibleAnswers.Add(key, item.Answers[i], (int)key == item.CorrectAnswerKey);
             }
 
             return competition;
@@ -78,7 +78,7 @@ namespace BB.SmsQuiz.Api.Mapping
             for (int i = 0; i < from.Count(); i++)
             {
                 PossibleAnswerItem item = from.ElementAt(i);
-                pa.Add(new PossibleAnswer(item.IsCorrectAnswer, item.AnswerKey, item.AnswerText));
+                pa.Add(new PossibleAnswer(item.IsCorrectAnswer, (CompetitionAnswer)item.AnswerKey, item.AnswerText));
             }
 
             return pa;

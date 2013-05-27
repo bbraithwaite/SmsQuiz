@@ -1,32 +1,32 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using BB.SmsQuiz.Api.Controllers.Users;
+using BB.SmsQuiz.ApiModel.Users;
 using BB.SmsQuiz.Model.Users;
 
 namespace BB.SmsQuiz.Api.Mapping
 {
-    public class UserItemsConverter : ITypeConverter<IEnumerable<User>, IEnumerable<UserItem>>
+    public class UserItemsConverter : ITypeConverter<IEnumerable<User>, IEnumerable<GetUser>>
     {
-        public IEnumerable<UserItem> Convert(ResolutionContext context)
+        public IEnumerable<GetUser> Convert(ResolutionContext context)
         {
             var from = (IEnumerable<User>)context.SourceValue;
-            var list = new List<UserItem>();
+            var list = new List<GetUser>();
 
             foreach (var user in from)
             {
-                list.Add(Mapper.Map<User, UserItem>(user));
+                list.Add(Mapper.Map<User, GetUser>(user));
             }
 
             return list;
         }
     }
 
-    public class UserItemConverter : ITypeConverter<User, UserItem>
+    public class UserItemConverter : ITypeConverter<User, GetUser>
     {
-        public UserItem Convert(ResolutionContext context)
+        public GetUser Convert(ResolutionContext context)
         {
             var user = (User)context.SourceValue;
-            var item = new UserItem()
+            var item = new GetUser()
             {
                 ID = user.ID,
                 Username = user.Username
