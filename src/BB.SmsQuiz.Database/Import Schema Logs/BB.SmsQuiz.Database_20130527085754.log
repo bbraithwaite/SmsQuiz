@@ -1,0 +1,75 @@
+27/05/2013 22:57:54	This log contains information about the import schema operation into project 'BB.SmsQuiz.Database' on computer 'BRAD-PC' by user 'brad'.
+27/05/2013 22:57:55	Import of database schema has started.
+27/05/2013 22:58:01	Gathering database options
+27/05/2013 22:58:01	Gathering users
+27/05/2013 22:58:01	Gathering roles
+27/05/2013 22:58:01	Gathering application roles
+27/05/2013 22:58:01	Gathering role memberships
+27/05/2013 22:58:01	Gathering filegroups
+27/05/2013 22:58:01	Gathering full-text catalogs
+27/05/2013 22:58:01	Gathering assemblies
+27/05/2013 22:58:01	Gathering certificates
+27/05/2013 22:58:01	Gathering asymmetric keys
+27/05/2013 22:58:01	Gathering symmetric keys
+27/05/2013 22:58:01	Gathering encrypted symmetric keys
+27/05/2013 22:58:01	Gathering schemas
+27/05/2013 22:58:01	Gathering XML schema collections
+27/05/2013 22:58:01	Gathering user-defined data types
+27/05/2013 22:58:01	Gathering user-defined types
+27/05/2013 22:58:01	Gathering table types
+27/05/2013 22:58:01	Gathering unique keys for table types
+27/05/2013 22:58:01	Gathering primary keys for table types
+27/05/2013 22:58:01	Gathering check constraints for table types
+27/05/2013 22:58:01	Gathering default constraints for table types
+27/05/2013 22:58:01	Gathering partition functions
+27/05/2013 22:58:01	Gathering partition schemes
+27/05/2013 22:58:01	Gathering functions
+27/05/2013 22:58:01	Gathering encrypted functions
+27/05/2013 22:58:01	Gathering aggregates
+27/05/2013 22:58:08	Gathering procedures
+27/05/2013 22:58:08	Gathering encrypted procedures
+27/05/2013 22:58:08	Gathering tables
+27/05/2013 22:58:08	Gathering primary keys
+27/05/2013 22:58:08	Gathering unique constraints
+27/05/2013 22:58:08	Gathering foreign keys
+27/05/2013 22:58:08	Gathering default constraints
+27/05/2013 22:58:08	Gathering check constraints
+27/05/2013 22:58:08	Gathering views
+27/05/2013 22:58:08	Gathering encrypted views
+27/05/2013 22:58:08	Gathering indexes
+27/05/2013 22:58:08	Gathering statistics
+27/05/2013 22:58:08	Gathering full-text index stoplists
+27/05/2013 22:58:08	Gathering search property lists
+27/05/2013 22:58:08	Gathering search properties
+27/05/2013 22:58:08	Gathering full-text indexes
+27/05/2013 22:58:08	Gathering column store indexes
+27/05/2013 22:58:08	Gathering spatial indexes
+27/05/2013 22:58:08	Gathering XML indexes
+27/05/2013 22:58:08	Gathering encrypted triggers
+27/05/2013 22:58:08	Gathering triggers
+27/05/2013 22:58:08	Gathering encrypted and clr ddl triggers
+27/05/2013 22:58:08	Gathering ddl triggers
+27/05/2013 22:58:08	Gathering synonyms
+27/05/2013 22:58:08	Gathering defaults
+27/05/2013 22:58:08	Gathering data constraint uddt bindings
+27/05/2013 22:58:08	Gathering rules
+27/05/2013 22:58:08	Gathering data constraint uddt bindings
+27/05/2013 22:58:08	Gathering message types
+27/05/2013 22:58:08	Gathering queues
+27/05/2013 22:58:08	Gathering contracts
+27/05/2013 22:58:08	Gathering services
+27/05/2013 22:58:08	Gathering event notifications
+27/05/2013 22:58:08	Gathering remote service bindings
+27/05/2013 22:58:08	Gathering broker priorities
+27/05/2013 22:58:08	Gathering signatures
+27/05/2013 22:58:08	Gathering data compression options
+27/05/2013 22:58:08	Gathering sequence types
+27/05/2013 22:58:08	Gathering extended properties
+27/05/2013 22:58:08	Gathering credentials
+27/05/2013 22:58:08	Gathering logins
+27/05/2013 22:58:08	Gathering server audits
+27/05/2013 22:58:09	Scanning project for duplicate elements
+27/05/2013 22:58:09	Finished duplicate element processing
+27/05/2013 22:58:09	Finished importing database.
+27/05/2013 22:58:09	A summary of the import was saved to the following location: C:\Users\brad\Documents\GitHub\SmsQuiz\src\BB.SmsQuiz.Database\Import Schema Logs\BB.SmsQuiz.Database_20130527085754.log
+27/05/2013 22:58:09	Click Finish to continue...
