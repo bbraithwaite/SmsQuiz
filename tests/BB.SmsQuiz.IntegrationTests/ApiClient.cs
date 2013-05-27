@@ -36,7 +36,7 @@ namespace BB.SmsQuiz.IntegrationTests
                 new PostAuthentication()
                 {
                     Password = "admin",
-                    Username = "admin"
+                    Username = "adm1nIstr@t0r"
                 }).Result;
 
             return result.Content.ReadAsAsync<string>().Result;

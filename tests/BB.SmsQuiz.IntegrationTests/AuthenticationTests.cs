@@ -13,7 +13,7 @@ namespace BB.SmsQuiz.IntegrationTests
         public void Valid_Login_Returns_OK_Status_And_Authentication_Token()
         {
             // Arrange
-            var item = new PostAuthentication() { Password = "admin", Username = "admin"};
+            var item = new PostAuthentication() { Password = "admin", Username = "adm1nIstr@t0r"};
 
             // Act
             var result = ApiClient.GetClient().PostAsJsonAsync("authentication", item).Result;
