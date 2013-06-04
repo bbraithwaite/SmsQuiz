@@ -1,5 +1,7 @@
 using System.Net.Http;
+using BB.SmsQuiz.Infrastructure.Mapping;
 using BB.SmsQuiz.Web.Infrastructure;
+using BB.SmsQuiz.Web.Mapping;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(BB.SmsQuiz.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(BB.SmsQuiz.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -59,6 +61,7 @@ namespace BB.SmsQuiz.Web.App_Start
             kernel.Bind<HttpClient>().ToMethod(ctx => ApiClient.GetClient()).InSingletonScope();
             kernel.Bind<IFormsAuthentication>().To<AspNetFormsAuthentication>();
             kernel.Bind<IBaseContext>().To<BaseContext>().InRequestScope();
+            kernel.Bind<IMapper>().To<AutoMapperService>().InSingletonScope();
         }        
     }
 }

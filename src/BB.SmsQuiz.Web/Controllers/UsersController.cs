@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using System.Collections;
+using BB.SmsQuiz.ApiModel.Users;
 using BB.SmsQuiz.Web.Infrastructure;
 using BB.SmsQuiz.Web.Models;
 
@@ -21,7 +24,7 @@ namespace BB.SmsQuiz.Web.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return View(response.Content.ReadAsAsync<dynamic>().Result);
+                return View(Mapper.Map<IEnumerable<GetUser>, IEnumerable<UserView>>(response.Content.ReadAsAsync<IEnumerable<GetUser>>().Result));
             }
 
             return ErrorView(response);
@@ -40,7 +43,7 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Create(UserView user)
         {
-            var response = Client.PostAsJsonAsync("users", user).Result;
+            var response = Client.PostAsJsonAsync("users", Mapper.Map<UserView, PostUser>(user)).Result;
 
             switch (response.StatusCode)
             {
@@ -63,10 +66,7 @@ namespace BB.SmsQuiz.Web.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return View(new UserView()
-                    {
-                        Username = response.Content.ReadAsAsync<dynamic>().Result.Username
-                    });
+                return View(Mapper.Map<GetUser, UserView>(response.Content.ReadAsAsync<GetUser>().Result));
             }
 
             return ErrorView(response);
@@ -77,7 +77,7 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Guid id, UserView user)
         {
-            var response = Client.PutAsJsonAsync("users/" + id, user).Result;
+            var response = Client.PutAsJsonAsync("users/" + id, Mapper.Map<UserView, PutUser>(user)).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -98,8 +98,8 @@ namespace BB.SmsQuiz.Web.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                dynamic user = response.Content.ReadAsAsync<dynamic>().Result;
-                return View(user);
+                dynamic user = response.Content.ReadAsAsync<GetUser>().Result;
+                return View(Mapper.Map<GetUser, UserView>(user));
             }
 
             return ErrorView(response);

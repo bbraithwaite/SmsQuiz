@@ -40,6 +40,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject">
       <HintPath>..\..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
@@ -134,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ApiClient.cs" />
+    <Compile Include="App_Start\AutoMapperBootStrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="Infrastructure\AspNetFormsAuthentication.cs" />
     <Compile Include="Infrastructure\BaseContext.cs" />
     <Compile Include="Infrastructure\IFormsAuthentication.cs" />
+    <Compile Include="Mapping\AutoMapperService.cs" />
     <Compile Include="Models\AuthenticationViewModel.cs" />
     <Compile Include="Models\CompetitionViewModel.cs" />
     <Compile Include="Models\PossibleAnswerItem.cs" />
@@ -218,6 +223,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Users\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BB.SmsQuiz.ApiModel\BB.SmsQuiz.ApiModel.csproj">
+      <Project>{fbfe64a2-e6b7-49b8-933d-5f788016127f}</Project>
+      <Name>BB.SmsQuiz.ApiModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BB.SmsQuiz.Infrastructure\BB.SmsQuiz.Infrastructure.csproj">
+      <Project>{acfe02a0-a487-4885-8124-cbc2e79b233e}</Project>
+      <Name>BB.SmsQuiz.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

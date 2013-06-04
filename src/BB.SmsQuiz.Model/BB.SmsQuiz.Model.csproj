@@ -66,6 +66,7 @@
     <Compile Include="Competitions\Entrants\EntrantSource.cs" />
     <Compile Include="Competitions\Entrants\IEntrantContact.cs" />
     <Compile Include="Competitions\Entrants\SmsContact.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\IUserRepository.cs" />
     <Compile Include="Users\User.cs" />

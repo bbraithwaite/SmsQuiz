@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Web.Mvc;
+using BB.SmsQuiz.Infrastructure.Mapping;
 using BB.SmsQuiz.Web.Infrastructure;
 
 namespace BB.SmsQuiz.Web.Controllers
@@ -21,6 +22,11 @@ namespace BB.SmsQuiz.Web.Controllers
         public HttpClient Client
         {
             get { return _context.Client; }
+        }
+
+        public IMapper Mapper
+        {
+            get { return _context.Mapper; }
         }
 
         public void AddModelErrors(HttpResponseMessage response)

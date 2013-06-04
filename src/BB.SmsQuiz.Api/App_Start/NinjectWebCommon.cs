@@ -72,7 +72,7 @@ namespace BB.SmsQuiz.Api.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IMapper>().To<AutoMapperService>();
+            kernel.Bind<IMapper>().To<AutoMapperService>().InSingletonScope();
             kernel.Bind<ICompetitionRepository>().To<CompetitionRepository>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<IEncryptionService>().To<EncryptionService>();

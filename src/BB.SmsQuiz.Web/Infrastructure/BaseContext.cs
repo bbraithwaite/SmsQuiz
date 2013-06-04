@@ -1,11 +1,13 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
+using BB.SmsQuiz.Infrastructure.Mapping;
 
 namespace BB.SmsQuiz.Web.Infrastructure
 {
     public interface IBaseContext
     {
         IFormsAuthentication FormsAuthentication { get; }
+        IMapper Mapper { get; }
         HttpClient Client { get; }
     }
 
@@ -15,10 +17,13 @@ namespace BB.SmsQuiz.Web.Infrastructure
 
         private readonly IFormsAuthentication _formsAuthentication;
 
-        public BaseContext(HttpClient client, IFormsAuthentication authentication)
+        private readonly IMapper _mapper;
+
+        public BaseContext(HttpClient client, IFormsAuthentication authentication, IMapper mapper)
         {
             _client = client;
             _formsAuthentication = authentication;
+            _mapper = mapper;
         }
 
         public IFormsAuthentication FormsAuthentication
@@ -37,6 +42,11 @@ namespace BB.SmsQuiz.Web.Infrastructure
 
                 return _client;
             }
+        }
+
+        public IMapper Mapper
+        {
+            get { return _mapper; }
         }
     }
 }

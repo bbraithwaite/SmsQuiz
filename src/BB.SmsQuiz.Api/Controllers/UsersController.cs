@@ -6,6 +6,7 @@ using BB.SmsQuiz.Api.Filters;
 using BB.SmsQuiz.ApiModel.Users;
 using BB.SmsQuiz.Infrastructure.Encryption;
 using BB.SmsQuiz.Infrastructure.Mapping;
+using BB.SmsQuiz.Model;
 using BB.SmsQuiz.Model.Users;
 
 namespace BB.SmsQuiz.Api.Controllers
