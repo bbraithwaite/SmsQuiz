@@ -1,4 +1,9 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CompetitionState.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace BB.SmsQuiz.Model.Competitions.States
 {
     /// <summary>
@@ -17,7 +22,9 @@ namespace BB.SmsQuiz.Model.Competitions.States
         /// <summary>
         /// Picks the winner.
         /// </summary>
-        /// <param name="competition">The competition.</param>
+        /// <param name="competition">
+        /// The competition.
+        /// </param>
         public abstract void PickWinner(Competition competition);
     }
 }

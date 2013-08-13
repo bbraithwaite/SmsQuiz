@@ -14,14 +14,6 @@ namespace BB.SmsQuiz.Infrastructure.Domain
         private ValidationErrors _validationErrors;
 
         /// <summary>
-        /// Gets or sets the ID.
-        /// </summary>
-        /// <value>
-        /// The ID.
-        /// </value>
-        public Guid ID { get; set; }
-
-        /// <summary>
         /// Gets a value indicating whether this instance is valid.
         /// </summary>
         /// <value>

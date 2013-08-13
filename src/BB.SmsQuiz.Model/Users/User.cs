@@ -1,4 +1,11 @@
-﻿using System.Linq;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="User.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
+using System.Linq;
 using BB.SmsQuiz.Infrastructure.Domain;
 using BB.SmsQuiz.Infrastructure.Encryption;
 
@@ -9,6 +16,14 @@ namespace BB.SmsQuiz.Model.Users
     /// </summary>
     public sealed class User : EntityBase, IAggregateRoot
     {
+        /// <summary>
+        /// Gets or sets the ID.
+        /// </summary>
+        /// <value>
+        /// The ID.
+        /// </value>
+        public Guid ID { get; set; }
+
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
@@ -31,10 +46,14 @@ namespace BB.SmsQuiz.Model.Users
         protected override void Validate()
         {
             if (string.IsNullOrEmpty(Username))
+            {
                 ValidationErrors.Add("Username");
+            }
 
             if (Password == null || !Password.EncryptedValue.Any())
+            {
                 ValidationErrors.Add("Password");
+            }
         }
     }
 }

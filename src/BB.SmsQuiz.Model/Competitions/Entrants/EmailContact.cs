@@ -1,5 +1,10 @@
-﻿using System.Net.Mail;
-using BB.SmsQuiz.Infrastructure.Domain;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="EmailContact.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System.Net.Mail;
 
 namespace BB.SmsQuiz.Model.Competitions.Entrants
 {
@@ -9,6 +14,25 @@ namespace BB.SmsQuiz.Model.Competitions.Entrants
     public sealed class EmailContact : EntrantContact
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="EmailContact" /> class.
+        /// </summary>
+        public EmailContact()
+            : base(string.Empty)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmailContact"/> class.
+        /// </summary>
+        /// <param name="contact">
+        /// The contact.
+        /// </param>
+        public EmailContact(string contact)
+            : base(contact)
+        {
+        }
+
+        /// <summary>
         /// Gets the type of the contact.
         /// </summary>
         /// <value>
@@ -16,42 +40,34 @@ namespace BB.SmsQuiz.Model.Competitions.Entrants
         /// </value>
         public override EntrantContactType ContactType
         {
-            get
-            {
-                return EntrantContactType.Email;
-            }
+            get { return EntrantContactType.Email; }
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmailContact" /> class.
-        /// </summary>
-        public EmailContact() : base(string.Empty) { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmailContact" /> class.
-        /// </summary>
-        /// <param name="contact">The contact.</param>
-        public EmailContact(string contact) : base(contact) { }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
         protected override void Validate()
         {
             if (string.IsNullOrEmpty(Contact))
+            {
                 ValidationErrors.Add("Contact");
+            }
 
             if (!ValidateEmail(Contact))
+            {
                 ValidationErrors.Add("Contact", "Invalid Email Address");
+            }
         }
 
         /// <summary>
         /// Validates the email.
         /// </summary>
-        /// <param name="emailAddress">The email address.</param>
-        /// <returns>A value indicating whether the email address is valid.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "address"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+        /// <param name="emailAddress">
+        /// The email address.
+        /// </param>
+        /// <returns>
+        /// A value indicating whether the email address is valid.
+        /// </returns>
         private static bool ValidateEmail(string emailAddress)
         {
             try

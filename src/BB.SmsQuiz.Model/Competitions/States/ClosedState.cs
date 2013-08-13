@@ -1,4 +1,9 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ClosedState.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace BB.SmsQuiz.Model.Competitions.States
 {
     /// <summary>
@@ -14,17 +19,18 @@ namespace BB.SmsQuiz.Model.Competitions.States
         /// </value>
         public override CompetitionStatus Status
         {
-            get
-            {
-                return CompetitionStatus.Closed;
-            }
+            get { return CompetitionStatus.Closed; }
         }
 
         /// <summary>
         /// Picks the winner.
         /// </summary>
-        /// <param name="competition">The competition.</param>
-        /// <exception cref="BB.SmsQuiz.Model.Competitions.States.CompetitionClosedException"></exception>
+        /// <param name="competition">
+        /// The competition.
+        /// </param>
+        /// <exception cref="BB.SmsQuiz.Model.Competitions.States.CompetitionClosedException">
+        /// It is not possible to re-close a closed competition.
+        /// </exception>
         public override void PickWinner(Competition competition)
         {
             throw new CompetitionClosedException();

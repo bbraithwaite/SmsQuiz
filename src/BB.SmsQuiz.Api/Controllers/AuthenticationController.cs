@@ -1,4 +1,10 @@
-﻿using System.Linq;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AuthenticationController.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using BB.SmsQuiz.Api.Filters;
@@ -8,13 +14,34 @@ using BB.SmsQuiz.Model.Users;
 
 namespace BB.SmsQuiz.Api.Controllers
 {
+    /// <summary>
+    /// The authentication controller.
+    /// </summary>
     [UnhandledException]
     public class AuthenticationController : BaseController
     {
-        private readonly IUserRepository _userRepository;
+        /// <summary>
+        /// The _encryption service.
+        /// </summary>
         private readonly IEncryptionService _encryptionService;
 
-        public AuthenticationController(IUserRepository userRepository, IEncryptionService encryptionService)
+        /// <summary>
+        /// The _user repository.
+        /// </summary>
+        private readonly IUserRepository _userRepository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthenticationController"/> class.
+        /// </summary>
+        /// <param name="userRepository">
+        /// The user repository.
+        /// </param>
+        /// <param name="encryptionService">
+        /// The encryption service.
+        /// </param>
+        public AuthenticationController(
+            IUserRepository userRepository, 
+            IEncryptionService encryptionService)
         {
             _userRepository = userRepository;
             _encryptionService = encryptionService;
@@ -23,13 +50,13 @@ namespace BB.SmsQuiz.Api.Controllers
         // POST authenticationn
         public HttpResponseMessage Post(PostAuthentication item)
         {
-            var user = _userRepository.Find("@username=username", new {Username = item.Username}).FirstOrDefault();
- 
+            var user = _userRepository.FindByUsername(item.Username);
+
             if (user != null)
             {
                 if (user.Password.EncryptedValue.SequenceEqual(_encryptionService.Encrypt(item.Password)))
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, base.TokenAuthentication.Token);
+                    return Request.CreateResponse(HttpStatusCode.OK, TokenAuthentication.Token);
                 }
             }
 

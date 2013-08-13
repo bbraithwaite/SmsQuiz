@@ -1,4 +1,10 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UsersController.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -6,20 +12,59 @@ using BB.SmsQuiz.Api.Filters;
 using BB.SmsQuiz.ApiModel.Users;
 using BB.SmsQuiz.Infrastructure.Encryption;
 using BB.SmsQuiz.Infrastructure.Mapping;
-using BB.SmsQuiz.Model;
+using BB.SmsQuiz.Infrastructure.UnitOfWork;
 using BB.SmsQuiz.Model.Users;
 
 namespace BB.SmsQuiz.Api.Controllers
 {
+    /// <summary>
+    /// The users controller.
+    /// </summary>
     [UnhandledException, TokenValidationAttribute]
     public class UsersController : BaseController
     {
-        private readonly IUserRepository _userRepository;
+        /// <summary>
+        /// The _unit of work.
+        /// </summary>
+        private readonly IUnitOfWork _unitOfWork;
+
+        /// <summary>
+        /// The _mapper.
+        /// </summary>
         private readonly IMapper _mapper;
+
+        /// <summary>
+        /// The _encryption service.
+        /// </summary>
         private readonly IEncryptionService _encryptionService;
 
-        public UsersController(IUserRepository userRepository, IMapper mapper, IEncryptionService encryptionService)
+        /// <summary>
+        /// The _user repository.
+        /// </summary>
+        private readonly IUserRepository _userRepository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsersController"/> class.
+        /// </summary>
+        /// <param name="unitOfWork">
+        /// The unit of work.
+        /// </param>
+        /// <param name="userRepository">
+        /// The user repository.
+        /// </param>
+        /// <param name="mapper">
+        /// The mapper.
+        /// </param>
+        /// <param name="encryptionService">
+        /// The encryption service.
+        /// </param>
+        public UsersController(
+            IUnitOfWork unitOfWork, 
+            IUserRepository userRepository, 
+            IMapper mapper,        
+            IEncryptionService encryptionService)
         {
+            _unitOfWork = unitOfWork;
             _userRepository = userRepository;
             _mapper = mapper;
             _encryptionService = encryptionService;
@@ -28,15 +73,20 @@ namespace BB.SmsQuiz.Api.Controllers
         // GET users
         public IEnumerable<GetUser> Get()
         {
-            var users = _userRepository.FindAll();
+            var users = _userRepository.GetAll();
             return _mapper.Map<IEnumerable<User>, IEnumerable<GetUser>>(users);
         }
 
         // GET users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
         public GetUser Get(Guid id)
         {
-            var user = _userRepository.FindByID(id);
-            if (user == null) throw new NotFoundException();
+            var user = _userRepository.FindById(id);
+            
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
+
             return _mapper.Map<User, GetUser>(user);
         }
 
@@ -44,14 +94,15 @@ namespace BB.SmsQuiz.Api.Controllers
         public HttpResponseMessage Post(PostUser item)
         {
             var user = new User()
-            {
-                Username = item.Username,
-                Password = EncryptedString.Create(item.Password, _encryptionService)
-            };
+                {
+                    Username = item.Username, 
+                    Password = EncryptedString.Create(item.Password, _encryptionService)
+                };
 
             if (user.IsValid)
             {
                 _userRepository.Add(user);
+                _unitOfWork.SaveChanges();
 
                 GetUser createdItem = _mapper.Map<User, GetUser>(user);
                 return CreatedHttpResponse(createdItem.ID, createdItem);
@@ -63,15 +114,19 @@ namespace BB.SmsQuiz.Api.Controllers
         // PUT users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
         public HttpResponseMessage Put(Guid id, PutUser item)
         {
-            User user = _userRepository.FindByID(id);
+            User user = _userRepository.FindById(id);
 
-            if (user == null) throw new NotFoundException();
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
 
             user.Username = item.Username;
 
             if (user.IsValid)
             {
                 _userRepository.Update(user);
+                _unitOfWork.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
 
@@ -81,11 +136,8 @@ namespace BB.SmsQuiz.Api.Controllers
         // DELETE users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
         public HttpResponseMessage Delete(Guid id)
         {
-            var user = _userRepository.FindByID(id);
-
-            if (user == null) throw new NotFoundException();
-
-            _userRepository.Remove(user);
+            _userRepository.Delete(id);
+            _unitOfWork.SaveChanges();
 
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }

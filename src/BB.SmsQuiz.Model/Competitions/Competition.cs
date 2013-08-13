@@ -1,10 +1,16 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Competition.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BB.SmsQuiz.Infrastructure.Domain;
+using BB.SmsQuiz.Model.Competitions.Entrants;
 using BB.SmsQuiz.Model.Competitions.States;
 using BB.SmsQuiz.Model.Users;
-using BB.SmsQuiz.Model.Competitions.Entrants;
 
 namespace BB.SmsQuiz.Model.Competitions
 {
@@ -17,6 +23,25 @@ namespace BB.SmsQuiz.Model.Competitions
         /// The _entrants
         /// </summary>
         private readonly List<Entrant> _entrants;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Competition" /> class.
+        /// </summary>
+        public Competition()
+        {
+            CreatedDate = DateTime.Now;
+            PossibleAnswers = new PossibleAnswers();
+            State = new OpenState();
+            _entrants = new List<Entrant>();
+        }
+
+        /// <summary>
+        /// Gets or sets the ID.
+        /// </summary>
+        /// <value>
+        /// The ID.
+        /// </value>
+        public Guid ID { get; set; }
 
         /// <summary>
         /// Gets or sets the question.
@@ -51,7 +76,7 @@ namespace BB.SmsQuiz.Model.Competitions
         public User CreatedBy { get; set; }
 
         /// <summary>
-        /// Gets the created date.
+        /// Gets or sets the created date.
         /// </summary>
         /// <value>
         /// The created date.
@@ -67,7 +92,7 @@ namespace BB.SmsQuiz.Model.Competitions
         public DateTime ClosingDate { get; set; }
 
         /// <summary>
-        /// Gets the winner.
+        /// Gets or sets the winner.
         /// </summary>
         /// <value>
         /// The winner.
@@ -88,27 +113,21 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <value>
         /// The status.
         /// </value>
-        public CompetitionStatus Status 
+        public CompetitionStatus Status
         {
-            get
-            {
-                return State.Status;
-            }
+            get { return State.Status; }
         }
-        
+
         /// <summary>
-        /// Gets or sets the entrants.
+        /// Gets the entrants.
         /// </summary>
         /// <value>
         /// The entrants.
         /// </value>
-        public IEnumerable<Entrant> Entrants 
+        public IEnumerable<Entrant> Entrants
         {
-            get
-            {
-                return _entrants;
-            }
-         }
+            get { return _entrants; }
+        }
 
         /// <summary>
         /// Gets the valid entrants.
@@ -118,10 +137,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </value>
         public IEnumerable<Entrant> ValidEntrants
         {
-            get
-            {
-                return Entrants.Where(e => e.EntryDate < ClosingDate);
-            }
+            get { return Entrants.Where(e => e.EntryDate < ClosingDate); }
         }
 
         /// <summary>
@@ -132,10 +148,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </value>
         public bool ClosingDateHasPassed
         {
-            get
-            {
-                return (ClosingDate < DateTime.Now);
-            }
+            get { return ClosingDate < DateTime.Now; }
         }
 
         /// <summary>
@@ -146,10 +159,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </value>
         public IEnumerable<Entrant> CorrectEntrants
         {
-            get
-            {
-                return ValidEntrants.Where(e => e.Answer == PossibleAnswers.CorrectAnswer.AnswerKey);
-            }
+            get { return ValidEntrants.Where(e => e.Answer == PossibleAnswers.CorrectAnswer.AnswerKey); }
         }
 
         /// <summary>
@@ -160,10 +170,7 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </value>
         public bool HasCorrectEntrants
         {
-            get
-            {
-                return this.CorrectEntrants.Any();
-            }
+            get { return this.CorrectEntrants.Any(); }
         }
 
         /// <summary>
@@ -174,48 +181,15 @@ namespace BB.SmsQuiz.Model.Competitions
         /// </value>
         public IEnumerable<Entrant> IncorrectEntrants
         {
-            get
-            {
-                return ValidEntrants.Where(e => e.Answer != PossibleAnswers.CorrectAnswer.AnswerKey);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Competition" /> class.
-        /// </summary>
-        public Competition()
-        {
-            CreatedDate = DateTime.Now;
-            PossibleAnswers = new PossibleAnswers();
-            State = new OpenState();
-            _entrants = new List<Entrant>();
-        }
-
-        /// <summary>
-        /// Validates this instance.
-        /// </summary>
-        protected override void Validate()
-        {
-            if (string.IsNullOrEmpty(Question))
-                ValidationErrors.Add("Question");
-
-            if (string.IsNullOrEmpty(CompetitionKey))
-                ValidationErrors.Add("CompetitionKey");
-           
-            if (ClosingDate == DateTime.MinValue)
-                ValidationErrors.Add("ClosingDate");
-
-            if (CreatedBy == null)
-                ValidationErrors.Add("CreatedBy");
-
-            if (!PossibleAnswers.IsValid)
-                ValidationErrors.AddRange(PossibleAnswers.ValidationErrors.Items);
+            get { return ValidEntrants.Where(e => e.Answer != PossibleAnswers.CorrectAnswer.AnswerKey); }
         }
 
         /// <summary>
         /// Adds the entrant.
         /// </summary>
-        /// <param name="entrant">The entrant.</param>
+        /// <param name="entrant">
+        /// The entrant.
+        /// </param>
         public void AddEntrant(Entrant entrant)
         {
             this._entrants.Add(entrant);
@@ -224,7 +198,9 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// Sets the state of the competition.
         /// </summary>
-        /// <param name="state">The state.</param>
+        /// <param name="state">
+        /// The state.
+        /// </param>
         public void SetCompetitionState(ICompetitionState state)
         {
             this.State = state;
@@ -241,18 +217,26 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// Gets the number of entrants.
         /// </summary>
-        /// <param name="answer">The answer.</param>
-        /// <returns>The number of entrants for a given answer.</returns>
+        /// <param name="answer">
+        /// The answer.
+        /// </param>
+        /// <returns>
+        /// The number of entrants for a given answer.
+        /// </returns>
         public int GetNumberOfEntrants(CompetitionAnswer answer)
         {
             return ValidEntrants.Any() ? ValidEntrants.Count(e => e.Answer == answer) : 0;
         }
 
         /// <summary>
-        /// Gets the percentage of entrans.
+        /// Gets the percentage of entrants.
         /// </summary>
-        /// <param name="answer">The possible answer.</param>
-        /// <returns>The percentage of entrants for a given answer.</returns>
+        /// <param name="answer">
+        /// The possible answer.
+        /// </param>
+        /// <returns>
+        /// The percentage of entrants for a given answer.
+        /// </returns>
         public decimal GetPercentageOfEntrants(CompetitionAnswer answer)
         {
             if (ValidEntrants.Any())
@@ -261,6 +245,37 @@ namespace BB.SmsQuiz.Model.Competitions
             }
 
             return 0;
+        }
+
+        /// <summary>
+        /// Validates this instance.
+        /// </summary>
+        protected override void Validate()
+        {
+            if (string.IsNullOrEmpty(Question))
+            {
+                ValidationErrors.Add("Question");
+            }
+
+            if (string.IsNullOrEmpty(CompetitionKey))
+            {
+                ValidationErrors.Add("CompetitionKey");
+            }
+
+            if (ClosingDate == DateTime.MinValue)
+            {
+                ValidationErrors.Add("ClosingDate");
+            }
+
+            if (CreatedBy == null)
+            {
+                ValidationErrors.Add("CreatedBy");
+            }
+
+            if (!PossibleAnswers.IsValid)
+            {
+                ValidationErrors.AddRange(PossibleAnswers.ValidationErrors.Items);
+            }
         }
     }
 }

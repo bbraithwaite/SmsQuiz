@@ -1,4 +1,9 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CompetitionAnswer.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace BB.SmsQuiz.Model.Competitions
 {
     /// <summary>
@@ -9,19 +14,23 @@ namespace BB.SmsQuiz.Model.Competitions
         /// <summary>
         /// The default value
         /// </summary>
-        NotSet = 0,
+        NotSet = 0, 
+
         /// <summary>
         /// The answer A
         /// </summary>
-        A = 1,
+        A = 1, 
+
         /// <summary>
         /// The answer B
         /// </summary>
-        B = 2,
+        B = 2, 
+
         /// <summary>
         /// The answer C
         /// </summary>
-        C = 3,
+        C = 3, 
+
         /// <summary>
         /// The answer D
         /// </summary>

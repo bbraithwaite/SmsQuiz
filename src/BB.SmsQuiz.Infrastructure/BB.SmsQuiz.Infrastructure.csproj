@@ -57,7 +57,9 @@
     <Compile Include="Domain\Events\IEventContainer.cs" />
     <Compile Include="Domain\IAggregateRoot.cs" />
     <Compile Include="Domain\IEnumerableExtensions.cs" />
-    <Compile Include="Domain\IGenericRepository.cs" />
+    <Compile Include="Domain\IReadOnlyRepository.cs" />
+    <Compile Include="UnitOfWork\IContext.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Mapping\IMapper.cs" />
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\IValidatable.cs" />

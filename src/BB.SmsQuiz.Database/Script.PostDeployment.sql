@@ -9,7 +9,3 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-IF NOT EXISTS(SELECT * FROM Users WHERE Username = 'admin')
-BEGIN
-INSERT INTO dbo.Users VALUES ('admin', 'adm1nIstr@t0r');
-END

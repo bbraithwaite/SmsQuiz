@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace BB.SmsQuiz.Infrastructure.Domain
 {
     /// <summary>
@@ -9,5 +11,6 @@ namespace BB.SmsQuiz.Infrastructure.Domain
     /// </remarks>
     public interface IAggregateRoot
     {
+        Guid ID { get; set; }
     }
 }

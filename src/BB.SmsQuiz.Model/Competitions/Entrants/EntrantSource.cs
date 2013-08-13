@@ -1,4 +1,9 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="EntrantSource.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace BB.SmsQuiz.Model.Competitions.Entrants
 {
     /// <summary>
@@ -9,15 +14,18 @@ namespace BB.SmsQuiz.Model.Competitions.Entrants
         /// <summary>
         /// Default value.
         /// </summary>
-        NotSet = 0,
+        NotSet = 0, 
+
         /// <summary>
         /// Via an SMS
         /// </summary>
-        Sms = 1,
+        Sms = 1, 
+
         /// <summary>
         /// Via an Email
         /// </summary>
-        Email = 2,
+        Email = 2, 
+
         /// <summary>
         /// Via an App
         /// </summary>

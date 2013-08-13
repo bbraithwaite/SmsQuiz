@@ -6,7 +6,6 @@
     [Question]       VARCHAR (250)    NOT NULL,
     [Status]         TINYINT          NOT NULL,
     [CreatedByID]    UNIQUEIDENTIFIER NOT NULL,
-    [WinnerID]       UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [PK_Competitions] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_Competitions_Users] FOREIGN KEY ([CreatedByID]) REFERENCES [dbo].[Users] ([ID])
 );

@@ -15,7 +15,9 @@ namespace BB.SmsQuiz.Api.App_Start
         public static void Configure()
         {
             Mapper.CreateMap<Competition, GetCompetition>().ConvertUsing(new CompetitionStatisticsConverter());
-            Mapper.CreateMap<PostCompetition, Competition>().ConvertUsing(new CreateCompetitionItemConverter());
+            Mapper.CreateMap<PostCompetition, Competition>().ConvertUsing(new PostCompetitionItemConverter());
+            Mapper.CreateMap<PutCompetition, Competition>().ConvertUsing(new PutCompetitionItemConverter());
+            Mapper.CreateMap<BaseCompetition, Competition>().ConvertUsing(new BaseCompetitionItemConverter());
             Mapper.CreateMap<User, GetUser>().ConvertUsing(new UserItemConverter());
             Mapper.CreateMap<IEnumerable<User>, IEnumerable<GetUser>>().ConvertUsing(new UserItemsConverter());
             Mapper.CreateMap<PossibleAnswer, PossibleAnswerItem>();

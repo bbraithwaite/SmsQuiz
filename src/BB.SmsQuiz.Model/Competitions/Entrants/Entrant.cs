@@ -1,4 +1,10 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Entrant.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using BB.SmsQuiz.Infrastructure.Domain;
 
 namespace BB.SmsQuiz.Model.Competitions.Entrants
@@ -8,6 +14,22 @@ namespace BB.SmsQuiz.Model.Competitions.Entrants
     /// </summary>
     public class Entrant : EntityBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entrant" /> class.
+        /// </summary>
+        public Entrant()
+        {
+            this.EntryDate = DateTime.Now;
+        }
+
+        /// <summary>
+        /// Gets or sets the ID.
+        /// </summary>
+        /// <value>
+        /// The ID.
+        /// </value>
+        public Guid ID { get; set; }
+
         /// <summary>
         /// Gets or sets the answer.
         /// </summary>
@@ -46,21 +68,19 @@ namespace BB.SmsQuiz.Model.Competitions.Entrants
         protected override void Validate()
         {
             if (Answer == CompetitionAnswer.NotSet)
+            {
                 ValidationErrors.Add("Answer");
+            }
 
             if (Source == EntrantSource.NotSet)
+            {
                 ValidationErrors.Add("EntryDate");
+            }
 
             if (!Contact.IsValid)
+            {
                 ValidationErrors.AddRange(Contact.ValidationErrors.Items);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Entrant" /> class.
-        /// </summary>
-        public Entrant()
-        {
-            this.EntryDate = DateTime.Now;
+            }
         }
     }
 }

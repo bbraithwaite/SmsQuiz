@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
-using System.Collections;
 using BB.SmsQuiz.ApiModel.Users;
 using BB.SmsQuiz.Web.Infrastructure;
 using BB.SmsQuiz.Web.Models;

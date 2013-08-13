@@ -1,4 +1,10 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CompetitionClosedException.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using System.Runtime.Serialization;
 
 namespace BB.SmsQuiz.Model.Competitions.States
@@ -12,41 +18,47 @@ namespace BB.SmsQuiz.Model.Competitions.States
         /// <summary>
         /// Initializes a new instance of the <see cref="CompetitionClosedException" /> class.
         /// </summary>
-        public CompetitionClosedException() :base("This competition has already been closed.")
+        public CompetitionClosedException() : base("This competition has already been closed.")
         {
-
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompetitionClosedException" /> class.
+        /// Initializes a new instance of the <see cref="CompetitionClosedException"/> class.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         public CompetitionClosedException(string message)
             : base(message)
         {
-
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompetitionClosedException" /> class.
+        /// Initializes a new instance of the <see cref="CompetitionClosedException"/> class.
         /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="exception">The exception.</param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="exception">
+        /// The exception.
+        /// </param>
         public CompetitionClosedException(string message, Exception exception)
             : base(message, exception)
         {
-
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompetitionClosedException" /> class.
+        /// Initializes a new instance of the <see cref="CompetitionClosedException"/> class.
         /// </summary>
-        /// <param name="info">The info.</param>
-        /// <param name="context">The context.</param>
+        /// <param name="info">
+        /// The info.
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
         private CompetitionClosedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-
         }
     }
 }

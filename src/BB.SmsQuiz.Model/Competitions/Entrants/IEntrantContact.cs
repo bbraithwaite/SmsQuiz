@@ -1,8 +1,16 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IEntrantContact.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 using BB.SmsQuiz.Infrastructure.Domain;
 
 namespace BB.SmsQuiz.Model.Competitions.Entrants
 {
+    /// <summary>
+    /// The EntrantContact interface.
+    /// </summary>
     public interface IEntrantContact : IValidatable
     {
         /// <summary>

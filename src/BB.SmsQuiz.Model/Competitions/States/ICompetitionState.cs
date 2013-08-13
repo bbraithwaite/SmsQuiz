@@ -1,7 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ICompetitionState.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 
 namespace BB.SmsQuiz.Model.Competitions.States
 {
@@ -21,7 +24,9 @@ namespace BB.SmsQuiz.Model.Competitions.States
         /// <summary>
         /// Picks the winner.
         /// </summary>
-        /// <param name="competition">The competition.</param>
+        /// <param name="competition">
+        /// The competition.
+        /// </param>
         void PickWinner(Competition competition);
     }
 }

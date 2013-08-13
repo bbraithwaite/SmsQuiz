@@ -9,15 +9,17 @@ namespace BB.SmsQuiz.Infrastructure.Encryption
         /// <summary>
         /// The encrypted value
         /// </summary>
-        public readonly byte[] EncryptedValue;
+        public byte[] EncryptedValue { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EncryptedString" /> class.
+        /// Initializes a new instance of the <see cref="EncryptedString"/> class.
         /// </summary>
-        /// <param name="encryptedString">The encrypted string.</param>
-        public EncryptedString(byte[] encryptedString)
+        /// <param name="encryptedValue">
+        /// The encrypted value.
+        /// </param>
+        public EncryptedString(byte[] encryptedValue)
         {
-            this.EncryptedValue = encryptedString;
+            EncryptedValue = encryptedValue;
         }
 
         /// <summary>

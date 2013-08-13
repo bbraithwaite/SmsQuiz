@@ -22,7 +22,7 @@ namespace BB.SmsQuiz.Api.App_Start
 
             configuration.Routes.MapHttpRoute(
                 name: "CloseCompetition",
-                routeTemplate: "competitions/{id}/close",
+                routeTemplate: "competitions/close/{id}",
                 defaults: new
                 {
                     controller = "CloseCompetition"
