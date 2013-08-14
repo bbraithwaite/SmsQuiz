@@ -5,20 +5,85 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ul class="breadcrumb">
-  <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
-  <li>@Html.ActionLink("Competitions", "Index", "Competitions") <span class="divider">/</span></li>
-  <li class="active">Edit - @Model.Question</li>
-</ul>
-
 <h2>Edit</h2>
-@using (Html.BeginForm("Edit", "Competitions", FormMethod.Post, new {@class = "form-horizontal"}))
-{
-    @Html.Partial("Competition", @Model)
 
-    <div class="control-group">
-        <div class="controls">
-            <input type="submit" value="Save" class="btn btn-primary" />
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CompetitionViewModel</legend>
+        @Html.HiddenFor(model => model.ID)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Question)
         </div>
-    </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Question)
+            @Html.ValidationMessageFor(model => model.Question)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CompetitionKey)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CompetitionKey)
+            @Html.ValidationMessageFor(model => model.CompetitionKey)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClosingDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClosingDate)
+            @Html.ValidationMessageFor(model => model.ClosingDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CorrectAnswerKey)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CorrectAnswerKey)
+            @Html.ValidationMessageFor(model => model.CorrectAnswerKey)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Answer1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Answer1)
+            @Html.ValidationMessageFor(model => model.Answer1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Answer2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Answer2)
+            @Html.ValidationMessageFor(model => model.Answer2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Answer3)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Answer3)
+            @Html.ValidationMessageFor(model => model.Answer3)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Answer4)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Answer4)
+            @Html.ValidationMessageFor(model => model.Answer4)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

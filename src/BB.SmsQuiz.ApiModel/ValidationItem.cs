@@ -1,8 +1,38 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ValidationItem.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace BB.SmsQuiz.ApiModel
 {
+    /// <summary>
+    /// The validation item.
+    /// </summary>
     public class ValidationItem
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidationItem" /> class.
+        /// </summary>
+        public ValidationItem()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidationItem"/> class.
+        /// </summary>
+        /// <param name="propertyName">
+        /// Name of the property.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public ValidationItem(string propertyName, string message)
+        {
+            this.PropertyName = propertyName;
+            this.Message = message;
+        }
+
         /// <summary>
         /// Gets or sets the name of the property.
         /// </summary>
@@ -18,21 +48,5 @@ namespace BB.SmsQuiz.ApiModel
         /// The message.
         /// </value>
         public string Message { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationItem" /> class.
-        /// </summary>
-        public ValidationItem() { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ValidationItem" /> class.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <param name="message">The message.</param>
-        public ValidationItem(string propertyName, string message)
-        {
-            this.PropertyName = propertyName;
-            this.Message = message;
-        }
     }
 }

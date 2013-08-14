@@ -1,7 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IValidatable.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// <summary>
+//   IValidatable interface.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 
 namespace BB.SmsQuiz.Infrastructure.Domain
 {

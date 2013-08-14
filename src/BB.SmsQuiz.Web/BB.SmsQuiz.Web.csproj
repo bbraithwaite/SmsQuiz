@@ -155,6 +155,9 @@
     <Compile Include="Infrastructure\BaseContext.cs" />
     <Compile Include="Infrastructure\IFormsAuthentication.cs" />
     <Compile Include="Mapping\AutoMapperService.cs" />
+    <Compile Include="Mapping\GetCompetitionConverter.cs" />
+    <Compile Include="Mapping\PostCompetitionConverter.cs" />
+    <Compile Include="Mapping\PutCompetitionConverter.cs" />
     <Compile Include="Models\AuthenticationViewModel.cs" />
     <Compile Include="Models\CompetitionViewModel.cs" />
     <Compile Include="Models\PossibleAnswerItem.cs" />
@@ -189,22 +192,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Competitions\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Competitions\Competition.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Competitions\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Competitions\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Competitions\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Authentication\Index.cshtml" />
@@ -233,6 +221,18 @@
       <Project>{acfe02a0-a487-4885-8124-cbc2e79b233e}</Project>
       <Name>BB.SmsQuiz.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Competitions\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

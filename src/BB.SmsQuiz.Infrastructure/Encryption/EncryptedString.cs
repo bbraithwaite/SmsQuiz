@@ -1,4 +1,11 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="EncryptedString.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// <summary>
+//   Encrypted string value object
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace BB.SmsQuiz.Infrastructure.Encryption
 {
     /// <summary>
@@ -6,11 +13,6 @@ namespace BB.SmsQuiz.Infrastructure.Encryption
     /// </summary>
     public class EncryptedString
     {
-        /// <summary>
-        /// The encrypted value
-        /// </summary>
-        public byte[] EncryptedValue { get; private set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EncryptedString"/> class.
         /// </summary>
@@ -23,11 +25,22 @@ namespace BB.SmsQuiz.Infrastructure.Encryption
         }
 
         /// <summary>
+        /// The encrypted value
+        /// </summary>
+        public byte[] EncryptedValue { get; private set; }
+
+        /// <summary>
         /// Creates the specified value.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="encryptionService">The encryption service.</param>
-        /// <returns></returns>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="encryptionService">
+        /// The encryption service.
+        /// </param>
+        /// <returns>
+        /// The <see cref="EncryptedString"/>.
+        /// </returns>
         public static EncryptedString Create(string value, IEncryptionService encryptionService)
         {
             return new EncryptedString(encryptionService.Encrypt(value));

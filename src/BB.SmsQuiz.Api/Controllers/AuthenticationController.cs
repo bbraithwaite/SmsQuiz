@@ -47,7 +47,15 @@ namespace BB.SmsQuiz.Api.Controllers
             _encryptionService = encryptionService;
         }
 
-        // POST authenticationn
+        /// <summary>
+        /// The post method.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
         public HttpResponseMessage Post(PostAuthentication item)
         {
             var user = _userRepository.FindByUsername(item.Username);

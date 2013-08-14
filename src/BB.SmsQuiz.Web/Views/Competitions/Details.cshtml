@@ -1,4 +1,6 @@
-﻿@{
+﻿@model BB.SmsQuiz.Web.Models.CompetitionViewModel
+
+@{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -15,14 +17,14 @@
 <p>Created: @Model.CreatedDate.ToString("dd MMM yyyy")</p>
 <p>Closing: @Model.ClosingDate.ToString("dd MMM yyyy")</p>
 <p>Competition Key: @Model.CompetitionKey</p>
-<p>Created By: @Model.CreatedBy.Username</p>
+<p>Created By: @Model.CreatedBy</p>
 <p>Status: @Model.Status</p>
 <h5>Possible Answers:</h5>
 <ol>
-    @foreach (var p in Model.PossibleAnswers)
-    {
-        <li>@p.AnswerText</li>
-    }
+    <li>@Model.Answer1</li>
+    <li>@Model.Answer2</li>
+    <li>@Model.Answer3</li>
+    <li>@Model.Answer4</li>
 </ol>
 @using (Html.BeginForm("Close", "Competitions", FormMethod.Post, new {@class = "form-horizontal"}))
 {
@@ -38,10 +40,10 @@
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
         ['Answers', 'Per Key'],
-        ['@Model.PossibleAnswers[0].AnswerText', @Model.Statistics.AnswerACount],
-        ['@Model.PossibleAnswers[1].AnswerText', @Model.Statistics.AnswerBCount],
-        ['@Model.PossibleAnswers[2].AnswerText', @Model.Statistics.AnswerCCount],
-        ['@Model.PossibleAnswers[3].AnswerText', @Model.Statistics.AnswerDCount]
+        ['@Model.Answer1', @Model.AnswerACount],
+        ['@Model.Answer2', @Model.AnswerBCount],
+        ['@Model.Answer3', @Model.AnswerCCount],
+        ['@Model.Answer4', @Model.AnswerDCount]
     ]);
 
         var options = {

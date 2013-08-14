@@ -2,6 +2,9 @@
 // <copyright file="IReadOnlyRepository.cs" company="contentedcoder.com">
 //   contentedcoder.com
 // </copyright>
+// <summary>
+//   The ReadOnlyRepository interface.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;

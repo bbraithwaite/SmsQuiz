@@ -129,12 +129,10 @@
     <Compile Include="Filters\TokenValidationAttribute.cs" />
     <Compile Include="Mapping\AutoMapperService.cs" />
     <Compile Include="Mapping\CompetitionMapper.cs" />
-    <Compile Include="Mapping\BaseCompetitionItemConverter.cs" />
     <Compile Include="Mapping\EntrantMapper.cs" />
     <Compile Include="Mapping\PossibleAnswerItemsConverter.cs" />
     <Compile Include="Mapping\PossibleAnswersConverter.cs" />
-    <Compile Include="Mapping\PostCompetitionItemConverter.cs" />
-    <Compile Include="Mapping\PutCompetitionItemConverter.cs" />
+    <Compile Include="Mapping\UserItemConverter.cs" />
     <Compile Include="Mapping\UserItemsConverter.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />

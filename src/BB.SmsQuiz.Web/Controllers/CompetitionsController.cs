@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using BB.SmsQuiz.ApiModel.Competitions;
 using BB.SmsQuiz.Web.Infrastructure;
 using BB.SmsQuiz.Web.Models;
 
@@ -20,7 +22,7 @@ namespace BB.SmsQuiz.Web.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return View(response.Content.ReadAsAsync<dynamic>().Result);
+                return View(Mapper.Map<IEnumerable<GetCompetition>, IEnumerable<CompetitionViewModel>>(response.Content.ReadAsAsync<IEnumerable<GetCompetition>>().Result));
             }
 
             return ErrorView(response);
@@ -35,7 +37,7 @@ namespace BB.SmsQuiz.Web.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return View(response.Content.ReadAsAsync<dynamic>().Result);
+                return View(Mapper.Map<GetCompetition, CompetitionViewModel>(response.Content.ReadAsAsync<GetCompetition>().Result));
             }
 
             return ErrorView(response);
@@ -54,7 +56,7 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Create(CompetitionViewModel competition)
         {
-            var response = Client.PostAsJsonAsync("competitions", competition).Result;
+            var response = Client.PostAsJsonAsync("competitions", Mapper.Map<CompetitionViewModel, PostCompetition>(competition)).Result;
 
             switch (response.StatusCode)
             {
@@ -77,28 +79,7 @@ namespace BB.SmsQuiz.Web.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                dynamic competition = response.Content.ReadAsAsync<dynamic>().Result;
-
-                var viewModel = new CompetitionViewModel()
-                {
-                    ClosingDate = competition.ClosingDate,
-                    CompetitionKey = competition.CompetitionKey,
-                    ID = competition.ID,
-                    Question = competition.Question
-                };
-
-                for (int i = 0; i < competition.PossibleAnswers.Count; i++)
-                {
-                    var pa = competition.PossibleAnswers[i];
-                    viewModel.Answers.Add(pa.AnswerText.ToString());
-
-                    if (pa.IsCorrectAnswer.Value)
-                    {
-                        viewModel.CorrectAnswer = i;
-                    }
-                }
-
-                return View(viewModel);
+                return View(Mapper.Map<GetCompetition, CompetitionViewModel>(response.Content.ReadAsAsync<GetCompetition>().Result));
             }
 
             return ErrorView(response);
@@ -109,7 +90,7 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Guid id, CompetitionViewModel competition)
         {
-            var response = Client.PutAsJsonAsync("competitions/" + id, competition).Result;
+            var response = Client.PutAsJsonAsync("competitions/" + id, Mapper.Map<CompetitionViewModel, PutCompetition>(competition)).Result;
 
             switch (response.StatusCode)
             {
@@ -129,7 +110,7 @@ namespace BB.SmsQuiz.Web.Controllers
         [HttpPost]
         public ActionResult Close(Guid id)
         {
-            var response = Client.PutAsJsonAsync("competitions/" + id + "/close", new {}).Result;
+            var response = Client.PutAsJsonAsync("competitions/" + id + "/close", new { }).Result;
 
             switch (response.StatusCode)
             {

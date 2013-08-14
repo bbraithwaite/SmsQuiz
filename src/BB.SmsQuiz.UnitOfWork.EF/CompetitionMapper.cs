@@ -65,9 +65,7 @@ namespace BB.SmsQuiz.Repository.EF
             {
                 foreach (var m in data.PossibleAnswers)
                 {
-                    item.PossibleAnswers.Add(new PossibleAnswer(m.IsCorrectAnswer, 
-                                                                (CompetitionAnswer)m.AnswerKey, 
-                                                                m.AnswerText));
+                    item.PossibleAnswers.Add(new PossibleAnswer(m.IsCorrectAnswer, (CompetitionAnswer)m.AnswerKey, m.AnswerText));
                 }
             }
 
@@ -165,14 +163,20 @@ namespace BB.SmsQuiz.Repository.EF
 
                     bool newRecord = rowItem == null;
 
-                    if (newRecord) rowItem = new PossibleAnswerData();
+                    if (newRecord)
+                    {
+                        rowItem = new PossibleAnswerData();
+                    }
 
                     rowItem.CompetitionID = item.ID;
                     rowItem.AnswerKey = (byte) pa.AnswerKey;
                     rowItem.AnswerText = pa.AnswerText;
                     rowItem.IsCorrectAnswer = pa.IsCorrectAnswer;
 
-                    if (newRecord) data.PossibleAnswers.Add(rowItem);
+                    if (newRecord)
+                    {
+                        data.PossibleAnswers.Add(rowItem);
+                    }
                 }
             }
         }

@@ -58,7 +58,18 @@ namespace BB.SmsQuiz.Api.Controllers
             _mapper = mapper;
         }
 
-        // POST competitions/enter
+        /// <summary>
+        /// Creates a new competition entrant.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        /// <remarks>
+        /// POST competitions/enter
+        /// </remarks>
         public HttpResponseMessage Post(PostEnterCompetition item)
         {
             var entrant = _mapper.Map<PostEnterCompetition, Entrant>(item);

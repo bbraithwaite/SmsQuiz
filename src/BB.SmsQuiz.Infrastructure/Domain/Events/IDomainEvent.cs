@@ -1,4 +1,12 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IDomainEvent.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// <summary>
+//   Interface for explicitly representing domain events.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace BB.SmsQuiz.Infrastructure.Domain.Events
 {
     /// <summary>

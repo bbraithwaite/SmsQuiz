@@ -1,30 +1,26 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PostUser.cs" company="contentedcoder.com">
+// <copyright file="EntrantItem.cs" company="contentedcoder.com">
 //   contentedcoder.com
 // </copyright>
-// <summary>
-//   The post user.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
 
-namespace BB.SmsQuiz.ApiModel.Users
+namespace BB.SmsQuiz.ApiModel.Competitions
 {
     /// <summary>
-    /// The post user.
+    /// The entrant item.
     /// </summary>
-    [Serializable]
-    public class PostUser
+    public class EntrantItem
     {
         /// <summary>
-        /// Gets or sets the username.
+        /// Gets or sets the id.
         /// </summary>
-        public string Username { get; set; }
+        public Guid ID { get; set; }
 
         /// <summary>
-        /// Gets or sets the password.
+        /// Gets or sets the competition key.
         /// </summary>
-        public string Password { get; set; }
+        public string CompetitionKey { get; set; }
     }
 }

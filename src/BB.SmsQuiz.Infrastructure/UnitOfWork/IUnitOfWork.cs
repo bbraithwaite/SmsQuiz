@@ -2,6 +2,9 @@
 // <copyright file="IUnitOfWork.cs" company="contentedcoder.com">
 //   contentedcoder.com
 // </copyright>
+// <summary>
+//   The UnitOfWork interface.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;

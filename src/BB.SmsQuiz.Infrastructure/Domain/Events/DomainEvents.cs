@@ -1,4 +1,13 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DomainEvents.cs" company="contentedcoder.com">
+//   contentedcoder.com
+// </copyright>
+// <summary>
+//   The domain events container for registering domain event callbacks.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +26,7 @@ namespace BB.SmsQuiz.Infrastructure.Domain.Events
         /// The _actions.
         /// </summary>
         /// <remarks>Marked as ThreadStatic that each thread has its own callbacks</remarks>
-        [ThreadStatic]
-        private static List<Delegate> _actions;
+        [ThreadStatic] private static List<Delegate> _actions;
 
         /// <summary>
         /// The container
@@ -28,8 +36,11 @@ namespace BB.SmsQuiz.Infrastructure.Domain.Events
         /// <summary>
         /// Registers the specified callback for the given domain event.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="callback">The callback.</param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="callback">
+        /// The callback.
+        /// </param>
         public static void Register<T>(Action<T> callback) where T : IDomainEvent
         {
             if (_actions == null)
@@ -37,11 +48,15 @@ namespace BB.SmsQuiz.Infrastructure.Domain.Events
 
             _actions.Add(callback);
         }
+
         /// <summary>
         /// Raises the specified domain event and calls the event handlers.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="domainEvent">The domain event.</param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="domainEvent">
+        /// The domain event.
+        /// </param>
         public static void Raise<T>(T domainEvent) where T : IDomainEvent
         {
             if (Container != null)
@@ -52,7 +67,7 @@ namespace BB.SmsQuiz.Infrastructure.Domain.Events
             if (_actions != null)
                 foreach (var action in _actions)
                     if (action is Action<T>)
-                        ((Action<T>)action)(domainEvent);
+                        ((Action<T>) action)(domainEvent);
         }
     }
 }

@@ -2,6 +2,9 @@
 // <copyright file="IRepository.cs" company="contentedcoder.com">
 //   contentedcoder.com
 // </copyright>
+// <summary>
+//   The repository interface.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
@@ -43,7 +46,9 @@ namespace BB.SmsQuiz.Infrastructure.Domain
         /// <summary>
         /// Deletes the record by the ID
         /// </summary>
-        /// <param name="id">The unique ID</param>
+        /// <param name="id">
+        /// The unique ID
+        /// </param>
         void Delete(Guid id);
     }
 }

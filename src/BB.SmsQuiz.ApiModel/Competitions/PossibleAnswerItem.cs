@@ -1,34 +1,31 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserView.cs" company="contentedcoder.com">
+// <copyright file="PossibleAnswerItem.cs" company="contentedcoder.com">
 //   contentedcoder.com
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel.DataAnnotations;
 
-
-namespace BB.SmsQuiz.Web.Models
+namespace BB.SmsQuiz.ApiModel.Competitions
 {
     /// <summary>
-    /// The user view.
+    /// The possible answer item.
     /// </summary>
-    public class UserView
+    public class PossibleAnswerItem
     {
         /// <summary>
-        /// Gets or sets the id.
+        /// Gets or sets a value indicating whether is correct answer.
         /// </summary>
-        public string ID { get; set; }
+        public bool IsCorrectAnswer { get; set; }
 
         /// <summary>
-        /// Gets or sets the username.
+        /// Gets or sets the answer key.
         /// </summary>
-        public string Username { get; set; }
+        public int AnswerKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the password.
+        /// Gets or sets the answer text.
         /// </summary>
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string AnswerText { get; set; }
     }
 }
