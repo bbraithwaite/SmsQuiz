@@ -26,24 +26,24 @@ namespace BB.SmsQuiz.Api.Controllers
         private readonly IEncryptionService _encryptionService;
 
         /// <summary>
-        /// The _user repository.
+        /// The _user data mapper.
         /// </summary>
-        private readonly IUserRepository _userRepository;
+        private readonly IUserDataMapper _userDataMapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationController"/> class.
         /// </summary>
-        /// <param name="userRepository">
-        /// The user repository.
+        /// <param name="userDataMapper">
+        /// The user Data Mapper.
         /// </param>
         /// <param name="encryptionService">
         /// The encryption service.
         /// </param>
         public AuthenticationController(
-            IUserRepository userRepository, 
+            IUserDataMapper userDataMapper, 
             IEncryptionService encryptionService)
         {
-            _userRepository = userRepository;
+            _userDataMapper = userDataMapper;
             _encryptionService = encryptionService;
         }
 
@@ -58,7 +58,7 @@ namespace BB.SmsQuiz.Api.Controllers
         /// </returns>
         public HttpResponseMessage Post(PostAuthentication item)
         {
-            var user = _userRepository.FindByUsername(item.Username);
+            var user = _userDataMapper.FindByUsername(item.Username);
 
             if (user != null)
             {

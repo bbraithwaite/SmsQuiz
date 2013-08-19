@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{FF733C05-D00
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{D310F6FE-AA57-4AE8-8412-72DBE5C87CAD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{13C1C3B8-E11F-43C4-9865-FFCCC921F0EF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.SmsQuiz.Model", "src\BB.SmsQuiz.Model\BB.SmsQuiz.Model.csproj", "{16773842-A1FE-4905-80A3-C9F73BFD5D64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.SmsQuiz.Infrastructure", "src\BB.SmsQuiz.Infrastructure\BB.SmsQuiz.Infrastructure.csproj", "{ACFE02A0-A487-4885-8124-CBC2E79B233E}"
@@ -32,7 +30,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.SmsQuiz.ApiModel", "src\
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BB.SmsQuiz.Database", "src\BB.SmsQuiz.Database\BB.SmsQuiz.Database.sqlproj", "{2FADD315-FB3E-4060-BB96-45C2C2E6B0A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.SmsQuiz.Repository.EF", "src\BB.SmsQuiz.UnitOfWork.EF\BB.SmsQuiz.Repository.EF.csproj", "{A8BA64AD-9F75-485B-9447-F84C5501C9D9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataMapper", "DataMapper", "{BC2E8968-71F7-4055-A8F7-B2AB0AFEB78D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.SmsQuiz.DataMappers", "src\BB.SmsQuiz.DataMappers\BB.SmsQuiz.DataMappers.csproj", "{767218FC-AB5F-4469-9795-536EEB6210F1}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -121,16 +121,16 @@ Global
 		{2FADD315-FB3E-4060-BB96-45C2C2E6B0A9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2FADD315-FB3E-4060-BB96-45C2C2E6B0A9}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
 		{2FADD315-FB3E-4060-BB96-45C2C2E6B0A9}.Release|x86.ActiveCfg = Release|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9}.Release|x86.ActiveCfg = Release|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{767218FC-AB5F-4469-9795-536EEB6210F1}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,8 +142,8 @@ Global
 		{A5172343-4F04-4074-8911-9D99999C935F} = {FF733C05-D006-48C2-8809-217C19A9E553}
 		{FBFE64A2-E6B7-49B8-933D-5F788016127F} = {FF733C05-D006-48C2-8809-217C19A9E553}
 		{152E3476-23D2-4263-BAF9-9A1B4183C76F} = {D310F6FE-AA57-4AE8-8412-72DBE5C87CAD}
-		{A8BA64AD-9F75-485B-9447-F84C5501C9D9} = {13C1C3B8-E11F-43C4-9865-FFCCC921F0EF}
 		{FE5C67C9-5B58-404D-838E-29CC89AEA803} = {18119E57-086C-46D7-ACB7-132F15CA83F1}
+		{767218FC-AB5F-4469-9795-536EEB6210F1} = {BC2E8968-71F7-4055-A8F7-B2AB0AFEB78D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35

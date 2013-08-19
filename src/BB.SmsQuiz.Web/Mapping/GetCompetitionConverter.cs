@@ -27,11 +27,6 @@ namespace BB.SmsQuiz.Web.Mapping
                     ID = getCompetition.Id.ToString(),
                     ClosingDate = getCompetition.ClosingDate,
                     CompetitionKey = getCompetition.CompetitionKey,
-                    CorrectAnswerKey = getCompetition.PossibleAnswers.Single(x => x.IsCorrectAnswer).AnswerKey,
-                    Answer1 = getCompetition.PossibleAnswers.ElementAt(0).AnswerText,
-                    Answer2 = getCompetition.PossibleAnswers.ElementAt(1).AnswerText,
-                    Answer3 = getCompetition.PossibleAnswers.ElementAt(2).AnswerText,
-                    Answer4 = getCompetition.PossibleAnswers.ElementAt(3).AnswerText,
                     Question = getCompetition.Question,
                     CreatedDate = getCompetition.CreatedDate,
                     AnswerACount = getCompetition.Statistics.AnswerACount,
@@ -41,6 +36,16 @@ namespace BB.SmsQuiz.Web.Mapping
                     CreatedBy = getCompetition.CreatedBy,
                     Status = getCompetition.Status
                 };
+
+            if (getCompetition.PossibleAnswers.Any(x => x.IsCorrectAnswer))
+            {
+
+                item.CorrectAnswerKey = getCompetition.PossibleAnswers.Single(x => x.IsCorrectAnswer).AnswerKey;
+                item.Answer1 = getCompetition.PossibleAnswers.ElementAt(0).AnswerText;
+                item.Answer2 = getCompetition.PossibleAnswers.ElementAt(1).AnswerText;
+                item.Answer3 = getCompetition.PossibleAnswers.ElementAt(2).AnswerText;
+                item.Answer4 = getCompetition.PossibleAnswers.ElementAt(3).AnswerText;
+            }
 
             return item;
         }

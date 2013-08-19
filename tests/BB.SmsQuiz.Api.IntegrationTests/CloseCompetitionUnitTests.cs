@@ -8,7 +8,6 @@ using System;
 using System.Net;
 using System.Net.Http;
 using BB.SmsQuiz.ApiModel.Competitions;
-using BB.SmsQuiz.ApiModel.EnterCompetition;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB.SmsQuiz.Api.IntegrationTests
@@ -27,14 +26,13 @@ namespace BB.SmsQuiz.Api.IntegrationTests
         {
             // Arrange
             var competition = new PostCompetition()
-                {
-                    Answers = new[] {"A", "B", "C", "D"}, 
-                    ClosingDate = DateTime.Now.AddDays(-1), 
-                    CompetitionKey = RandomGenerator.GetRandomString(10), 
-                    CorrectAnswerKey = 1, 
-                    Question = "Test Question", 
-                    UserId = GetUser().ID
-                };
+            {
+                Answers = new[] { "Man Utd", "Man City", "Chelsea", "Arsenal" },
+                ClosingDate = DateTime.Now.AddMonths(-1),
+                CompetitionKey = RandomGenerator.GetRandomString(10),
+                CorrectAnswerKey = 1,
+                Question = "Who won the 2012 Premier League?"
+            };
 
             Assert.AreEqual(
                 HttpStatusCode.Created,

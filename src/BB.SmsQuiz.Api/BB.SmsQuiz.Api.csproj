@@ -53,10 +53,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -152,6 +148,10 @@
       <Project>{fbfe64a2-e6b7-49b8-933d-5f788016127f}</Project>
       <Name>BB.SmsQuiz.ApiModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BB.SmsQuiz.DataMappers\BB.SmsQuiz.DataMappers.csproj">
+      <Project>{767218fc-ab5f-4469-9795-536eeb6210f1}</Project>
+      <Name>BB.SmsQuiz.DataMappers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BB.SmsQuiz.Infrastructure\BB.SmsQuiz.Infrastructure.csproj">
       <Project>{ACFE02A0-A487-4885-8124-CBC2E79B233E}</Project>
       <Name>BB.SmsQuiz.Infrastructure</Name>
@@ -159,10 +159,6 @@
     <ProjectReference Include="..\BB.SmsQuiz.Model\BB.SmsQuiz.Model.csproj">
       <Project>{16773842-A1FE-4905-80A3-C9F73BFD5D64}</Project>
       <Name>BB.SmsQuiz.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BB.SmsQuiz.UnitOfWork.EF\BB.SmsQuiz.Repository.EF.csproj">
-      <Project>{a8ba64ad-9f75-485b-9447-f84c5501c9d9}</Project>
-      <Name>BB.SmsQuiz.Repository.EF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -24,11 +24,6 @@ namespace BB.SmsQuiz.Api.Controllers
     public class UsersController : BaseController
     {
         /// <summary>
-        /// The _unit of work.
-        /// </summary>
-        private readonly IUnitOfWork _unitOfWork;
-
-        /// <summary>
         /// The _mapper.
         /// </summary>
         private readonly IMapper _mapper;
@@ -39,17 +34,14 @@ namespace BB.SmsQuiz.Api.Controllers
         private readonly IEncryptionService _encryptionService;
 
         /// <summary>
-        /// The _user repository.
+        /// The _user data mapper.
         /// </summary>
-        private readonly IUserRepository _userRepository;
+        private readonly IUserDataMapper _userDataMapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UsersController"/> class.
         /// </summary>
-        /// <param name="unitOfWork">
-        /// The unit of work.
-        /// </param>
-        /// <param name="userRepository">
+        /// <param name="userDataMapper">
         /// The user repository.
         /// </param>
         /// <param name="mapper">
@@ -59,28 +51,48 @@ namespace BB.SmsQuiz.Api.Controllers
         /// The encryption service.
         /// </param>
         public UsersController(
-            IUnitOfWork unitOfWork, 
-            IUserRepository userRepository, 
+            IUserDataMapper userDataMapper, 
             IMapper mapper,        
             IEncryptionService encryptionService)
         {
-            _unitOfWork = unitOfWork;
-            _userRepository = userRepository;
+            _userDataMapper = userDataMapper;
             _mapper = mapper;
             _encryptionService = encryptionService;
         }
 
-        // GET users
+        /// <summary>
+        /// Gets all users.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        /// <remarks>
+        /// GET user
+        /// </remarks>
         public IEnumerable<GetUser> Get()
         {
-            var users = _userRepository.GetAll();
+            var users = _userDataMapper.FindAll();
             return _mapper.Map<IEnumerable<User>, IEnumerable<GetUser>>(users);
         }
 
-        // GET users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
+        /// <summary>
+        /// Gets a user by id
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="GetUser"/>.
+        /// </returns>
+        /// <exception cref="NotFoundException">
+        /// Thrown for invalid user id.
+        /// </exception>
+        /// <remarks>
+        /// GET users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
+        /// </remarks>
         public GetUser Get(Guid id)
         {
-            var user = _userRepository.FindById(id);
+            var user = _userDataMapper.FindById(id);
             
             if (user == null)
             {
@@ -90,7 +102,18 @@ namespace BB.SmsQuiz.Api.Controllers
             return _mapper.Map<User, GetUser>(user);
         }
 
-        // POST users
+        /// <summary>
+        /// The post.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        /// <remarks>
+        /// POST users
+        /// </remarks>
         public HttpResponseMessage Post(PostUser item)
         {
             var user = new User()
@@ -101,8 +124,7 @@ namespace BB.SmsQuiz.Api.Controllers
 
             if (user.IsValid)
             {
-                _userRepository.Add(user);
-                _unitOfWork.SaveChanges();
+                _userDataMapper.Insert(user);
 
                 GetUser createdItem = _mapper.Map<User, GetUser>(user);
                 return CreatedHttpResponse(createdItem.ID, createdItem);
@@ -111,10 +133,27 @@ namespace BB.SmsQuiz.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest, user.ValidationErrors);
         }
 
-        // PUT users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
+        /// <summary>
+        /// The put.
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        /// <exception cref="NotFoundException">
+        /// Thrown for invalid user id.
+        /// </exception>
+        /// <remarks>
+        /// PUT users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
+        /// </remarks>
         public HttpResponseMessage Put(Guid id, PutUser item)
         {
-            User user = _userRepository.FindById(id);
+            User user = _userDataMapper.FindById(id);
 
             if (user == null)
             {
@@ -125,20 +164,28 @@ namespace BB.SmsQuiz.Api.Controllers
 
             if (user.IsValid)
             {
-                _userRepository.Update(user);
-                _unitOfWork.SaveChanges();
+                _userDataMapper.Update(user);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
 
             return Request.CreateResponse(HttpStatusCode.BadRequest, user.ValidationErrors);
         }
 
-        // DELETE users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        /// <remarks>
+        /// DELETE users/B5608F8E-F449-E211-BB40-1040F3A7A3B1
+        /// </remarks>
         public HttpResponseMessage Delete(Guid id)
         {
-            _userRepository.Delete(id);
-            _unitOfWork.SaveChanges();
-
+            _userDataMapper.Delete(id);
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
     }

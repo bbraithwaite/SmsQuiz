@@ -108,9 +108,9 @@ namespace BB.SmsQuiz.Web.Controllers
         //
         // POST: /Competition/Create
         [HttpPost]
-        public ActionResult Close(Guid id)
+        public ActionResult Close(Guid id, string key)
         {
-            var response = Client.PutAsJsonAsync("competitions/" + id + "/close", new { }).Result;
+            var response = Client.PutAsJsonAsync("competitions/close/" + key, new { }).Result;
 
             switch (response.StatusCode)
             {

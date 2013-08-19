@@ -14,12 +14,13 @@
 <h2>Competition: @Model.Question</h2>
 
 <p>Question: @Model.Question</p>
-<p>Created: @Model.CreatedDate.ToString("dd MMM yyyy")</p>
-<p>Closing: @Model.ClosingDate.ToString("dd MMM yyyy")</p>
+<p>Created: @Model.CreatedDate.ToString("dd MMM yyyy hh:mm")</p>
+<p>Closing: @Model.ClosingDate.ToString("dd MMM yyyy hh:mm")</p>
 <p>Competition Key: @Model.CompetitionKey</p>
 <p>Created By: @Model.CreatedBy</p>
 <p>Status: @Model.Status</p>
 <h5>Possible Answers:</h5>
+<p>Correct Answer: @Model.CorrectAnswerKey</p>
 <ol>
     <li>@Model.Answer1</li>
     <li>@Model.Answer2</li>
@@ -29,9 +30,10 @@
 @using (Html.BeginForm("Close", "Competitions", FormMethod.Post, new {@class = "form-horizontal"}))
 {
     <input type="hidden" value="@Model.ID" name="id" />
+    <input type="hidden" value="@Model.CompetitionKey" name="key" />
     <input type="submit" value="Close" class="btn btn-primary" />
 }
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div id="chart_div" style="width: 700px; height: 500px; border:1px solid #ccc;"></div>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">

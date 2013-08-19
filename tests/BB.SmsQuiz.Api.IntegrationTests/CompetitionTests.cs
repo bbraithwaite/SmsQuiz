@@ -70,8 +70,7 @@ namespace BB.SmsQuiz.Api.IntegrationTests
                     ClosingDate = DateTime.Now.AddMonths(1), 
                     CompetitionKey = RandomGenerator.GetRandomString(10), 
                     CorrectAnswerKey = 1, 
-                    Question = "Test Question", 
-                    UserId = GetUser().ID
+                    Question = "Test Question"
                 };
 
             // Act
@@ -114,8 +113,7 @@ namespace BB.SmsQuiz.Api.IntegrationTests
                     Answers = new[] {"A", "B", "C", "D"}, 
                     ClosingDate = DateTime.Now.AddMonths(1), 
                     CorrectAnswerKey = 1, 
-                    Question = "Test Question", 
-                    UserId = GetUser().ID
+                    Question = "Test Question"
                 };
 
             // Act

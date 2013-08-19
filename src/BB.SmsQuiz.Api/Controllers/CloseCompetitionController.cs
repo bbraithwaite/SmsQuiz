@@ -9,7 +9,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using BB.SmsQuiz.Api.Filters;
-using BB.SmsQuiz.Infrastructure.UnitOfWork;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.States;
 
@@ -22,30 +21,20 @@ namespace BB.SmsQuiz.Api.Controllers
     public class CloseCompetitionController : BaseController
     {
         /// <summary>
-        /// The _unit of work.
-        /// </summary>
-        private readonly IUnitOfWork _unitOfWork;
-
-        /// <summary>
         /// The _competition repository.
         /// </summary>
-        private readonly ICompetitionRepository _competitionRepository;
+        private readonly ICompetitionDataMapper _competitionDataMapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CloseCompetitionController"/> class.
         /// </summary>
-        /// <param name="unitOfWork">
-        /// The unit of work.
-        /// </param>
-        /// <param name="competitionRepository">
-        /// The competition repository.
+        /// <param name="competitionDataMapper">
+        /// The competition Data Mapper.
         /// </param>
         public CloseCompetitionController(
-            IUnitOfWork unitOfWork, 
-            ICompetitionRepository competitionRepository)
+            ICompetitionDataMapper competitionDataMapper)
         {
-            _competitionRepository = competitionRepository;
-            _unitOfWork = unitOfWork;
+            _competitionDataMapper = competitionDataMapper;
         }
 
         /// <summary>
@@ -62,7 +51,7 @@ namespace BB.SmsQuiz.Api.Controllers
         /// </remarks>
         public HttpResponseMessage Put(string id)
         {
-            var competition = _competitionRepository.GetByCompetitionKey(id);
+            var competition = _competitionDataMapper.FindByCompetitionKey(id);
 
             if (competition == null)
             {
@@ -72,8 +61,7 @@ namespace BB.SmsQuiz.Api.Controllers
             try
             {
                 competition.PickWinner();
-                _competitionRepository.Update(competition);
-                _unitOfWork.SaveChanges();
+                _competitionDataMapper.Update(competition);
                 return Request.CreateResponse(SetStatus(competition));
             }
             catch (Exception)

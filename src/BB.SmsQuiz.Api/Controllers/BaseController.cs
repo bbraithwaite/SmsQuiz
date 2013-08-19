@@ -25,6 +25,17 @@ namespace BB.SmsQuiz.Api.Controllers
         public ITokenAuthentication TokenAuthentication { get; set; }
 
         /// <summary>
+        /// Gets the request token.
+        /// </summary>
+        public string RequestToken
+        {
+            get
+            {
+                return ControllerContext.Request.Headers.Authorization.ToString();
+            }
+        }
+
+        /// <summary>
         /// The created http response.
         /// </summary>
         /// <param name="newId">

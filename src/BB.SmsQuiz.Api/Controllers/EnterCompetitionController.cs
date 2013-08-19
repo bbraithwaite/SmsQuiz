@@ -9,7 +9,6 @@ using System.Net.Http;
 using BB.SmsQuiz.Api.Filters;
 using BB.SmsQuiz.ApiModel.EnterCompetition;
 using BB.SmsQuiz.Infrastructure.Mapping;
-using BB.SmsQuiz.Infrastructure.UnitOfWork;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.Entrants;
 
@@ -22,14 +21,9 @@ namespace BB.SmsQuiz.Api.Controllers
     public class EnterCompetitionController : BaseController
     {
         /// <summary>
-        /// The _unit of work.
-        /// </summary>
-        private readonly IUnitOfWork _unitOfWork;
-
-        /// <summary>
         /// The _competition repository.
         /// </summary>
-        private readonly ICompetitionRepository _competitionRepository;
+        private readonly ICompetitionDataMapper _competitionDataMapper;
 
         /// <summary>
         /// The _mapper.
@@ -39,22 +33,17 @@ namespace BB.SmsQuiz.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="EnterCompetitionController"/> class.
         /// </summary>
-        /// <param name="unitOfWork">
-        /// The unit of work.
-        /// </param>
-        /// <param name="competitionRepository">
-        /// The competition repository.
+        /// <param name="competitionDataMapper">
+        /// The competition Data Mapper.
         /// </param>
         /// <param name="mapper">
         /// The mapper.
         /// </param>
         public EnterCompetitionController(
-            IUnitOfWork unitOfWork, 
-            ICompetitionRepository competitionRepository, 
+            ICompetitionDataMapper competitionDataMapper, 
             IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
-            _competitionRepository = competitionRepository;
+            _competitionDataMapper = competitionDataMapper;
             _mapper = mapper;
         }
 
@@ -76,10 +65,9 @@ namespace BB.SmsQuiz.Api.Controllers
 
             if (entrant.IsValid)
             {
-                var competition = _competitionRepository.GetByCompetitionKey(item.CompetitionKey);
+                var competition = _competitionDataMapper.FindByCompetitionKey(item.CompetitionKey);
                 competition.AddEntrant(entrant);
-                _competitionRepository.Update(competition);
-                _unitOfWork.SaveChanges();
+                _competitionDataMapper.Update(competition);
 
                 return Request.CreateResponse(HttpStatusCode.Created, item);
             }

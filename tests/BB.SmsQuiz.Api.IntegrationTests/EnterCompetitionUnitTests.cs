@@ -28,12 +28,11 @@ namespace BB.SmsQuiz.Api.IntegrationTests
             // #1 Create Competition
             var competition = new PostCompetition()
                 {
-                    Answers = new[] { "A", "B", "C", "D" }, 
+                    Answers = new[] { "Man Utd", "Man City", "Chelsea", "Arsenal" }, 
                     ClosingDate = DateTime.Now.AddMonths(1), 
                     CompetitionKey = RandomGenerator.GetRandomString(10), 
                     CorrectAnswerKey = 1, 
-                    Question = "Test Question", 
-                    UserId = GetUser().ID
+                    Question = "Who won the 2012 Premier League?"
                 };
 
             Assert.AreEqual(
@@ -55,6 +54,11 @@ namespace BB.SmsQuiz.Api.IntegrationTests
                 HttpStatusCode.Created, 
                 Client.PostAsJsonAsync(Resources.EnterCompetition, enterCompetition).Result.StatusCode, 
                 "POST EnterCompetition not OK.");
+
+            // #3 Close Competition
+            var response = Client.PutAsJsonAsync(string.Format("{0}/{1}", Resources.CloseCompetition, competition.CompetitionKey.ToLower()), new { }).Result;
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "PUT CloseCompetition not OK.");
         }
     }
 }

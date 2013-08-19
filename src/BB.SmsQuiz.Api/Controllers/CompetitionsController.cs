@@ -12,7 +12,6 @@ using System.Net.Http;
 using BB.SmsQuiz.Api.Filters;
 using BB.SmsQuiz.ApiModel.Competitions;
 using BB.SmsQuiz.Infrastructure.Mapping;
-using BB.SmsQuiz.Infrastructure.UnitOfWork;
 using BB.SmsQuiz.Model.Competitions;
 using BB.SmsQuiz.Model.Competitions.States;
 using BB.SmsQuiz.Model.Users;
@@ -20,25 +19,20 @@ using BB.SmsQuiz.Model.Users;
 namespace BB.SmsQuiz.Api.Controllers
 {
     /// <summary>
-    /// The api calls for the competition details
+    /// The method calls for the competition details
     /// </summary>
     [UnhandledException, TokenValidationAttribute]
     public class CompetitionsController : BaseController
     {
         /// <summary>
-        /// The _unit of work.
-        /// </summary>
-        private readonly IUnitOfWork _unitOfWork;
-
-        /// <summary>
         /// The _competition repository.
         /// </summary>
-        private readonly ICompetitionRepository _competitionRepository;
+        private readonly ICompetitionDataMapper _competitionDataMapper;
 
         /// <summary>
         /// The user repository.
         /// </summary>
-        private readonly IUserRepository _userRepository;
+        private readonly IUserDataMapper _userDataMapper;
 
         /// <summary>
         /// The _mapper.
@@ -48,27 +42,22 @@ namespace BB.SmsQuiz.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="CompetitionsController"/> class.
         /// </summary>
-        /// <param name="unitOfWork">
-        /// The unit of work.
+        /// <param name="competitionDataMapper">
+        /// The competition Data Mapper.
         /// </param>
-        /// <param name="competitionRepository">
-        /// The competition repository.
-        /// </param>
-        /// <param name="userRepository">
-        /// The user Repository.
+        /// <param name="userDataMapper">
+        /// The user Data Mapper.
         /// </param>
         /// <param name="mapper">
         /// The mapper.
         /// </param>
         public CompetitionsController(
-            IUnitOfWork unitOfWork, 
-            ICompetitionRepository competitionRepository, 
-            IUserRepository userRepository,
+            ICompetitionDataMapper competitionDataMapper,
+            IUserDataMapper userDataMapper,
             IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
-            _competitionRepository = competitionRepository;
-            _userRepository = userRepository;
+            _competitionDataMapper = competitionDataMapper;
+            _userDataMapper = userDataMapper;
             _mapper = mapper;
         }
 
@@ -80,7 +69,7 @@ namespace BB.SmsQuiz.Api.Controllers
         /// </returns>
         public IEnumerable<GetCompetition> Get()
         {
-            var competitions = _competitionRepository.GetByStatus(CompetitionStatus.Open);
+            var competitions = _competitionDataMapper.FindByStatus(CompetitionStatus.Open);
             return _mapper.Map<IEnumerable<Competition>, IEnumerable<GetCompetition>>(competitions);
         }
 
@@ -101,7 +90,7 @@ namespace BB.SmsQuiz.Api.Controllers
         /// </remarks>
         public GetCompetition Get(Guid id)
         {
-            var competition = _competitionRepository.FindById(id);
+            var competition = _competitionDataMapper.FindById(id);
 
             if (competition != null)
             {
@@ -130,16 +119,14 @@ namespace BB.SmsQuiz.Api.Controllers
                 Question = item.Question,
                 ClosingDate = item.ClosingDate,
                 CompetitionKey = item.CompetitionKey,
-                // TODO: add get user by auth token method
-                CreatedBy = _userRepository.GetAll().First()
+                CreatedBy = _userDataMapper.FindByAuthToken(RequestToken)
             };
 
             SetAnswers(item.Answers, item.CorrectAnswerKey, competition);
 
             if (competition.IsValid)
             {
-                _competitionRepository.Add(competition);
-                _unitOfWork.SaveChanges();
+                _competitionDataMapper.Insert(competition);
 
                 var createdItem = _mapper.Map<Competition, GetCompetition>(competition);
                 return CreatedHttpResponse(createdItem.Id, createdItem);
@@ -168,7 +155,7 @@ namespace BB.SmsQuiz.Api.Controllers
         /// </remarks>
         public HttpResponseMessage Put(Guid id, PutCompetition item)
         {
-            var competition = _competitionRepository.FindById(id);
+            var competition = _competitionDataMapper.FindById(id);
 
             if (competition == null)
             {
@@ -182,8 +169,7 @@ namespace BB.SmsQuiz.Api.Controllers
 
             if (competition.IsValid)
             {
-                _competitionRepository.Update(competition);
-                _unitOfWork.SaveChanges();
+                _competitionDataMapper.Update(competition);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
 
@@ -204,9 +190,7 @@ namespace BB.SmsQuiz.Api.Controllers
         /// </remarks>
         public HttpResponseMessage Delete(Guid id)
         {
-            _competitionRepository.Delete(id);
-            _unitOfWork.SaveChanges();
-
+            _competitionDataMapper.Delete(id);
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
@@ -224,10 +208,9 @@ namespace BB.SmsQuiz.Api.Controllers
         /// </param>
         private static void SetAnswers(string[] answers, int correctAnswerKey, Competition competition)
         {
-            for (int i = 0; i < answers.Count(); i++)
+            for (int i = 1; i <= answers.Count(); i++)
             {
-                var key = (CompetitionAnswer)Enum.Parse(typeof(CompetitionAnswer), answers[i]);
-                competition.PossibleAnswers.Add(key, answers[i], (int)key == correctAnswerKey);
+                competition.PossibleAnswers.Add((CompetitionAnswer)i, answers[i - 1], i == correctAnswerKey);
             }
         }
     }
