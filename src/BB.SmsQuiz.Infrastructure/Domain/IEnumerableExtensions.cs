@@ -31,7 +31,9 @@ namespace BB.SmsQuiz.Infrastructure.Domain
         /// </returns>
         public static T SelectRandom<T>(this IEnumerable<T> source)
         {
-            return source.ElementAt(GetRandomArrayIndex(source.Count()));
+            T[] array = source as T[] ?? source.ToArray();
+            
+            return array.ElementAt(GetRandomArrayIndex(array.Length));
         }
 
         /// <summary>
