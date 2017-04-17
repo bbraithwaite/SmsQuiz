@@ -1,4 +1,4 @@
-#SMSQuiz Project#
+# SMSQuiz Project #
 
 My first ever programming project using ASP.Net. It's 10 years old and has some problems.
 
